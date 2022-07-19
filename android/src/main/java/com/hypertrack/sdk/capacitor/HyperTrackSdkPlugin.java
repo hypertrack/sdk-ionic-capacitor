@@ -5,7 +5,7 @@ import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
 import com.getcapacitor.annotation.CapacitorPlugin;
-
+//import com.hypertrack.sdk.HyperTrack;
 @CapacitorPlugin(name = "HyperTrackSdk")
 public class HyperTrackSdkPlugin extends Plugin {
 
