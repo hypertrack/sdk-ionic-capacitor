@@ -2,36 +2,20 @@
 
 Capacitor plugin for HyperTrack generation SDKs
 
-## Install
+## Build plugin (local machine)
 
 ```bash
-npm install hypertrack-capacitor-plugin
+clone the repo git@github.com:hypertrack/sdk-ionic-capacitor.git
+cd sdk-ionic-capacitor/
+npm i
+npm run verify:android
+npm run build
+```
+
+## Install in ionic app (local machine)
+
+```bash
+cd ionic-app/
+npm i <local-dir>/sdk-ionic-capacitor
 npx cap sync
 ```
-
-## API
-
-<docgen-index>
-
-* [`echo(...)`](#echo)
-
-</docgen-index>
-
-<docgen-api>
-<!--Update the source file JSDoc comments and rerun docgen to update the docs below-->
-
-### echo(...)
-
-```typescript
-echo(options: { value: string; }) => Promise<{ value: string; }>
-```
-
-| Param         | Type                            |
-| ------------- | ------------------------------- |
-| **`options`** | <code>{ value: string; }</code> |
-
-**Returns:** <code>Promise&lt;{ value: string; }&gt;</code>
-
---------------------
-
-</docgen-api>
