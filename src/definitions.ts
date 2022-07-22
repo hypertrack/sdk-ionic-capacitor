@@ -1,3 +1,6 @@
 export interface HyperTrackSdkPlugin {
-  echo(options: { value: string }): Promise<{ value: string }>;
+  enableDebugLogging():Promise<void>;
+  initialize(options: { publishableKey: string }): Promise<Record<string,any>>;
+  start():Promise<void>;
+  stop():Promise<void>;
 }

@@ -12,11 +12,52 @@ public class HyperTrackSdkPlugin extends Plugin {
     private HyperTrackSdk implementation = new HyperTrackSdk();
 
     @PluginMethod
-    public void echo(PluginCall call) {
-        String value = call.getString("value");
+    public void initialize(PluginCall call) {
+        String publishableKey = call.getString("publishableKey");
+        implementation.print(publishableKey);
+        try {
+            implementation.initialize(publishableKey);
+            JSObject ret = new JSObject();
+            ret.put("value",true);
+            call.resolve(ret);
+        } catch (Exception e) {
+            call.reject(e.getMessage());
+        }
+    }
 
-        JSObject ret = new JSObject();
-        ret.put("value", implementation.echo(value));
-        call.resolve(ret);
+    @PluginMethod
+    public void start(PluginCall call) {
+        try{
+            implementation.Start();
+            JSObject ret = new JSObject();
+            ret.put("value",true);
+            call.resolve(ret);
+        } catch (Exception e) {
+            call.reject(e.getMessage());
+        }
+    }
+
+    @PluginMethod
+    public void stop(PluginCall call) {
+        try{
+            implementation.Stop();
+            JSObject ret = new JSObject();
+            ret.put("value",true);
+            call.resolve(ret);
+        } catch (Exception e) {
+            call.reject(e.getMessage());
+        }
+
+    }
+
+    @PluginMethod
+    public void enableDebugLogging(PluginCall call) {
+        implementation.print("enableDebugLogging called");
+        try {
+            implementation.enableDebugLogging();
+            call.resolve();
+        } catch (Exception e) {
+            call.reject(e.getMessage());
+        }
     }
 }
