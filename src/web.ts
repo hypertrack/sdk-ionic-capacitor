@@ -4,7 +4,7 @@ import type { HyperTrackSdkPlugin } from './definitions';
 
 export class HyperTrackSdkWeb extends WebPlugin implements HyperTrackSdkPlugin {
   
-  async initialize(options: { publishableKey: string }): Promise<Record<string,any>> {
+  async initialize(_options: { publishableKey: string }): Promise<void> {
     throw new Error('Not supported on web');
   }
 

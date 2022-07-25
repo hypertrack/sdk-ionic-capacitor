@@ -30,7 +30,7 @@ public class HyperTrackSdk  implements TrackingStateObserver.OnTrackingStateChan
         print("Tracking is stopped");
     }
 
-    public void Stop() {
+    public void stop() {
         if (sdkInstance == null) {
             throw new IllegalStateException("Sdk wasn't initialized");
         }
@@ -41,12 +41,12 @@ public class HyperTrackSdk  implements TrackingStateObserver.OnTrackingStateChan
             sdkInstance.stop();
             return;
         } catch (Exception e) {
-            throw new IllegalArgumentException(e.getMessage());
+            throw new IllegalArgumentException(e);
         }
 
     }
 
-    public void Start() {
+    public void start() {
         if (sdkInstance == null) {
             throw new IllegalStateException("Sdk wasn't initialized");
         }
@@ -54,16 +54,16 @@ public class HyperTrackSdk  implements TrackingStateObserver.OnTrackingStateChan
             sdkInstance.start();
             return;
         } catch (Exception e) {
-            throw new IllegalArgumentException(e.getMessage());
+            throw new IllegalArgumentException(e);
         }
     }
 
-    public boolean enableDebugLogging() {
+    public void enableDebugLogging() {
         try {
             HyperTrack.enableDebugLogging();
-            return true;
+            return;
         } catch (Exception e) {
-            throw new IllegalArgumentException(e.getMessage());
+            throw new IllegalArgumentException(e);
         }
     }
 
@@ -75,9 +75,8 @@ public class HyperTrackSdk  implements TrackingStateObserver.OnTrackingStateChan
                 sdkInstance = HyperTrack.getInstance(publishableKey);
                 return sdkInstance;
             } catch (Exception e) {
-                throw new IllegalArgumentException(e.getMessage());
+                throw new IllegalArgumentException(e);
             }
         }
     }
-
 }
