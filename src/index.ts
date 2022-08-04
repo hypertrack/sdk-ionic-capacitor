@@ -6,9 +6,9 @@ const HyperTrackSdk = registerPlugin<HyperTrackSdkPlugin>('HyperTrackSdk', {
   web: () => import('./web').then(m => new m.HyperTrackSdkWeb()),
 });
 
-const HyperTrack:HyperTrackInit = HyperTrackSdk;
-const HyperTrackInstance:HyperTrackSdkInstance = HyperTrackSdk;
+const HyperTrack: HyperTrackInit = HyperTrackSdk;
+const HyperTrackInstance: HyperTrackSdkInstance = HyperTrackSdk;
 
 export * from './definitions';
 
-export { HyperTrack,HyperTrackInstance };
+export { HyperTrack, HyperTrackInstance };

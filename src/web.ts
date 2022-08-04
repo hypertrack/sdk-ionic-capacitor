@@ -1,6 +1,6 @@
 import { WebPlugin } from '@capacitor/core';
 
-import type {  Callback, HyperTrackSdkPlugin } from './definitions';
+import type { Callback, HyperTrackSdkPlugin } from './definitions';
 
 export class HyperTrackSdkWeb extends WebPlugin implements HyperTrackSdkPlugin {
 
@@ -20,11 +20,11 @@ export class HyperTrackSdkWeb extends WebPlugin implements HyperTrackSdkPlugin {
     throw this.unimplemented('Hypertrack is not available for the browser');
   }
 
-  async hyperTrackRequestPermissions(): Promise<void> {
+  async requestPermissionsIfNecessary(): Promise<void> {
     throw this.unimplemented('Hypertrack is not available for the browser');
   }
 
-  async hyperTrackAllowMockLocations(): Promise<void> {
+  async allowMockLocations(): Promise<void> {
     throw this.unimplemented('Hypertrack is not available for the browser');
   }
 
@@ -63,20 +63,20 @@ export class HyperTrackSdkWeb extends WebPlugin implements HyperTrackSdkPlugin {
   async addGeotag(_options: { metadata: Record<string, unknown>, coordinates?: { latitude: number, longitude: number } | undefined }): Promise<void> {
     throw this.unimplemented('Hypertrack is not available for the browser');
   }
-  
+
   async initialize(_options: { publishableKey: string }): Promise<void> {
     throw this.unimplemented('Hypertrack is not available for the browser');
   }
 
-  async  enableDebugLogging():Promise<void>  {
+  async enableDebugLogging(): Promise<void> {
     throw this.unimplemented('Hypertrack is not available for the browser');
   }
 
-  async  start():Promise<void>  {
+  async start(): Promise<void> {
     throw this.unimplemented('Hypertrack is not available for the browser');
   }
 
-  async  stop():Promise<void>  {
+  async stop(): Promise<void> {
     throw this.unimplemented('Hypertrack is not available for the browser');
   }
 

@@ -5,7 +5,6 @@ import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
 import com.getcapacitor.annotation.CapacitorPlugin;
-
 import com.hypertrack.sdk.AvailabilityError;
 import com.hypertrack.sdk.AvailabilityStateObserver;
 import com.hypertrack.sdk.TrackingError;
@@ -14,7 +13,7 @@ import com.hypertrack.sdk.TrackingStateObserver;
 import org.json.JSONObject;
 
 @CapacitorPlugin(name = "HyperTrackSdk")
-public class HyperTrackSdkPlugin extends Plugin  implements TrackingStateObserver.OnTrackingStateChangeListener, AvailabilityStateObserver.OnAvailabilityStateChangeListener {
+public class HyperTrackSdkPlugin extends Plugin implements TrackingStateObserver.OnTrackingStateChangeListener, AvailabilityStateObserver.OnAvailabilityStateChangeListener {
 
     private final HyperTrackSdk implementation = new HyperTrackSdk();
 
@@ -27,31 +26,31 @@ public class HyperTrackSdkPlugin extends Plugin  implements TrackingStateObserve
             implementation.initialize(publishableKey);
             call.resolve();
         } catch (Exception e) {
-            call.reject(e.toString(),e);
+            call.reject(e.toString(), e);
         }
     }
 
     @PluginMethod
     public void start(PluginCall call) {
         implementation.print("start called");
-        try{
+        try {
             implementation.start();
-            implementation.setTrackingNotificationProperties("Notification","Tracking has been started...");
+            implementation.setTrackingNotificationProperties("Notification", "Tracking has been started...");
             call.resolve();
         } catch (Exception e) {
-            call.reject(e.toString(),e);
+            call.reject(e.toString(), e);
         }
     }
 
     @PluginMethod
     public void stop(PluginCall call) {
         implementation.print("stop called");
-        try{
+        try {
             implementation.stop();
-            implementation.setTrackingNotificationProperties("Notification","Tracking has been stopped...");
+            implementation.setTrackingNotificationProperties("Notification", "Tracking has been stopped...");
             call.resolve();
         } catch (Exception e) {
-            call.reject(e.toString(),e);
+            call.reject(e.toString(), e);
         }
     }
 
@@ -62,29 +61,29 @@ public class HyperTrackSdkPlugin extends Plugin  implements TrackingStateObserve
             implementation.enableDebugLogging();
             call.resolve();
         } catch (Exception e) {
-            call.reject(e.toString(),e);
+            call.reject(e.toString(), e);
         }
     }
 
     @PluginMethod
-    public void hyperTrackRequestPermissions(PluginCall call) {
-        implementation.print("hyperTrackRequestPermissions called");
+    public void requestPermissionsIfNecessary(PluginCall call) {
+        implementation.print("requestPermissionsIfNecessary called");
         try {
             implementation.hyperTrackRequestPermissions();
             call.resolve();
         } catch (Exception e) {
-            call.reject(e.toString(),e);
+            call.reject(e.toString(), e);
         }
     }
 
     @PluginMethod
-    public void hyperTrackAllowMockLocations(PluginCall call) {
-        implementation.print("hyperTrackAllowMockLocations called");
+    public void allowMockLocations(PluginCall call) {
+        implementation.print("allowMockLocations called");
         try {
-           implementation.hyperTrackAllowMockLocations();
+            implementation.hyperTrackAllowMockLocations();
             call.resolve();
         } catch (Exception e) {
-            call.reject(e.toString(),e);
+            call.reject(e.toString(), e);
         }
     }
 
@@ -93,11 +92,11 @@ public class HyperTrackSdkPlugin extends Plugin  implements TrackingStateObserve
         implementation.print("getDeviceId called");
         try {
             String deviceId = implementation.getDeviceId();
-            JSObject ret = new JSObject();
-            ret.put("deviceId", implementation.print(deviceId));
-            call.resolve(ret);
+            JSObject result = new JSObject();
+            result.put("deviceId", implementation.print(deviceId));
+            call.resolve(result);
         } catch (Exception e) {
-            call.reject(e.toString(),e);
+            call.reject(e.toString(), e);
         }
     }
 
@@ -109,7 +108,7 @@ public class HyperTrackSdkPlugin extends Plugin  implements TrackingStateObserve
             implementation.setDeviceName(deviceName);
             call.resolve();
         } catch (Exception e) {
-            call.reject(e.toString(),e);
+            call.reject(e.toString(), e);
         }
     }
 
@@ -118,11 +117,11 @@ public class HyperTrackSdkPlugin extends Plugin  implements TrackingStateObserve
         implementation.print("getLatestLocation called");
         try {
             JSONObject latestLocation = implementation.getLatestLocation().getJSONObject("location");
-            JSObject ret = new JSObject();
-            ret.put("location",latestLocation);
-            call.resolve(ret);
+            JSObject result = new JSObject();
+            result.put("location", latestLocation);
+            call.resolve(result);
         } catch (Exception e) {
-            call.reject(e.toString(),e);
+            call.reject(e.toString(), e);
         }
     }
 
@@ -132,178 +131,174 @@ public class HyperTrackSdkPlugin extends Plugin  implements TrackingStateObserve
         try {
             String geoTagData = call.getData().getString("metadata");
             String expectedLocation = call.getData().getString("coordinates");
-            implementation.addGeotag(geoTagData,expectedLocation);
+            implementation.addGeotag(geoTagData, expectedLocation);
             call.resolve();
         } catch (Exception e) {
-            call.reject(e.toString(),e);
+            call.reject(e.toString(), e);
         }
     }
 
     @PluginMethod
-    public  void setDeviceMetadata(PluginCall call) {
+    public void setDeviceMetadata(PluginCall call) {
         implementation.print("setDeviceMetadata called");
         try {
             JSObject deviceMetaJsonObject = call.getData();
             implementation.setDeviceMetadata(deviceMetaJsonObject);
             call.resolve();
         } catch (Exception e) {
-            call.reject(e.toString(),e);
+            call.reject(e.toString(), e);
         }
     }
 
     @PluginMethod
-    public  void syncDeviceSettings(PluginCall call) {
+    public void syncDeviceSettings(PluginCall call) {
         implementation.print("syncDeviceSettings called");
         try {
             implementation.syncDeviceSettings();
             call.resolve();
         } catch (Exception e) {
-            call.reject(e.toString(),e);
+            call.reject(e.toString(), e);
         }
     }
 
     @PluginMethod
-    public  void getAvailability(PluginCall call) {
+    public void getAvailability(PluginCall call) {
         implementation.print("getAvailability called");
         try {
             Object availability = implementation.getAvailability();
-            JSObject ret = new JSObject();
-            ret.put("status",availability);
-            call.resolve(ret);
+            JSObject result = new JSObject();
+            result.put("status", availability);
+            call.resolve(result);
         } catch (Exception e) {
-            call.reject(e.toString(),e);
+            call.reject(e.toString(), e);
         }
     }
 
     @PluginMethod
-    public  void setAvailability(PluginCall call) {
+    public void setAvailability(PluginCall call) {
         implementation.print("setAvailability called");
         try {
             Boolean isAvailable = call.getBoolean("isAvailable");
             implementation.setAvailability(isAvailable);
             call.resolve();
         } catch (Exception e) {
-            call.reject(e.toString(),e);
+            call.reject(e.toString(), e);
         }
     }
 
     @PluginMethod
-    public  void isTracking(PluginCall call) {
+    public void isTracking(PluginCall call) {
         implementation.print("isTracking called");
         try {
             boolean isTracking = implementation.isTracking();
-            JSObject ret = new JSObject();
-            ret.put("status", isTracking);
-            call.resolve(ret);
+            JSObject result = new JSObject();
+            result.put("status", isTracking);
+            call.resolve(result);
         } catch (Exception e) {
-            call.reject(e.toString(),e);
+            call.reject(e.toString(), e);
         }
     }
 
     @PluginMethod
-    public  void  addTrackingListener(PluginCall call) {
+    public void addTrackingListener(PluginCall call) {
         implementation.print("addTrackingListener called");
         try {
             implementation.addTrackingListener(this);
-            JSObject ret = new JSObject();
-            ret.put("value", "listener added");
-            notifyListeners("trackingStateChange", ret);
+            implementation.print("Tracker listener added successfully.");
+            call.resolve();
         } catch (Exception e) {
-            call.reject(e.toString(),e);
+            call.reject(e.toString(), e);
         }
     }
 
     @PluginMethod
-    public  void  removeTrackingListener(PluginCall call) {
+    public void removeTrackingListener(PluginCall call) {
         implementation.print("removeTrackingListener called");
         try {
             implementation.removeTrackingListener(this);
-            JSObject ret = new JSObject();
-            ret.put("value", "listener removed");
-            notifyListeners("trackingStateChange", ret);
+            implementation.print("Tracker listener removed successfully.");
+            call.resolve();
         } catch (Exception e) {
-            call.reject(e.toString(),e);
+            call.reject(e.toString(), e);
         }
     }
 
     @PluginMethod
-    public  void  setTrackingNotificationProperties(PluginCall call) {
+    public void setTrackingNotificationProperties(PluginCall call) {
         implementation.print("setTrackingNotificationProperties called");
         try {
             String title = call.getData().getString("title");
             String body = call.getData().getString("message");
-            implementation.setTrackingNotificationProperties(title,body);
+            implementation.setTrackingNotificationProperties(title, body);
             call.resolve();
         } catch (Exception e) {
-            call.reject(e.toString(),e);
+            call.reject(e.toString(), e);
         }
     }
 
     @PluginMethod
-    public  void  addAvailabilityListener(PluginCall call) {
+    public void addAvailabilityListener(PluginCall call) {
         implementation.print("addAvailabilityListener called");
         try {
             implementation.addAvailabilityListener(this);
-            JSObject ret = new JSObject();
-            ret.put("value", "Availability listener added");
-            notifyListeners("availabilityStateChange", ret);
+            implementation.print("Availability listener added successfully.");
+            call.resolve();
         } catch (Exception e) {
-            call.reject(e.toString(),e);
+            call.reject(e.toString(), e);
         }
     }
 
     @PluginMethod
-    public  void  removeAvailabilityListener(PluginCall call) {
+    public void removeAvailabilityListener(PluginCall call) {
         implementation.print("removeAvailabilityListener called");
         try {
             implementation.removeAvailabilityListener(this);
-            JSObject ret = new JSObject();
-            ret.put("value", "Availability listener removed");
-            notifyListeners("availabilityStateChange", ret);
+            implementation.print("Availability listener removed successfully.");
+            call.resolve();
         } catch (Exception e) {
-            call.reject(e.toString(),e);
+            call.reject(e.toString(), e);
         }
     }
 
     @Override
     public void onError(TrackingError trackingError) {
-        JSObject ret = new JSObject();
-        ret.put("error", trackingError.toString());
-        notifyListeners("trackingStateChange", ret);
+        JSObject result = new JSObject();
+        result.put("error", trackingError.toString());
+        notifyListeners("trackingStateChange", result);
     }
 
     @Override
     public void onTrackingStart() {
-        JSObject ret = new JSObject();
-        ret.put("status", "start");
-        notifyListeners("trackingStateChange",ret);
+        JSObject result = new JSObject();
+        result.put("status", "start");
+        notifyListeners("trackingStateChange", result);
     }
 
     @Override
     public void onTrackingStop() {
-        JSObject ret = new JSObject();
-        ret.put("status", "stop");
-        notifyListeners("trackingStateChange",ret);
+        JSObject result = new JSObject();
+        result.put("status", "stop");
+        notifyListeners("trackingStateChange", result);
     }
 
     @Override
     public void onError(AvailabilityError availabilityError) {
-        JSObject ret = new JSObject();
-        ret.put("error", availabilityError.toString());
-        notifyListeners("availabilityStateChange", ret);
+        JSObject result = new JSObject();
+        result.put("error", availabilityError.toString());
+        notifyListeners("availabilityStateChange", result);
     }
 
     @Override
     public void onAvailable() {
-        JSObject ret = new JSObject();
-        ret.put("availability",true);
-        notifyListeners("availabilityStateChange",ret);
+        JSObject result = new JSObject();
+        result.put("availability", true);
+        notifyListeners("availabilityStateChange", result);
     }
 
     @Override
     public void onUnavailable() {
-        JSObject ret = new JSObject();
-        ret.put("availability",false);
-        notifyListeners("availabilityStateChange",ret);
+        JSObject result = new JSObject();
+        result.put("availability", false);
+        notifyListeners("availabilityStateChange", result);
     }
 }

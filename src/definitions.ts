@@ -1,6 +1,6 @@
 export interface HyperTrackSdkPlugin {
   /** Enables debug log in native HyperTrack SDK. */
-  enableDebugLogging():Promise<void>;
+  enableDebugLogging(): Promise<void>;
   /**
    * Entry point into SDK.
    *
@@ -12,39 +12,39 @@ export interface HyperTrackSdkPlugin {
    */
   initialize(options: { publishableKey: string }): Promise<void>;
   /** Start tracking. */
-  start():Promise<void>;
+  start(): Promise<void>;
   /** Stop tracking. */
-  stop():Promise<void>;
+  stop(): Promise<void>;
   /**
    * Resolves latest device location that was sent by the SDK.
    * Only available for Android platform.
    */
-  getLatestLocation(callback: Callback):void;
+  getLatestLocation(callback: Callback): void;
   /** Pops up permission request dialog, if permissions weren't granted before or does nothing otherwise. */
-  hyperTrackRequestPermissions():Promise<void>;
+  requestPermissionsIfNecessary(): Promise<void>;
   /** Allows injecting false locations into the SDK, which ignores them by default. */
-  hyperTrackAllowMockLocations():Promise<void>;
+  allowMockLocations(): Promise<void>;
   /** Resolves device ID that could be used to identify the device. */
-  getDeviceId():Promise<{ deviceId:string }>;
+  getDeviceId(): Promise<{ deviceId: string }>;
   /** Resolves device's availability for nearby search. */
-  getAvailability():Promise<{ status:string }>;
+  getAvailability(): Promise<{ status: string }>;
   /** Sets device's availability for nearby search. */
-  setAvailability(options:{ isAvailable:boolean }):Promise<void>;
+  setAvailability(options: { isAvailable: boolean }): Promise<void>;
   /** Reflects tracking intent. */
-  isTracking():Promise<{ status: boolean }>;
+  isTracking(): Promise<{ status: boolean }>;
   /** Allows tracking hypertrack sdk  listener. */
-  addTrackingListener():Promise<void>;
+  addTrackingListener(): Promise<void>;
   /** Stops tracking hypertrack sdk  listener. */
-  removeTrackingListener():Promise<void>;
-  /** Allows search availability hypertrack sdk listener. */
-  addAvailabilityListener():Promise<void>;
-  /** Stops search availability hypertrack sdk listener. */
-  removeAvailabilityListener():Promise<void>;
+  removeTrackingListener(): Promise<void>;
+  /** Allows availability hypertrack sdk listener. */
+  addAvailabilityListener(): Promise<void>;
+  /** Stops availability hypertrack sdk listener. */
+  removeAvailabilityListener(): Promise<void>;
   /**
    * Synchronizes tracking state with platform model. This method is used to
    * harden platform2device communication channel.
    */
-  syncDeviceSettings():Promise<void>;
+  syncDeviceSettings(): Promise<void>;
   /**
    * Set device name
    * 
@@ -56,7 +56,7 @@ export interface HyperTrackSdkPlugin {
    * 
    * @param options key-value pais of metadata & coordinates properties.
    */
-  addGeotag(options: { metadata:Record<string, unknown>, coordinates?: { latitude: number, longitude: number } }): Promise<void>;
+  addGeotag(options: { metadata: Record<string, unknown>, coordinates?: { latitude: number, longitude: number } }): Promise<void>;
   /**
    * Use this to set additional properties, like segments, teams etc.
    *
@@ -68,103 +68,103 @@ export interface HyperTrackSdkPlugin {
    *
    * @param options key-value pais of title & message properties.
    */
-  setTrackingNotificationProperties(options:{ title: string, message: string}): Promise<void>;
+  setTrackingNotificationProperties(options: { title: string, message: string }): Promise<void>;
   /**
    * Adds listener for tracking state change
    * 
    * @param eventName 
    * @param listenerFunc 
    */
-  addListener(eventName: 'trackingStateChange',listenerFunc: StateChangeListener):Promise<PluginListenerHandle> & PluginListenerHandle;
+  addListener(eventName: 'trackingStateChange', listenerFunc: StateChangeListener): Promise<PluginListenerHandle> & PluginListenerHandle;
   /**
    * Adds listener for availability state change
    * 
    * @param eventName 
    * @param listenerFunc 
    */
-   addListener(eventName: 'availabilityStateChange',listenerFunc: StateChangeListener):Promise<PluginListenerHandle> & PluginListenerHandle;
+  addListener(eventName: 'availabilityStateChange', listenerFunc: StateChangeListener): Promise<PluginListenerHandle> & PluginListenerHandle;
 }
 
 // Interfaces for Hypertrack Sdk Instance 
 export interface HyperTrackSdkInstance {
-    /** Start tracking. */
-    start():Promise<void>;
-    /** Stop tracking. */
-    stop():Promise<void>;
-    /**
-     * Resolves latest device location that was sent by the SDK.
-     * Only available for Android platform.
-     */
-    getLatestLocation(callback: Callback):void;
-    /** Pops up permission request dialog, if permissions weren't granted before or does nothing otherwise. */
-    hyperTrackRequestPermissions():Promise<void>;
-    /** Allows injecting false locations into the SDK, which ignores them by default. */
-    hyperTrackAllowMockLocations():Promise<void>;
-    /** Resolves device ID that could be used to identify the device. */
-    getDeviceId():Promise<{ deviceId:string }>;
-    /** Resolves device's availability for nearby search. */
-    getAvailability():Promise<{ status:string }>;
-    /** Sets device's availability for nearby search. */
-    setAvailability(options:{ isAvailable:boolean }):Promise<void>;
-    /** Reflects tracking intent. */
-    isTracking():Promise<{ status: boolean }>;
-    /** Allows tracking hypertrack sdk  listener. */
-    addTrackingListener():Promise<void>;
-    /** Stops tracking hypertrack sdk  listener. */
-    removeTrackingListener():Promise<void>;
-    /** Allows search availability hypertrack sdk listener. */
-    addAvailabilityListener():Promise<void>;
-    /** Stops search availability hypertrack sdk listener. */
-    removeAvailabilityListener():Promise<void>;
-    /**
-     * Synchronizes tracking state with platform model. This method is used to
-     * harden platform2device communication channel.
-     */
-    syncDeviceSettings():Promise<void>;
-    /**
-     * Set device name
-     * 
-     * @param options key-value pais of name properties.
-     */
-    setDeviceName(options: { name: string }): Promise<void>;
-    /**
-     * Adds special marker-like object to device timeline.
-     * 
-     * @param options key-value pais of metadata & coordinates properties.
-     */
-    addGeotag(options: { metadata:Record<string, unknown>, coordinates?: { latitude: number, longitude: number } }): Promise<void>;
-    /**
-     * Use this to set additional properties, like segments, teams etc.
-     *
-     * @param options key-value pais of properties.
-     */
-    setDeviceMetadata(options: Record<string, unknown>): Promise<void>;
-    /**
-     * Updates title and text in persistent notification, that appears when tracking is active.
-     *
-     * @param options key-value pais of title & message properties.
-     */
-    setTrackingNotificationProperties(options:{ title: string, message: string}): Promise<void>;
-    /**
-     * Adds listener for tracking state change
-     * 
-     * @param eventName 
-     * @param listenerFunc 
-     */
-    addListener(eventName: 'trackingStateChange',listenerFunc: StateChangeListener):Promise<PluginListenerHandle> & PluginListenerHandle;
-    /**
-     * Adds listener for availability state change
-     * 
-     * @param eventName 
-     * @param listenerFunc 
-     */
-    addListener(eventName: 'availabilityStateChange',listenerFunc: StateChangeListener):Promise<PluginListenerHandle> & PluginListenerHandle;
+  /** Start tracking. */
+  start(): Promise<void>;
+  /** Stop tracking. */
+  stop(): Promise<void>;
+  /**
+   * Resolves latest device location that was sent by the SDK.
+   * Only available for Android platform.
+   */
+  getLatestLocation(callback: Callback): void;
+  /** Pops up permission request dialog, if permissions weren't granted before or does nothing otherwise. */
+  requestPermissionsIfNecessary(): Promise<void>;
+  /** Allows injecting false locations into the SDK, which ignores them by default. */
+  allowMockLocations(): Promise<void>;
+  /** Resolves device ID that could be used to identify the device. */
+  getDeviceId(): Promise<{ deviceId: string }>;
+  /** Resolves device's availability for nearby search. */
+  getAvailability(): Promise<{ status: string }>;
+  /** Sets device's availability for nearby search. */
+  setAvailability(options: { isAvailable: boolean }): Promise<void>;
+  /** Reflects tracking intent. */
+  isTracking(): Promise<{ status: boolean }>;
+  /** Allows tracking hypertrack sdk  listener. */
+  addTrackingListener(): Promise<void>;
+  /** Stops tracking hypertrack sdk  listener. */
+  removeTrackingListener(): Promise<void>;
+  /** Allows availability hypertrack sdk listener. */
+  addAvailabilityListener(): Promise<void>;
+  /** Stops availability hypertrack sdk listener. */
+  removeAvailabilityListener(): Promise<void>;
+  /**
+   * Synchronizes tracking state with platform model. This method is used to
+   * harden platform2device communication channel.
+   */
+  syncDeviceSettings(): Promise<void>;
+  /**
+   * Set device name
+   * 
+   * @param options key-value pais of name properties.
+   */
+  setDeviceName(options: { name: string }): Promise<void>;
+  /**
+   * Adds special marker-like object to device timeline.
+   * 
+   * @param options key-value pais of metadata & coordinates properties.
+   */
+  addGeotag(options: { metadata: Record<string, unknown>, coordinates?: { latitude: number, longitude: number } }): Promise<void>;
+  /**
+   * Use this to set additional properties, like segments, teams etc.
+   *
+   * @param options key-value pais of properties.
+   */
+  setDeviceMetadata(options: Record<string, unknown>): Promise<void>;
+  /**
+   * Updates title and text in persistent notification, that appears when tracking is active.
+   *
+   * @param options key-value pais of title & message properties.
+   */
+  setTrackingNotificationProperties(options: { title: string, message: string }): Promise<void>;
+  /**
+   * Adds listener for tracking state change
+   * 
+   * @param eventName 
+   * @param listenerFunc 
+   */
+  addListener(eventName: 'trackingStateChange', listenerFunc: StateChangeListener): Promise<PluginListenerHandle> & PluginListenerHandle;
+  /**
+   * Adds listener for availability state change
+   * 
+   * @param eventName 
+   * @param listenerFunc 
+   */
+  addListener(eventName: 'availabilityStateChange', listenerFunc: StateChangeListener): Promise<PluginListenerHandle> & PluginListenerHandle;
 }
 
 // Interfaces for Hypertrack
 export interface HyperTrackInit {
   /** Enables debug log in native HyperTrack SDK. */
-  enableDebugLogging():Promise<void>;
+  enableDebugLogging(): Promise<void>;
   /**
    * Entry point into SDK.
    *

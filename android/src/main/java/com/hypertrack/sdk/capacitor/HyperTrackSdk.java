@@ -96,7 +96,7 @@ public class HyperTrackSdk {
         }
     }
 
-    public void addGeotag(String geoTagData, String coordinate) throws  JSONException {
+    public void addGeotag(String geoTagData, String coordinate) throws JSONException {
         if (sdkInstance == null) {
             throw new IllegalStateException("Sdk wasn't initialized");
         }
@@ -127,7 +127,7 @@ public class HyperTrackSdk {
             throw new IllegalArgumentException(e);
         }
     }
-    
+
     public void setDeviceName(String deviceName) {
         if (sdkInstance == null) {
             throw new IllegalStateException("Sdk wasn't initialized");
@@ -276,7 +276,8 @@ public class HyperTrackSdk {
     public void setTrackingNotificationProperties(String title, String body) {
         if (sdkInstance == null) {
             throw new IllegalStateException("Sdk wasn't initialized");
-        } try {
+        }
+        try {
             ServiceNotificationConfig serviceNotificationConfig = new ServiceNotificationConfig.Builder().setContentTitle(title).setContentText(body).build();
             sdkInstance.setTrackingNotificationConfig(serviceNotificationConfig);
             return;
@@ -286,7 +287,7 @@ public class HyperTrackSdk {
     }
 
     private JSONObject createLocationResult(Result<Location, OutageReason> locationResult) {
-        if(locationResult.isSuccess()) {
+        if (locationResult.isSuccess()) {
             return createLocationSuccessResult(locationResult.getValue());
         } else {
             return createOutageLocationResult(locationResult.getError());
@@ -353,15 +354,13 @@ public class HyperTrackSdk {
         Map<String, Object> map = new HashMap<String, Object>();
 
         Iterator<String> keysItr = object.keys();
-        while(keysItr.hasNext()) {
+        while (keysItr.hasNext()) {
             String key = keysItr.next();
             Object value = object.get(key);
 
             if (value instanceof JSONArray) {
                 value = toList((JSONArray) value);
-            }
-
-            else if (value instanceof JSONObject) {
+            } else if (value instanceof JSONObject) {
                 value = toMap((JSONObject) value);
             }
             map.put(key, value);
@@ -371,13 +370,11 @@ public class HyperTrackSdk {
 
     private List<Object> toList(JSONArray array) throws JSONException {
         List<Object> list = new ArrayList<Object>();
-        for(int i = 0; i < array.length(); i++) {
+        for (int i = 0; i < array.length(); i++) {
             Object value = array.get(i);
             if (value instanceof JSONArray) {
                 value = toList((JSONArray) value);
-            }
-
-            else if(value instanceof JSONObject) {
+            } else if (value instanceof JSONObject) {
                 value = toMap((JSONObject) value);
             }
             list.add(value);
@@ -393,6 +390,6 @@ public class HyperTrackSdk {
         Location expectedLocation = new Location(LocationManager.GPS_PROVIDER);
         expectedLocation.setLatitude(latitude);
         expectedLocation.setLongitude(longitude);
-        return  expectedLocation;
+        return expectedLocation;
     }
 }
