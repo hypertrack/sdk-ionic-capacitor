@@ -1,10 +1,14 @@
 import { registerPlugin } from '@capacitor/core';
 
-import type { HyperTrackSdkPlugin } from './definitions';
+import type { HyperTrackInit, HyperTrackSdkInstance, HyperTrackSdkPlugin } from './definitions';
 
-const HyperTrack = registerPlugin<HyperTrackSdkPlugin>('HyperTrackSdk', {
+const HyperTrackSdk = registerPlugin<HyperTrackSdkPlugin>('HyperTrackSdk', {
   web: () => import('./web').then(m => new m.HyperTrackSdkWeb()),
 });
 
+const HyperTrack:HyperTrackInit = HyperTrackSdk;
+const HyperTrackInstance:HyperTrackSdkInstance = HyperTrackSdk;
+
 export * from './definitions';
-export { HyperTrack };
+
+export { HyperTrack,HyperTrackInstance };
