@@ -1,8 +1,15 @@
 import { WebPlugin } from '@capacitor/core';
 
-import type { Callback, HyperTrackSdkPlugin } from './definitions';
+import type { Blocker, Callback, HyperTrackSdkInstance, HyperTrackSdkPlugin } from './definitions';
 
 export class HyperTrackSdkWeb extends WebPlugin implements HyperTrackSdkPlugin {
+  async getBlockers(): Promise<{ blockers: Blocker[]; }> {
+    throw this.unimplemented('Hypertrack is not available for the browser.');;
+  }
+
+  async resolveBlocker(_options: { code: string; }): Promise<void> {
+    throw this.unimplemented('Hypertrack is not available for the browser.');
+  }
 
   async getDeviceId(): Promise<{ deviceId: string }> {
     throw this.unimplemented('Hypertrack is not available for the browser');
@@ -64,7 +71,7 @@ export class HyperTrackSdkWeb extends WebPlugin implements HyperTrackSdkPlugin {
     throw this.unimplemented('Hypertrack is not available for the browser');
   }
 
-  async initialize(_options: { publishableKey: string }): Promise<void> {
+  async initialize(_options: { publishableKey: string }): Promise<HyperTrackSdkInstance> {
     throw this.unimplemented('Hypertrack is not available for the browser');
   }
 
@@ -83,5 +90,4 @@ export class HyperTrackSdkWeb extends WebPlugin implements HyperTrackSdkPlugin {
   getLatestLocation(_callback: Callback): void {
     throw this.unimplemented('Hypertrack is not available for the browser');
   }
-
 }

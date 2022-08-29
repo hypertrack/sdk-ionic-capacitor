@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.getcapacitor.JSObject;
 import com.hypertrack.sdk.Availability;
+import com.hypertrack.sdk.Blocker;
 import com.hypertrack.sdk.HyperTrack;
 import com.hypertrack.sdk.OutageReason;
 import com.hypertrack.sdk.Result;
@@ -20,6 +21,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class HyperTrackSdk {
 
@@ -286,6 +288,39 @@ public class HyperTrackSdk {
         }
     }
 
+    public JSONArray getBlockers() {
+        try {
+            Set<Blocker> blockersSet = HyperTrack.getBlockers();
+            return parseBlockers(blockersSet);
+        } catch (Exception e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
+
+    public boolean resolveBlocker(String blockerCode) {
+        switch (blockerCode) {
+            case "OL1":
+                Blocker.LOCATION_PERMISSION_DENIED.resolve();
+                print("Blocker" + blockerCode + "LOCATION_PERMISSION_DENIED resolved");
+                break;
+            case "OS1":
+                Blocker.LOCATION_SERVICE_DISABLED.resolve();
+                print("Blocker" + blockerCode + "LOCATION_SERVICE_DISABLED resolved");
+                break;
+            case "OA1":
+                Blocker.ACTIVITY_PERMISSION_DENIED.resolve();
+                print("Blocker" + blockerCode + "ACTIVITYResolveBlocker_PERMISSION_DENIED resolved");
+                break;
+            case "OL2":
+                Blocker.BACKGROUND_LOCATION_DENIED.resolve();
+                print("Blocker" + blockerCode + "BACKGROUND_LOCATION_DENIED resolved");
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown blocker code " + blockerCode);
+        }
+        return true;
+    }
+
     private JSONObject createLocationResult(Result<Location, OutageReason> locationResult) {
         if (locationResult.isSuccess()) {
             return createLocationSuccessResult(locationResult.getValue());
@@ -391,5 +426,22 @@ public class HyperTrackSdk {
         expectedLocation.setLatitude(latitude);
         expectedLocation.setLongitude(longitude);
         return expectedLocation;
+    }
+
+    private JSONArray parseBlockers(Set<Blocker> blockers) {
+        JSONArray result = new JSONArray();
+        for (Blocker blocker : blockers) {
+            try {
+                JSONObject parsedBlockers = new JSONObject();
+                parsedBlockers.put("userActionTitle", blocker.userActionTitle);
+                parsedBlockers.put("userActionExplanation", blocker.userActionExplanation);
+                parsedBlockers.put("userActionCTA", blocker.userActionCTA);
+                parsedBlockers.put("code", blocker.code);
+                result.put(parsedBlockers);
+            } catch (JSONException e) {
+                throw new IllegalArgumentException(e);
+            }
+        }
+        return result;
     }
 }

@@ -10,6 +10,7 @@ import com.hypertrack.sdk.AvailabilityStateObserver;
 import com.hypertrack.sdk.TrackingError;
 import com.hypertrack.sdk.TrackingStateObserver;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 @CapacitorPlugin(name = "HyperTrackSdk")
@@ -35,7 +36,6 @@ public class HyperTrackSdkPlugin extends Plugin implements TrackingStateObserver
         implementation.print("start called");
         try {
             implementation.start();
-            implementation.setTrackingNotificationProperties("Notification", "Tracking has been started...");
             call.resolve();
         } catch (Exception e) {
             call.reject(e.toString(), e);
@@ -47,7 +47,6 @@ public class HyperTrackSdkPlugin extends Plugin implements TrackingStateObserver
         implementation.print("stop called");
         try {
             implementation.stop();
-            implementation.setTrackingNotificationProperties("Notification", "Tracking has been stopped...");
             call.resolve();
         } catch (Exception e) {
             call.reject(e.toString(), e);
@@ -254,6 +253,31 @@ public class HyperTrackSdkPlugin extends Plugin implements TrackingStateObserver
         try {
             implementation.removeAvailabilityListener(this);
             implementation.print("Availability listener removed successfully.");
+            call.resolve();
+        } catch (Exception e) {
+            call.reject(e.toString(), e);
+        }
+    }
+
+    @PluginMethod
+    public void getBlockers(PluginCall call) {
+        implementation.print("getBlockers called");
+        try {
+            JSONArray blockers = implementation.getBlockers();
+            JSObject result = new JSObject();
+            result.put("blockers", blockers);
+            call.resolve(result);
+        } catch (Exception e) {
+            call.reject(e.toString(), e);
+        }
+    }
+
+    @PluginMethod
+    public void resolveBlocker(PluginCall call) {
+        implementation.print("resolveBlocker called");
+        String code = call.getString("code");
+        try {
+            implementation.resolveBlocker(code);
             call.resolve();
         } catch (Exception e) {
             call.reject(e.toString(), e);

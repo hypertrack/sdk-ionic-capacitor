@@ -10,7 +10,7 @@ export interface HyperTrackSdkPlugin {
    * @param options key-value pais of publishableKey, account-specific secret from the HyperTrack dashborad.
    * @see {@link https://dashboard.hypertrack.com/setup}.
    */
-  initialize(options: { publishableKey: string }): Promise<void>;
+  initialize(options: { publishableKey: string }): Promise<HyperTrackSdkInstance>;
   /** Start tracking. */
   start(): Promise<void>;
   /** Stop tracking. */
@@ -83,6 +83,10 @@ export interface HyperTrackSdkPlugin {
    * @param listenerFunc 
    */
   addListener(eventName: 'availabilityStateChange', listenerFunc: StateChangeListener): Promise<PluginListenerHandle> & PluginListenerHandle;
+  /** A blocker is an obstacle that needs to be resolved to achieve reliable tracking.*/
+  getBlockers(): Promise<{ blockers: Blocker[] }>;
+  /** An action that navigates user to the dedicated settings menu. */
+  resolveBlocker(options: { code: string }): Promise<void>;
 }
 
 // Interfaces for Hypertrack Sdk Instance 
@@ -160,23 +164,6 @@ export interface HyperTrackSdkInstance {
    */
   addListener(eventName: 'availabilityStateChange', listenerFunc: StateChangeListener): Promise<PluginListenerHandle> & PluginListenerHandle;
 }
-
-// Interfaces for Hypertrack
-export interface HyperTrackInit {
-  /** Enables debug log in native HyperTrack SDK. */
-  enableDebugLogging(): Promise<void>;
-  /**
-   * Entry point into SDK.
-   *
-   * Initializes SDK. Also resolves SDK instance that could be used to query deviceId or set
-   * various data.
-   *
-   * @param options key-value pais of publishableKey, account-specific secret from the HyperTrack dashborad.
-   * @see {@link https://dashboard.hypertrack.com/setup}.
-   */
-  initialize(options: { publishableKey: string }): Promise<void>;
-}
-
 export interface State {
   /**
    * The state of the tracking.
@@ -188,6 +175,19 @@ export interface State {
 // Interfaces for PluginListenerHandle
 export interface PluginListenerHandle {
   remove: () => Promise<void>;
+}
+
+export interface Blocker {
+  /** Recommended name for a user action, that needs to be performed to resolve the blocker. */
+  userActionTitle: string;
+  /** Recommended name for a button, that will navigate user to the place where he can resolve the blocker */
+  userActionCTA: string;
+  /** User action explanation */
+  userActionExplanation: string;
+  /** Blocker code */
+  code: string;
+  /** An action that navigates user to the dedicated settings menu. */
+  resolve: () => void;
 }
 
 /** Callback type  */
