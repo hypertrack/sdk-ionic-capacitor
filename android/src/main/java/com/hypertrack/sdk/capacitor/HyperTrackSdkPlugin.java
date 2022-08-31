@@ -68,7 +68,7 @@ public class HyperTrackSdkPlugin extends Plugin implements TrackingStateObserver
     public void requestPermissionsIfNecessary(PluginCall call) {
         implementation.print("requestPermissionsIfNecessary called");
         try {
-            implementation.hyperTrackRequestPermissions();
+            implementation.requestPermissionsIfNecessary();
             call.resolve();
         } catch (Exception e) {
             call.reject(e.toString(), e);

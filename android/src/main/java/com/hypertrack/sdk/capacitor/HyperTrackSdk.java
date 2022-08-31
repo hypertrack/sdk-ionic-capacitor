@@ -154,7 +154,7 @@ public class HyperTrackSdk {
         }
     }
 
-    public void hyperTrackRequestPermissions() {
+    public void requestPermissionsIfNecessary() {
         if (sdkInstance == null) {
             throw new IllegalStateException("Sdk wasn't initialized");
         }
