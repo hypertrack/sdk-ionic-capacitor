@@ -8,14 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		03FC29A292ACC40490383A1F /* Pods_Plugin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B2A61DA5A1F2DD4F959604D /* Pods_Plugin.framework */; };
+		0AF81A6E299BFFE1004DDBE5 /* HyperTrackCapacitorPlugin.h in Headers */ = {isa = PBXBuildFile; fileRef = 0AF81A64299BFFE1004DDBE5 /* HyperTrackCapacitorPlugin.h */; };
+		0AF81A6F299BFFE1004DDBE5 /* HyperTrackCapacitorPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AF81A65299BFFE1004DDBE5 /* HyperTrackCapacitorPlugin.m */; };
+		0AF81A70299BFFE1004DDBE5 /* DictionaryDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF81A67299BFFE1004DDBE5 /* DictionaryDecoder.swift */; };
+		0AF81A71299BFFE1004DDBE5 /* SDKInitParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF81A68299BFFE1004DDBE5 /* SDKInitParams.swift */; };
+		0AF81A72299BFFE1004DDBE5 /* SDKMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF81A69299BFFE1004DDBE5 /* SDKMethod.swift */; };
+		0AF81A73299BFFE1004DDBE5 /* HyperTrackError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF81A6A299BFFE1004DDBE5 /* HyperTrackError.swift */; };
+		0AF81A74299BFFE1004DDBE5 /* HyperTrackSDKWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF81A6B299BFFE1004DDBE5 /* HyperTrackSDKWrapper.swift */; };
+		0AF81A75299BFFE1004DDBE5 /* Serialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF81A6C299BFFE1004DDBE5 /* Serialization.swift */; };
+		0AF81A76299BFFE1004DDBE5 /* HyperTrackCapacitorPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF81A6D299BFFE1004DDBE5 /* HyperTrackCapacitorPlugin.swift */; };
 		20C0B05DCFC8E3958A738AF2 /* Pods_PluginTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6753A823D3815DB436415E3 /* Pods_PluginTests.framework */; };
-		2F98D68224C9AAE500613A4C /* HyperTrackSdk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F98D68124C9AAE400613A4C /* HyperTrackSdk.swift */; };
 		50ADFF92201F53D600D50D53 /* Plugin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50ADFF88201F53D600D50D53 /* Plugin.framework */; };
 		50ADFF97201F53D600D50D53 /* HyperTrackSdkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50ADFF96201F53D600D50D53 /* HyperTrackSdkTests.swift */; };
-		50ADFF99201F53D600D50D53 /* HyperTrackSdkPlugin.h in Headers */ = {isa = PBXBuildFile; fileRef = 50ADFF8B201F53D600D50D53 /* HyperTrackSdkPlugin.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		50ADFFA42020D75100D50D53 /* Capacitor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50ADFFA52020D75100D50D53 /* Capacitor.framework */; };
-		50ADFFA82020EE4F00D50D53 /* HyperTrackSdkPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 50ADFFA72020EE4F00D50D53 /* HyperTrackSdkPlugin.m */; };
-		50E1A94820377CB70090CE1A /* HyperTrackSdkPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E1A94720377CB70090CE1A /* HyperTrackSdkPlugin.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,17 +34,22 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2F98D68124C9AAE400613A4C /* HyperTrackSdk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HyperTrackSdk.swift; sourceTree = "<group>"; };
+		0AF81A64299BFFE1004DDBE5 /* HyperTrackCapacitorPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyperTrackCapacitorPlugin.h; sourceTree = "<group>"; };
+		0AF81A65299BFFE1004DDBE5 /* HyperTrackCapacitorPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HyperTrackCapacitorPlugin.m; sourceTree = "<group>"; };
+		0AF81A67299BFFE1004DDBE5 /* DictionaryDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryDecoder.swift; sourceTree = "<group>"; };
+		0AF81A68299BFFE1004DDBE5 /* SDKInitParams.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDKInitParams.swift; sourceTree = "<group>"; };
+		0AF81A69299BFFE1004DDBE5 /* SDKMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDKMethod.swift; sourceTree = "<group>"; };
+		0AF81A6A299BFFE1004DDBE5 /* HyperTrackError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HyperTrackError.swift; sourceTree = "<group>"; };
+		0AF81A6B299BFFE1004DDBE5 /* HyperTrackSDKWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HyperTrackSDKWrapper.swift; sourceTree = "<group>"; };
+		0AF81A6C299BFFE1004DDBE5 /* Serialization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Serialization.swift; sourceTree = "<group>"; };
+		0AF81A6D299BFFE1004DDBE5 /* HyperTrackCapacitorPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HyperTrackCapacitorPlugin.swift; sourceTree = "<group>"; };
 		3B2A61DA5A1F2DD4F959604D /* Pods_Plugin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Plugin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		50ADFF88201F53D600D50D53 /* Plugin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Plugin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		50ADFF8B201F53D600D50D53 /* HyperTrackSdkPlugin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HyperTrackSdkPlugin.h; sourceTree = "<group>"; };
 		50ADFF8C201F53D600D50D53 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50ADFF91201F53D600D50D53 /* PluginTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PluginTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		50ADFF96201F53D600D50D53 /* HyperTrackSdkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyperTrackSdkTests.swift; sourceTree = "<group>"; };
 		50ADFF98201F53D600D50D53 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50ADFFA52020D75100D50D53 /* Capacitor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Capacitor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		50ADFFA72020EE4F00D50D53 /* HyperTrackSdkPlugin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HyperTrackSdkPlugin.m; sourceTree = "<group>"; };
-		50E1A94720377CB70090CE1A /* HyperTrackSdkPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HyperTrackSdkPlugin.swift; sourceTree = "<group>"; };
 		5E23F77F099397094342571A /* Pods-Plugin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Plugin.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Plugin/Pods-Plugin.debug.xcconfig"; sourceTree = "<group>"; };
 		91781294A431A2A7CC6EB714 /* Pods-Plugin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Plugin.release.xcconfig"; path = "Pods/Target Support Files/Pods-Plugin/Pods-Plugin.release.xcconfig"; sourceTree = "<group>"; };
 		96ED1B6440D6672E406C8D19 /* Pods-PluginTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PluginTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PluginTests/Pods-PluginTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -69,6 +79,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0AF81A66299BFFE1004DDBE5 /* common */ = {
+			isa = PBXGroup;
+			children = (
+				0AF81A67299BFFE1004DDBE5 /* DictionaryDecoder.swift */,
+				0AF81A68299BFFE1004DDBE5 /* SDKInitParams.swift */,
+				0AF81A69299BFFE1004DDBE5 /* SDKMethod.swift */,
+				0AF81A6A299BFFE1004DDBE5 /* HyperTrackError.swift */,
+				0AF81A6B299BFFE1004DDBE5 /* HyperTrackSDKWrapper.swift */,
+				0AF81A6C299BFFE1004DDBE5 /* Serialization.swift */,
+			);
+			path = common;
+			sourceTree = "<group>";
+		};
 		50ADFF7E201F53D600D50D53 = {
 			isa = PBXGroup;
 			children = (
@@ -92,10 +115,10 @@
 		50ADFF8A201F53D600D50D53 /* Plugin */ = {
 			isa = PBXGroup;
 			children = (
-				50E1A94720377CB70090CE1A /* HyperTrackSdkPlugin.swift */,
-				2F98D68124C9AAE400613A4C /* HyperTrackSdk.swift */,
-				50ADFF8B201F53D600D50D53 /* HyperTrackSdkPlugin.h */,
-				50ADFFA72020EE4F00D50D53 /* HyperTrackSdkPlugin.m */,
+				0AF81A66299BFFE1004DDBE5 /* common */,
+				0AF81A64299BFFE1004DDBE5 /* HyperTrackCapacitorPlugin.h */,
+				0AF81A65299BFFE1004DDBE5 /* HyperTrackCapacitorPlugin.m */,
+				0AF81A6D299BFFE1004DDBE5 /* HyperTrackCapacitorPlugin.swift */,
 				50ADFF8C201F53D600D50D53 /* Info.plist */,
 			);
 			path = Plugin;
@@ -138,7 +161,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				50ADFF99201F53D600D50D53 /* HyperTrackSdkPlugin.h in Headers */,
+				0AF81A6E299BFFE1004DDBE5 /* HyperTrackCapacitorPlugin.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,7 +219,7 @@
 				TargetAttributes = {
 					50ADFF87201F53D600D50D53 = {
 						CreatedOnToolsVersion = 9.2;
-						LastSwiftMigration = 1100;
+						LastSwiftMigration = 1420;
 						ProvisioningStyle = Automatic;
 					};
 					50ADFF90201F53D600D50D53 = {
@@ -306,9 +329,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				50E1A94820377CB70090CE1A /* HyperTrackSdkPlugin.swift in Sources */,
-				2F98D68224C9AAE500613A4C /* HyperTrackSdk.swift in Sources */,
-				50ADFFA82020EE4F00D50D53 /* HyperTrackSdkPlugin.m in Sources */,
+				0AF81A70299BFFE1004DDBE5 /* DictionaryDecoder.swift in Sources */,
+				0AF81A74299BFFE1004DDBE5 /* HyperTrackSDKWrapper.swift in Sources */,
+				0AF81A75299BFFE1004DDBE5 /* Serialization.swift in Sources */,
+				0AF81A72299BFFE1004DDBE5 /* SDKMethod.swift in Sources */,
+				0AF81A76299BFFE1004DDBE5 /* HyperTrackCapacitorPlugin.swift in Sources */,
+				0AF81A6F299BFFE1004DDBE5 /* HyperTrackCapacitorPlugin.m in Sources */,
+				0AF81A73299BFFE1004DDBE5 /* HyperTrackError.swift in Sources */,
+				0AF81A71299BFFE1004DDBE5 /* SDKInitParams.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -469,7 +497,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Plugin/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(FRAMEWORK_SEARCH_PATHS)\n$(FRAMEWORK_SEARCH_PATHS)\n$(FRAMEWORK_SEARCH_PATHS)";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.getcapacitor.Plugin;
@@ -494,7 +522,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Plugin/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(FRAMEWORK_SEARCH_PATHS)";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.getcapacitor.Plugin;
@@ -509,6 +537,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 96ED1B6440D6672E406C8D19 /* Pods-PluginTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = PluginTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -523,6 +552,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F65BB2953ECE002E1EF3E424 /* Pods-PluginTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = PluginTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

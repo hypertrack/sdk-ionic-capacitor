@@ -1,28 +1,51 @@
-# hypertrack-capacitor-plugin
 
-Capacitor plugin for HyperTrack generation SDKs
+# Ionic Capacitor HyperTrack SDK
 
-## Install global dependencies
-```bash
-The base requirements are [Node](https://nodejs.org/en/) v8.6.0 or later, and NPM version 5.6.0 or later (which is usually automatically installed with the required version of Node).
+![GitHub](https://img.shields.io/github/license/hypertrack/sdk-ionic-capacitor.svg) 
+![npm](https://img.shields.io/npm/v/hypertrack-sdk-ionic-capacitor.svg) 
+![iOS SDK](https://img.shields.io/badge/iOS%20SDK-4.14.0-brightgreen.svg) 
+![Android SDK](https://img.shields.io/badge/Android%20SDK-6.4.0-brightgreen.svg)
 
-npm install -g @capacitor/core @capacitor/cli
+[HyperTrack](https://www.hypertrack.com) lets you add live location tracking to your mobile app. Live location is made available along with ongoing activity, tracking controls and tracking outage with reasons.
+
+Ionic Capacitor HyperTrack SDK is a wrapper around native iOS and Android SDKs that allows to integrate HyperTrack into Ionic Capacitor apps.
+
+For information about how to get started with Ionic Capacitor HyperTrack SDK, please check this [Guide](https://www.hypertrack.com/docs/install-sdk-ionic-capacitor).
+
+## Installation
+
+[Install from NPM](https://www.npmjs.com/package/hypertrack-sdk-ionic-capacitor)
+
+### Android
+In order to use this plugin, please add HyperTrack repository in `android/build.gradle`:
+
+```
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven {
+            name 'hypertrack'
+            url  'https://s3-us-west-2.amazonaws.com/m2.hypertrack.com/'
+        }
+    }
+}
 ```
 
-## Build plugin
+## Sample code
 
-```bash
-clone the repo git@github.com:hypertrack/sdk-ionic-capacitor.git
-cd sdk-ionic-capacitor/
-npm i
-npm run verify:android
-npm run build
-```
+[Quickstart React Native app](https://github.com/hypertrack/quickstart-ionic-capacitor)
 
-## Add plugin to Ionic app as a local dependency
+## Wrapper API Documentation
 
-```bash
-cd ionic-app/
-npm i <local-dir>/sdk-ionic-capacitor
-npx cap sync
-```
+[Wrapper API Documentation](https://hypertrack.github.io/sdk-ionic-capacitor/)
+
+## Requirements
+
+### iOS
+
+- iOS version 13.0+
+
+## Contributing
+
+If you want to contribute check [CONTRIBUTING.md](CONTRIBUTING.md)

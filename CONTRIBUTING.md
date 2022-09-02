@@ -1,27 +1,34 @@
 # Contributing
 
-This guide provides instructions for contributing to this Capacitor plugin.
+## FAQ
 
-## Developing
+### How to update HyperTrack SDK version and make a release?
 
-### Local Setup
+1. Update SDK version constant
+   - Android
+     - `android/build.gradle`
+       - `dependencies {}`
+         - `com.hypertrack:hypertrack:<version>`
+   - iOS
+     - `HypertrackSdkIonicCapacitor.podspec`
+       - `s.dependency 'HyperTrack'`
+  
+2. Increment wrapper version
+   - `package.json`
+     - `version`
+3. Update CHANGELOG.md
+4. Update badge in README.md
+5. Commit
+5. Create a version tag
+6. Push branch and tags
+7. Create a Github repo release
+   - Release title should be the current version tag
+8. `npm release`
+9. `npm publish`
 
-1. Fork and clone the repo.
-1. Install the dependencies.
+## Scripts
 
-    ```shell
-    npm install
-    ```
-
-1. Install SwiftLint if you're on macOS.
-
-    ```shell
-    brew install swiftlint
-    ```
-
-### Scripts
-
-#### `npm run build`
+### `npm run build`
 
 Build the plugin web assets and generate plugin API documentation using [`@capacitor/docgen`](https://github.com/ionic-team/capacitor-docgen).
 
@@ -29,13 +36,13 @@ It will compile the TypeScript code from `src/` into ESM JavaScript in `dist/esm
 
 Then, Rollup will bundle the code into a single file at `dist/plugin.js`. This file is used in apps without bundlers by including it as a script in `index.html`.
 
-#### `npm run verify`
+### `npm run verify`
 
 Build and validate the web and native projects.
 
 This is useful to run in CI to verify that the plugin builds for all platforms.
 
-#### `npm run lint` / `npm run fmt`
+### `npm run lint` / `npm run fmt`
 
 Check formatting and code quality, autoformat/autofix if possible.
 
