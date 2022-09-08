@@ -129,7 +129,7 @@ public class HyperTrackSdk {
             throw new IllegalArgumentException(e);
         }
     }
-
+    
     public void setDeviceName(String deviceName) {
         if (sdkInstance == null) {
             throw new IllegalStateException("Sdk wasn't initialized");

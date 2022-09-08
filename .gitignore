@@ -18,3 +18,9 @@ npm-debug.log*
 /plugins
 /www
 /.gradle
+
+Pods
+Podfile.lock
+Build
+xcuserdata
+.DS_Store
