@@ -26,7 +26,7 @@ public class HyperTrackSdkPlugin: CAPPlugin {
         stoppedTrackingNotificationObserver =  NotificationCenter.default.addObserver(
             self,
             selector: #selector(self.stopTracking),
-            name: HyperTrack.startedTrackingNotification,
+            name: HyperTrack.stoppedTrackingNotification,
             object: nil
         )
         
