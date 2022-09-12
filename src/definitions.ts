@@ -17,7 +17,6 @@ export interface HyperTrackSdkPlugin {
   stop(): Promise<void>;
   /**
    * Resolves latest device location that was sent by the SDK.
-   * Only available for Android platform.
    */
   getLatestLocation(callback: Callback): void;
   /** Pops up permission request dialog, if permissions weren't granted before or does nothing otherwise. */
