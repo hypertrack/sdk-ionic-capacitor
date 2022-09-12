@@ -89,12 +89,15 @@ This plugin will use the following project variables (defined in your app's `var
 ## Example
 
 ```typescript
-import { Geolocation } from '@capacitor/geolocation';
+import { HyperTrack } from 'hypertrack-capacitor-plugin'
 
-const printCurrentPosition = async () => {
-  const coordinates = await Geolocation.getCurrentPosition();
-
-  console.log('Current position:', coordinates);
+const getHyperTrackInstance = async () => {
+  try {
+      const result = await HyperTrack.ininitialize('YOUR-PUBLISHABLE-KEY-HERE');
+      console.log(result.hyperTrackInstance);
+  } catch (error) {
+      console.log(error);
+  }
 };
 ```
 
