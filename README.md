@@ -4,33 +4,37 @@
 ![Android SDK](https://img.shields.io/badge/Android%20SDK-6.2.2-brightgreen.svg)
 [![iOS SDK](https://img.shields.io/badge/iOS%20SDK-4.12.4-brightgreen.svg)](https://cocoapods.org/pods/HyperTrack)
 
-The hypertrack-capacitor-plugin provides simple methods for manage devices and trips by using HyperTrack SDK.
+This plugin enables you to use HyperTrack SDK for Capacitor.
 
-## Install global dependencies
+## How to run locally
+
+### Install global dependencies
+
 The base requirements are [Node](https://nodejs.org/en/) v8.6.0 or later, and NPM version 5.6.0 or later (which is usually automatically installed with the required version of Node).
 
 ```
-npm install -g @capacitor/core @capacitor/cli
+npm install -g @capacitor/core @capacitor/cli docgen
 ```
 
-## Build plugin
+### Build plugin
+
+Clone the repo and checkout the version you want to run. Run the following command in the repo directory:
 
 ```bash
-clone the repo git@github.com:hypertrack/sdk-ionic-capacitor.git
-cd sdk-ionic-capacitor/
 npm i
 npm run verify:android
 npm run build
 ```
 
-## Add plugin to Ionic app as a local dependency
+### Add plugin to Ionic app as a local dependency
 
 ```bash
 cd ionic-app/
-npm i <local-dir>/sdk-ionic-capacitor
+npm i <your_local_dir>/sdk-ionic-capacitor
 npx cap sync
 ```
-## iOS
+
+## Configure the plugin for iOS
 
 Apple requires privacy descriptions and background modes to be specified in `Info.plist` for location information:
 
@@ -43,10 +47,9 @@ Apple requires privacy descriptions and background modes to be specified in `Inf
 
 Read about [Configuring `Info.plist`](https://capacitorjs.com/docs/ios/configuration#configuring-infoplist) in the [iOS Guide](https://capacitorjs.com/docs/ios) for more information on setting iOS permissions in Xcode
 
-## Android
-In order to use this plugin, please update the Gradle, AndroidManifest.xml:
+## Configure the plugin for Android
 
-In ```../android/build.gradle``` update
+In ```../android/build.gradle```:
 
 ```
 allprojects {
@@ -61,7 +64,9 @@ allprojects {
 }
 ```
 
-In ```../android/app/src/main/AndroidManifest.xml``` update ```android:exported="true"```
+In ```../android/app/src/main/AndroidManifest.xml```: 
+
+Add ```android:exported="true"``` to your Activity
 
 ```
  <activity
@@ -78,7 +83,8 @@ In ```../android/app/src/main/AndroidManifest.xml``` update ```android:exported=
       </intent-filter>
 </activity>
 ```
-### Variables
+
+## Variables
 
 This plugin will use the following project variables (defined in your app's `variables.gradle` file):
 
@@ -93,7 +99,7 @@ import { HyperTrack } from 'hypertrack-capacitor-plugin'
 
 const getHyperTrackInstance = async () => {
   try {
-      const result = await HyperTrack.ininitialize('YOUR-PUBLISHABLE-KEY-HERE');
+      const result = await HyperTrack.initialize('YOUR-PUBLISHABLE-KEY-HERE');
       console.log(result.hyperTrackInstance);
   } catch (error) {
       console.log(error);
@@ -101,7 +107,7 @@ const getHyperTrackInstance = async () => {
 };
 ```
 
-## API
+# API
 
 * [`enableDebugLogging()`](#enabledebuglogging)
 * [`initialize(...)`](#initialize)
