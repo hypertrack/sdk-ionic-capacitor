@@ -1,7 +1,7 @@
 # hypertrack-capacitor-plugin
 
 ![GitHub](https://img.shields.io/github/license/hypertrack/quickstart-ios.svg)
-![Android SDK](https://img.shields.io/badge/Android%20SDK-6.2.0-brightgreen.svg)
+![Android SDK](https://img.shields.io/badge/Android%20SDK-6.2.2-brightgreen.svg)
 [![iOS SDK](https://img.shields.io/badge/iOS%20SDK-4.12.4-brightgreen.svg)](https://cocoapods.org/pods/HyperTrack)
 
 The hypertrack-capacitor-plugin provides simple methods for manage devices and trips by using HyperTrack SDK.
