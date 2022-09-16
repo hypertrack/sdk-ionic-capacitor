@@ -130,15 +130,6 @@ public class HyperTrackSdkPlugin: CAPPlugin {
         }
     }
     
-    @objc func getLatestLocation(_ call: CAPPluginCall) {
-        do {
-            let coordinates = try implementation.location()
-            call.resolve(["location":coordinates])
-        } catch {
-            call.reject(error.localizedDescription, nil, error)
-        }
-    }
-    
     @objc func isTracking(_ call: CAPPluginCall) {
         do {
             let status = try implementation.isTracking()

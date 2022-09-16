@@ -15,10 +15,6 @@ export interface HyperTrackSdkPlugin {
   start(): Promise<void>;
   /** Stop tracking. */
   stop(): Promise<void>;
-  /**
-   * Resolves latest device location that was sent by the SDK.
-   */
-  getLatestLocation(callback: Callback): void;
   /** Pops up permission request dialog, if permissions weren't granted before or does nothing otherwise. */
   requestPermissionsIfNecessary(): Promise<void>;
   /** Allows injecting false locations into the SDK, which ignores them by default. */
@@ -94,11 +90,6 @@ export interface HyperTrackSdkInstance {
   start(): Promise<void>;
   /** Stop tracking. */
   stop(): Promise<void>;
-  /**
-   * Resolves latest device location that was sent by the SDK.
-   * Only available for Android platform.
-   */
-  getLatestLocation(callback: Callback): void;
   /** Pops up permission request dialog, if permissions weren't granted before or does nothing otherwise. */
   requestPermissionsIfNecessary(): Promise<void>;
   /** Allows injecting false locations into the SDK, which ignores them by default. */
@@ -189,6 +180,4 @@ export interface Blocker {
   resolve: () => void;
 }
 
-/** Callback type  */
-export type Callback = (message: any | null, err?: any) => void;
 export declare type StateChangeListener = (state: State) => void;

@@ -12,7 +12,6 @@ CAP_PLUGIN(HyperTrackSdkPlugin, "HyperTrackSdk",
            CAP_PLUGIN_METHOD(allowMockLocations, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(syncDeviceSettings, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(isTracking, CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(getLatestLocation, CAPPluginReturnCallback);
            CAP_PLUGIN_METHOD(setDeviceMetadata, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(addGeotag, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(addTrackingListener, CAPPluginReturnPromise);

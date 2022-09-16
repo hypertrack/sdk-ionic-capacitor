@@ -54,24 +54,6 @@ import HyperTrack
         }
     }
     
-    public func location() throws -> [String: Double] {
-        if let sdkInstance = hyperTrackInstance {
-            let location:Result<HyperTrack.Location, HyperTrack.LocationError>  = sdkInstance.location
-            switch location {
-            case let .success(location):
-                var coordinates:[String: Double] = [:]
-                coordinates["longitude"] = location.longitude
-                coordinates["latitude"] = location.latitude
-                return coordinates
-            case let .failure(fatalError):
-                printLog(log: fatalError.localizedDescription)
-                throw fatalError
-            }
-        } else {
-            throw HTError.notInitialized("Sdk wasn't initialized.")
-        }
-    }
-    
     public func isTracking() throws -> Bool {
         if let sdkInstance = hyperTrackInstance {
             return sdkInstance.isTracking

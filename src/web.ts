@@ -1,6 +1,6 @@
 import { WebPlugin } from '@capacitor/core';
 
-import type { Blocker, Callback, HyperTrackSdkInstance, HyperTrackSdkPlugin } from './definitions';
+import type { Blocker, HyperTrackSdkInstance, HyperTrackSdkPlugin } from './definitions';
 
 export class HyperTrackSdkWeb extends WebPlugin implements HyperTrackSdkPlugin {
   async getBlockers(): Promise<{ blockers: Blocker[]; }> {
@@ -87,7 +87,4 @@ export class HyperTrackSdkWeb extends WebPlugin implements HyperTrackSdkPlugin {
     throw this.unimplemented('Hypertrack is not available for the browser');
   }
 
-  getLatestLocation(_callback: Callback): void {
-    throw this.unimplemented('Hypertrack is not available for the browser');
-  }
 }
