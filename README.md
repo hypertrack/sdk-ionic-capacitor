@@ -107,7 +107,6 @@ const getHyperTrackInstance = async () => {
 * [`initialize(...)`](#initialize)
 * [`start()`](#start)
 * [`stop()`](#stop)
-* [`getLatestLocation(...)`](#getlatestlocation)
 * [`requestPermissionsIfNecessary()`](#requestpermissionsifnecessary)
 * [`allowMockLocations()`](#allowmocklocations)
 * [`getDeviceId()`](#getdeviceid)
@@ -179,21 +178,6 @@ stop() => Promise<void>
 ```
 
 Stop tracking.
-
---------------------
-
-
-### getLatestLocation(...)
-
-```typescript
-getLatestLocation(callback: Callback) => void
-```
-
-Resolves latest device location that was sent by the SDK.
-
-| Param          | Type                                          |
-| -------------- | --------------------------------------------- |
-| **`callback`** | <code><a href="#callback">Callback</a></code> |
 
 --------------------
 
@@ -463,7 +447,6 @@ An action that navigates user to the dedicated settings menu.
 | ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
 | **start**                             | () =&gt; Promise&lt;void&gt;                                                                                                                                                                                                                          | Start tracking.                                                                                                       |
 | **stop**                              | () =&gt; Promise&lt;void&gt;                                                                                                                                                                                                                          | Stop tracking.                                                                                                        |
-| **getLatestLocation**                 | (callback: <a href="#callback">Callback</a>) =&gt; void                                                                                                                                                                                               | Resolves latest device location that was sent by the SDK.                       |
 | **requestPermissionsIfNecessary**     | () =&gt; Promise&lt;void&gt;                                                                                                                                                                                                                          | Pops up permission request dialog, if permissions weren't granted before or does nothing otherwise.                   |
 | **allowMockLocations**                | () =&gt; Promise&lt;void&gt;                                                                                                                                                                                                                          | Allows injecting false locations into the SDK, which ignores them by default.                                         |
 | **getDeviceId**                       | () =&gt; Promise&lt;{ deviceId: string; }&gt;                                                                                                                                                                                                         | Resolves device ID that could be used to identify the device.                                                         |
@@ -509,13 +492,6 @@ An action that navigates user to the dedicated settings menu.
 
 
 ### Type Aliases
-
-
-#### Callback
-
-<a href="#callback">Callback</a> type
-
-<code>(message: any, err?: any): void</code>
 
 
 #### Record
