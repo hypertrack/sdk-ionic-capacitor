@@ -8,8 +8,6 @@ import com.getcapacitor.JSObject;
 import com.hypertrack.sdk.Availability;
 import com.hypertrack.sdk.Blocker;
 import com.hypertrack.sdk.HyperTrack;
-import com.hypertrack.sdk.OutageReason;
-import com.hypertrack.sdk.Result;
 import com.hypertrack.sdk.ServiceNotificationConfig;
 
 import org.json.JSONArray;
@@ -82,19 +80,6 @@ public class HyperTrackSdk {
             } catch (Exception e) {
                 throw new IllegalArgumentException(e);
             }
-        }
-    }
-
-    public JSONObject getLatestLocation() {
-        if (sdkInstance == null) {
-            throw new IllegalStateException("Sdk wasn't initialized");
-        }
-        try {
-            Result<Location, OutageReason> locationResult = sdkInstance.getLatestLocation();
-            JSONObject latestLocation = createLocationResult(locationResult);
-            return latestLocation;
-        } catch (Exception e) {
-            throw new IllegalArgumentException(e);
         }
     }
 
@@ -319,61 +304,6 @@ public class HyperTrackSdk {
                 throw new IllegalArgumentException("Unknown blocker code " + blockerCode);
         }
         return true;
-    }
-
-    private JSONObject createLocationResult(Result<Location, OutageReason> locationResult) {
-        if (locationResult.isSuccess()) {
-            return createLocationSuccessResult(locationResult.getValue());
-        } else {
-            return createOutageLocationResult(locationResult.getError());
-        }
-    }
-
-    private JSONObject createLocationSuccessResult(Location location) {
-        JSONObject serializedResult = new JSONObject();
-        try {
-            serializedResult.put("type", "location");
-            serializedResult.put(
-                    "location",
-                    getLocationJson(location)
-            );
-            return serializedResult;
-        } catch (JSONException e) {
-            throw new IllegalArgumentException(e);
-        }
-    }
-
-    private JSONObject getLocationJson(Location location) {
-        JSONObject json = new JSONObject();
-        try {
-            json.put("latitude", location.getLatitude());
-            json.put("longitude", location.getLongitude());
-            return json;
-        } catch (JSONException e) {
-            throw new IllegalArgumentException(e);
-        }
-    }
-
-    private JSONObject createOutageLocationResult(OutageReason outage) {
-        JSONObject serializedResult = new JSONObject();
-        try {
-            serializedResult.put("type", "outage");
-            serializedResult.put("outage", getOutageJson(outage));
-            return serializedResult;
-        } catch (JSONException e) {
-            throw new IllegalArgumentException(e);
-        }
-    }
-
-    private JSONObject getOutageJson(OutageReason outage) {
-        JSONObject json = new JSONObject();
-        try {
-            json.put("code", outage.ordinal());
-            json.put("name", outage.name());
-            return json;
-        } catch (JSONException e) {
-            throw new IllegalArgumentException(e);
-        }
     }
 
     private Map<String, Object> jsonToMap(JSONObject json) throws JSONException {

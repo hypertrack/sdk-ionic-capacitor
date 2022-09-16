@@ -11,7 +11,6 @@ import com.hypertrack.sdk.TrackingError;
 import com.hypertrack.sdk.TrackingStateObserver;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 @CapacitorPlugin(name = "HyperTrackSdk")
 public class HyperTrackSdkPlugin extends Plugin implements TrackingStateObserver.OnTrackingStateChangeListener, AvailabilityStateObserver.OnAvailabilityStateChangeListener {
@@ -106,19 +105,6 @@ public class HyperTrackSdkPlugin extends Plugin implements TrackingStateObserver
         try {
             implementation.setDeviceName(deviceName);
             call.resolve();
-        } catch (Exception e) {
-            call.reject(e.toString(), e);
-        }
-    }
-
-    @PluginMethod(returnType = PluginMethod.RETURN_CALLBACK)
-    public void getLatestLocation(PluginCall call) {
-        implementation.print("getLatestLocation called");
-        try {
-            JSONObject latestLocation = implementation.getLatestLocation().getJSONObject("location");
-            JSObject result = new JSObject();
-            result.put("location", latestLocation);
-            call.resolve(result);
         } catch (Exception e) {
             call.reject(e.toString(), e);
         }
