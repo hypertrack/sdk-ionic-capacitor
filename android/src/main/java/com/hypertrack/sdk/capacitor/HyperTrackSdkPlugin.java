@@ -5,6 +5,8 @@ import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
 import com.getcapacitor.annotation.CapacitorPlugin;
+
+import com.hypertrack.sdk.Availability;
 import com.hypertrack.sdk.AvailabilityError;
 import com.hypertrack.sdk.AvailabilityStateObserver;
 import com.hypertrack.sdk.TrackingError;
@@ -301,14 +303,14 @@ public class HyperTrackSdkPlugin extends Plugin implements TrackingStateObserver
     @Override
     public void onAvailable() {
         JSObject result = new JSObject();
-        result.put("availability", true);
+        result.put("status", Availability.AVAILABLE);
         notifyListeners("availabilityStateChange", result);
     }
 
     @Override
     public void onUnavailable() {
         JSObject result = new JSObject();
-        result.put("availability", false);
+        result.put("status", Availability.UNAVAILABLE);
         notifyListeners("availabilityStateChange", result);
     }
 }
