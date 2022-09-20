@@ -119,6 +119,7 @@ const getHyperTrackInstance = async () => {
 * [`getAvailability()`](#getavailability)
 * [`setAvailability(...)`](#setavailability)
 * [`isTracking()`](#istracking)
+* [`isTracking()`](#isRunning)
 * [`addTrackingListener()`](#addtrackinglistener)
 * [`removeTrackingListener()`](#removetrackinglistener)
 * [`addAvailabilityListener()`](#addavailabilitylistener)
@@ -258,6 +259,19 @@ isTracking() => Promise<{ status: boolean; }>
 ```
 
 Reflects tracking intent.
+
+**Returns:** <code>Promise&lt;{ status: boolean; }&gt;</code>
+
+--------------------
+
+
+### isRunning()
+
+```typescript
+isRunning() => Promise<{ status: boolean; }>
+```
+
+Reflects running intent.
 
 **Returns:** <code>Promise&lt;{ status: boolean; }&gt;</code>
 
@@ -458,7 +472,8 @@ An action that navigates user to the dedicated settings menu.
 | **getDeviceId**                       | () =&gt; Promise&lt;{ deviceId: string; }&gt;                                                                                                                                                                                                         | Resolves device ID that could be used to identify the device.                                                         |
 | **getAvailability**                   | () =&gt; Promise&lt;{ status: string; }&gt;                                                                                                                                                                                                           | Resolves device's availability for nearby search.                                                                     |
 | **setAvailability**                   | (options: { isAvailable: boolean; }) =&gt; Promise&lt;void&gt;                                                                                                                                                                                        | Sets device's availability for nearby search.                                                                         |
-| **isTracking**                        | () =&gt; Promise&lt;{ status: boolean; }&gt;                                                                                                                                                                                                          | Reflects tracking intent.                                                                                             |
+| **isTracking**                        | () =&gt; Promise&lt;{ status: boolean; }&gt;                                                                                                                                                                                                          | Reflects tracking intent. 
+| **isRunning**                        | () =&gt; Promise&lt;{ status: boolean; }&gt;                                                                                                                                                                                                          | Reflects running intent.                                                                                               |
 | **addTrackingListener**               | () =&gt; Promise&lt;void&gt;                                                                                                                                                                                                                          | Allows tracking hypertrack sdk listener.                                                                              |
 | **removeTrackingListener**            | () =&gt; Promise&lt;void&gt;                                                                                                                                                                                                                          | Stops tracking hypertrack sdk listener.                                                                               |
 | **addAvailabilityListener**           | () =&gt; Promise&lt;void&gt;                                                                                                                                                                                                                          | Allows availability hypertrack sdk listener.                                                                          |
