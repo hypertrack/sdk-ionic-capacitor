@@ -272,6 +272,15 @@ public class HyperTrackSdkPlugin extends Plugin implements TrackingStateObserver
         }
     }
 
+    @PluginMethod
+    public void isRunning(PluginCall call) {
+        implementation.print("isRunning called");
+        boolean isRunning = implementation.isRunning();
+        JSObject result = new JSObject();
+        result.put("status", isRunning);
+        call.resolve(result);
+    }
+    
     @Override
     public void onError(TrackingError trackingError) {
         JSObject result = new JSObject();

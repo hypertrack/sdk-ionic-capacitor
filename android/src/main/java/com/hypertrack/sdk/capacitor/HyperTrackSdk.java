@@ -216,6 +216,18 @@ public class HyperTrackSdk {
         }
     }
 
+    public boolean isRunning() {
+        if (sdkInstance == null) {
+            throw new IllegalStateException("Sdk wasn't initialized");
+        }
+        try {
+            boolean isRunning = sdkInstance.isRunning();
+            return isRunning;
+        } catch (Exception e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
+
     public void addTrackingListener(HyperTrackSdkPlugin hyperTrackSdkPlugin) {
         if (sdkInstance == null) {
             throw new IllegalStateException("Sdk wasn't initialized");

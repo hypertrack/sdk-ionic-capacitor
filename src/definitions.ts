@@ -27,6 +27,8 @@ export interface HyperTrackSdkPlugin {
   setAvailability(options: { isAvailable: boolean }): Promise<void>;
   /** Reflects tracking intent. */
   isTracking(): Promise<{ status: boolean }>;
+  /** Reflects running intent. */
+  isRunning(): Promise<{ status: boolean }>;
   /** Allows tracking hypertrack sdk  listener. */
   addTrackingListener(): Promise<void>;
   /** Stops tracking hypertrack sdk  listener. */
@@ -102,6 +104,8 @@ export interface HyperTrackSdkInstance {
   setAvailability(options: { isAvailable: boolean }): Promise<void>;
   /** Reflects tracking intent. */
   isTracking(): Promise<{ status: boolean }>;
+  /** Reflects running intent. */
+  isRunning(): Promise<{ status: boolean }>;
   /** Allows tracking hypertrack sdk  listener. */
   addTrackingListener(): Promise<void>;
   /** Stops tracking hypertrack sdk  listener. */

@@ -86,5 +86,9 @@ export class HyperTrackSdkWeb extends WebPlugin implements HyperTrackSdkPlugin {
   async stop(): Promise<void> {
     throw this.unimplemented('Hypertrack is not available for the browser');
   }
+  
+  async isRunning(): Promise<{ status: boolean; }> {
+    throw this.unimplemented('Hypertrack is not available for the browser');
+  }
 
 }
