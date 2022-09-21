@@ -119,6 +119,22 @@ import HyperTrack
         }
     }
     
+    public func setAvailability(isAvailable:Bool) throws -> Void {
+        if let sdkInstance = hyperTrackInstance {
+            sdkInstance.availability = (isAvailable == true) ? HyperTrack.Availability.available : HyperTrack.Availability.unavailable
+        } else {
+            throw HTError.notInitialized("Sdk wasn't initialized.")
+        }
+    }
+    
+    public func isRunning() throws -> Bool {
+        if let sdkInstance = hyperTrackInstance {
+            return sdkInstance.isRunning;
+        } else {
+            throw HTError.notInitialized("Sdk wasn't initialized.")
+        }
+    }
+    
     public func enableDebugLogging() -> Void {
         HyperTrack.isLoggingEnabled = true
     }

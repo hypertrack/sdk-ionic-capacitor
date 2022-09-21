@@ -19,4 +19,6 @@ CAP_PLUGIN(HyperTrackSdkPlugin, "HyperTrackSdk",
            CAP_PLUGIN_METHOD(addAvailabilityListener, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(removeAvailabilityListener, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(initialize, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(setAvailability, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(isRunning, CAPPluginReturnPromise);
 )

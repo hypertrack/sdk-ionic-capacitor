@@ -198,4 +198,23 @@ public class HyperTrackSdkPlugin: CAPPlugin {
         implementation.enableDebugLogging()
         call.resolve()
     }
+    
+    @objc func setAvailability(_ call: CAPPluginCall) {
+        do {
+            let isAvailable = call.getBool("isAvailable") ?? false
+            try implementation.setAvailability(isAvailable: isAvailable)
+            call.resolve()
+        } catch {
+            call.reject(error.localizedDescription, nil, error)
+        }
+    }
+    
+    @objc func isRunning(_ call: CAPPluginCall) {
+        do {
+            let status = try implementation.isRunning()
+            call.resolve(["status":status])
+        } catch {
+            call.reject(error.localizedDescription, nil, error)
+        }
+    }
 }
