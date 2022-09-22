@@ -280,7 +280,7 @@ public class HyperTrackSdkPlugin extends Plugin implements TrackingStateObserver
             JSObject result = new JSObject();
             result.put("status", isRunning);
             call.resolve(result);
-        } catch () {
+        } catch (Exception e) {
             call.reject(e.toString(), e);
         }
     }
