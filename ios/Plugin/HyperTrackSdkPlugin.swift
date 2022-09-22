@@ -19,13 +19,13 @@ public class HyperTrackSdkPlugin: CAPPlugin {
     @objc func addTrackingListener() {
         startedTrackingNotificationObserver = NotificationCenter.default.addObserver(
             self,
-            selector: #selector(self.startTracking),
+            selector: #selector(startTracking),
             name: HyperTrack.startedTrackingNotification,
             object: nil)
         
         stoppedTrackingNotificationObserver =  NotificationCenter.default.addObserver(
             self,
-            selector: #selector(self.stopTracking),
+            selector: #selector(stopTracking),
             name: HyperTrack.stoppedTrackingNotification,
             object: nil
         )
@@ -36,6 +36,7 @@ public class HyperTrackSdkPlugin: CAPPlugin {
             name: HyperTrack.didEncounterUnrestorableErrorNotification,
             object: nil
         )
+        
         didEncounterRestorableErrorNotificationObserver = NotificationCenter.default.addObserver(
             self,
             selector: #selector(trackingError(notification:)),
@@ -111,7 +112,7 @@ public class HyperTrackSdkPlugin: CAPPlugin {
     }
     
     @objc func addGeotag(_ call: CAPPluginCall) {
-        let tag = call.getString("metadata") ?? ""
+        let tag = call.getAny("metadata") ?? ""
         do {
             try implementation.addGeotag(tag: tag)
             call.resolve()
@@ -121,7 +122,7 @@ public class HyperTrackSdkPlugin: CAPPlugin {
     }
     
     @objc func setDeviceMetadata(_ call: CAPPluginCall) {
-        let metaData = call.getString("metaData") ?? ""
+        let metaData = call.jsObjectRepresentation
         do {
             try implementation.setDeviceMetadata(metaData: metaData)
             call.resolve()
@@ -213,6 +214,15 @@ public class HyperTrackSdkPlugin: CAPPlugin {
         do {
             let status = try implementation.isRunning()
             call.resolve(["status":status])
+        } catch {
+            call.reject(error.localizedDescription, nil, error)
+        }
+    }
+
+    @objc func getDeviceId(_ call: CAPPluginCall) {
+        do {
+            let deviceId = try implementation.getDeviceId()
+            call.resolve(["deviceId":deviceId])
         } catch {
             call.reject(error.localizedDescription, nil, error)
         }

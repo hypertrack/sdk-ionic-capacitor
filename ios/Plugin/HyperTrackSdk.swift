@@ -28,10 +28,10 @@ import HyperTrack
         }
     }
     
-    public func addGeotag(tag:String) throws -> Void {
-        printLog(log: tag)
+    public func addGeotag(tag: Any) throws -> Void {
+        let tagDict = tag as? [String: Any]
         if let sdkInstance = hyperTrackInstance {
-            if let eventMarker = HyperTrack.Metadata(rawValue:convertToDictionary(text: tag)!) {
+            if let eventMarker = HyperTrack.Metadata(rawValue:tagDict!) {
                 sdkInstance.addGeotag(eventMarker)
             } else {
                 throw HTError.required("tag is required in [String:Any] format")
@@ -41,10 +41,9 @@ import HyperTrack
         }
     }
     
-    public func setDeviceMetadata(metaData:String) throws -> Void {
-        printLog(log: metaData)
+    public func setDeviceMetadata(metaData:[String:Any]) throws -> Void {
         if let sdkInstance = hyperTrackInstance {
-            if let metaDataDictionary = HyperTrack.Metadata(rawValue:convertToDictionary(text: metaData)!) {
+            if let metaDataDictionary = HyperTrack.Metadata(rawValue:metaData) {
                 sdkInstance.setDeviceMetadata(metaDataDictionary)
             } else {
                 throw HTError.required("Metadata is required in [String:Any] format")
@@ -137,17 +136,6 @@ import HyperTrack
     
     public func enableDebugLogging() -> Void {
         HyperTrack.isLoggingEnabled = true
-    }
-    
-    private func convertToDictionary(text: String) -> [String: Any]? {
-        if let data = text.data(using: .utf8) {
-            do {
-                return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-            } catch {
-                printLog(log:error.localizedDescription)
-            }
-        }
-        return nil
     }
     
     public func printLog(log:String) {
