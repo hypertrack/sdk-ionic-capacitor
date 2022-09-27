@@ -130,7 +130,6 @@ const getHyperTrackInstance = async () => {
 * [`setDeviceMetadata(...)`](#setdevicemetadata)
 * [`setTrackingNotificationProperties(...)`](#settrackingnotificationproperties)
 * [`getBlockers()`](#getblockers)
-* [`resolveBlocker(...)`](#resolveblocker)
 * [Interfaces](#interfaces)
 * [Type Aliases](#type-aliases)
 * [`addListener('trackingStateChange', ...)`](#addlistenertrackingstatechange)
@@ -195,7 +194,7 @@ Stop tracking.
 requestPermissionsIfNecessary() => Promise<void>
 ```
 
-Pops up permission request dialog, if permissions weren't granted before or does nothing otherwise.
+Pops up permission request dialog, if permissions weren't granted before or does nothing otherwise (Only for android).
 
 --------------------
 
@@ -385,7 +384,7 @@ Use this to set additional properties, like segments, teams etc.
 setTrackingNotificationProperties(options: { title: string; message: string; }) => Promise<void>
 ```
 
-Updates title and text in persistent notification, that appears when tracking is active.
+Updates title and text in persistent notification, that appears when tracking is active (Only for android).
 
 | Param         | Type                                             | Description                                   |
 | ------------- | ------------------------------------------------ | --------------------------------------------- |
@@ -436,24 +435,9 @@ Adds listener for availability state change
 getBlockers() => Promise<{ blockers: Blocker[]; }>
 ```
 
-A blocker is an obstacle that needs to be resolved to achieve reliable tracking.
+A blocker is an obstacle that needs to be resolved to achieve reliable tracking (Only for android).
 
 **Returns:** <code>Promise&lt;{ blockers: Blocker[]; }&gt;</code>
-
---------------------
-
-
-### resolveBlocker(...)
-
-```typescript
-resolveBlocker(options: { code: string; }) => Promise<void>
-```
-
-An action that navigates user to the dedicated settings menu.
-
-| Param         | Type                           |
-| ------------- | ------------------------------ |
-| **`options`** | <code>{ code: string; }</code> |
 
 --------------------
 
@@ -467,7 +451,7 @@ An action that navigates user to the dedicated settings menu.
 | ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
 | **start**                             | () =&gt; Promise&lt;void&gt;                                                                                                                                                                                                                          | Start tracking.                                                                                                       |
 | **stop**                              | () =&gt; Promise&lt;void&gt;                                                                                                                                                                                                                          | Stop tracking.                                                                                                        |
-| **requestPermissionsIfNecessary**     | () =&gt; Promise&lt;void&gt;                                                                                                                                                                                                                          | Pops up permission request dialog, if permissions weren't granted before or does nothing otherwise.                   |
+| **requestPermissionsIfNecessary**     | () =&gt; Promise&lt;void&gt;                                                                                                                                                                                                                          | Pops up permission request dialog, if permissions weren't granted before or does nothing otherwise (Only for android).                   |
 | **allowMockLocations**                | () =&gt; Promise&lt;void&gt;                                                                                                                                                                                                                          | Allows injecting false locations into the SDK, which ignores them by default.                                         |
 | **getDeviceId**                       | () =&gt; Promise&lt;{ deviceId: string; }&gt;                                                                                                                                                                                                         | Resolves device ID that could be used to identify the device.                                                         |
 | **getAvailability**                   | () =&gt; Promise&lt;{ status: string; }&gt;                                                                                                                                                                                                           | Resolves device's availability for nearby search.                                                                     |
@@ -482,7 +466,7 @@ An action that navigates user to the dedicated settings menu.
 | **setDeviceName**                     | (options: { name: string; }) =&gt; Promise&lt;void&gt;                                                                                                                                                                                                | Set device name                                                                                                       |
 | **addGeotag**                         | (options: { metadata: <a href="#record">Record</a>&lt;string, unknown&gt;; coordinates?: { latitude: number; longitude: number; }; }) =&gt; Promise&lt;void&gt;                                                                                       | Adds special marker-like object to device timeline.                                                                   |
 | **setDeviceMetadata**                 | (options: <a href="#record">Record</a>&lt;string, unknown&gt;) =&gt; Promise&lt;void&gt;                                                                                                                                                              | Use this to set additional properties, like segments, teams etc.                                                      |
-| **setTrackingNotificationProperties** | (options: { title: string; message: string; }) =&gt; Promise&lt;void&gt;                                                                                                                                                                              | Updates title and text in persistent notification, that appears when tracking is active.                              |
+| **setTrackingNotificationProperties** | (options: { title: string; message: string; }) =&gt; Promise&lt;void&gt;                                                                                                                                                                              | Updates title and text in persistent notification, that appears when tracking is active (Only for android).                              |
 | **addListener**                       | (eventName: 'trackingStateChange', listenerFunc: <a href="#statechangelistener">StateChangeListener</a>) =&gt; Promise&lt;<a href="#pluginlistenerhandle">PluginListenerHandle</a>&gt; & <a href="#pluginlistenerhandle">PluginListenerHandle</a>     | Adds listener for tracking state change                                                                               |
 | **addListener**                       | (eventName: 'availabilityStateChange', listenerFunc: <a href="#statechangelistener">StateChangeListener</a>) =&gt; Promise&lt;<a href="#pluginlistenerhandle">PluginListenerHandle</a>&gt; & <a href="#pluginlistenerhandle">PluginListenerHandle</a> | Adds listener for availability state change                                                                           |
 
