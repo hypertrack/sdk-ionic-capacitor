@@ -316,14 +316,14 @@ public class HyperTrackSdkPlugin extends Plugin implements TrackingStateObserver
     @Override
     public void onAvailable() {
         JSObject result = new JSObject();
-        result.put("status", Availability.AVAILABLE);
+        result.put("availability",true);
         notifyListeners("availabilityStateChange", result);
     }
 
     @Override
     public void onUnavailable() {
         JSObject result = new JSObject();
-        result.put("status", Availability.UNAVAILABLE);
+        result.put("availability",false);
         notifyListeners("availabilityStateChange", result);
     }
 }
