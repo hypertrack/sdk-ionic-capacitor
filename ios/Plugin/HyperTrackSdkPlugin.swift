@@ -104,7 +104,7 @@ public class HyperTrackSdkPlugin: CAPPlugin {
     }
     
     @objc func initialize(_ call: CAPPluginCall) {
-        let publishableKey = call.gtString("publishableKey") ?? ""
+        let publishableKey = call.getString("publishableKey") ?? ""
         do {
             try implementation.initialize(publishableKey: publishableKey)
             call.resolve()
@@ -116,12 +116,13 @@ public class HyperTrackSdkPlugin: CAPPlugin {
     }
     
     @objc func addGeotag(_ call: CAPPluginCall) {
-        let tag = call.getAny("metadata") ?? ""
-        do {
-            try implementation.addGeotag(tag: tag)
-            call.resolve()
-        } catch {
-            call.reject(error.localizedDescription, nil, error)
+        if let tag = call.jsObjectRepresentation["metadata"] {
+            do {
+                try implementation.addGeotag(tag: tag)
+                call.resolve()
+            } catch {
+                call.reject(error.localizedDescription, nil, error)
+            }
         }
     }
     
