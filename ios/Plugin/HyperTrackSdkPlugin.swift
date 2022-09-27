@@ -16,7 +16,7 @@ public class HyperTrackSdkPlugin: CAPPlugin {
     private var becameAvailableNotificationObserver: Any? = nil
     private var becameUnavailableNotificationObserver: Any? = nil
     
-    @objc func addTrackingListener() {
+    @objc func addTrackingListener(_ call: CAPPluginCall) {
         startedTrackingNotificationObserver = NotificationCenter.default.addObserver(
             self,
             selector: #selector(startTracking),
@@ -43,33 +43,37 @@ public class HyperTrackSdkPlugin: CAPPlugin {
             name: HyperTrack.didEncounterRestorableErrorNotification,
             object: nil
         )
+        call.resolve()
     }
     
-    @objc func removeTrackingListener() {
+    @objc func removeTrackingListener(_ call: CAPPluginCall) {
         NotificationCenter.default.removeObserver(startedTrackingNotificationObserver!)
         NotificationCenter.default.removeObserver(stoppedTrackingNotificationObserver!)
         NotificationCenter.default.removeObserver(didEncounterUnrestorableErrorNotificationObserver!)
         NotificationCenter.default.removeObserver(didEncounterRestorableErrorNotificationObserver!)
+        call.resolve()
     }
     
-    @objc func addAvailabilityListener() {
+    @objc func addAvailabilityListener(_ call: CAPPluginCall) {
         becameAvailableNotificationObserver = NotificationCenter.default.addObserver(
             self,
-            selector: #selector(self.available),
+            selector: #selector(available),
             name: HyperTrack.becameAvailableNotification,
             object: nil)
         
         becameUnavailableNotificationObserver =  NotificationCenter.default.addObserver(
             self,
-            selector: #selector(self.unavailable),
+            selector: #selector(unavailable),
             name: HyperTrack.becameUnavailableNotification,
             object: nil
         )
+        call.resolve()
     }
     
-    @objc func removeAvailabilityListener() {
+    @objc func removeAvailabilityListener(_ call: CAPPluginCall) {
         NotificationCenter.default.removeObserver(becameAvailableNotificationObserver!)
         NotificationCenter.default.removeObserver(becameUnavailableNotificationObserver!)
+        call.resolve()
     }
     
     @objc private func trackingError(notification: Notification) {
@@ -100,7 +104,7 @@ public class HyperTrackSdkPlugin: CAPPlugin {
     }
     
     @objc func initialize(_ call: CAPPluginCall) {
-        let publishableKey = call.getString("publishableKey") ?? ""
+        let publishableKey = call.gtString("publishableKey") ?? ""
         do {
             try implementation.initialize(publishableKey: publishableKey)
             call.resolve()
@@ -189,7 +193,11 @@ public class HyperTrackSdkPlugin: CAPPlugin {
     @objc func getAvailability(_ call: CAPPluginCall) {
         do {
             let status = try implementation.availability()
-            call.resolve(["status":status])
+            if(status == .available) {
+              call.resolve(["status":"available"])
+            } else {
+              call.resolve(["status":"unavailable"])
+            }
         } catch {
             call.reject(error.localizedDescription, nil, error)
         }
