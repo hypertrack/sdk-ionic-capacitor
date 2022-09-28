@@ -96,11 +96,11 @@ public class HyperTrackSdkPlugin: CAPPlugin {
     }
     
     @objc private func available() {
-        notifyListeners("availabilityStateChange", data: ["availability" : true])
+        notifyListeners("availabilityStateChange", data: ["availability" : "available"])
     }
     
     @objc private func unavailable() {
-        notifyListeners("availabilityStateChange", data: ["availability" : false])
+        notifyListeners("availabilityStateChange", data: ["availability" : "unavailable"])
     }
     
     @objc func initialize(_ call: CAPPluginCall) {
@@ -195,9 +195,9 @@ public class HyperTrackSdkPlugin: CAPPlugin {
         do {
             let status = try implementation.availability()
             if(status == .available) {
-              call.resolve(["status":"available"])
+              call.resolve(["availability":"available"])
             } else {
-              call.resolve(["status":"unavailable"])
+              call.resolve(["availability":"unavailable"])
             }
         } catch {
             call.reject(error.localizedDescription, nil, error)

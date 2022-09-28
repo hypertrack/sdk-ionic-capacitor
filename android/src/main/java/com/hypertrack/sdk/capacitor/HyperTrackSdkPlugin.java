@@ -1,5 +1,7 @@
 package com.hypertrack.sdk.capacitor;
 
+import android.util.Log;
+
 import com.getcapacitor.JSObject;
 import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
@@ -154,7 +156,7 @@ public class HyperTrackSdkPlugin extends Plugin implements TrackingStateObserver
         try {
             Object availability = implementation.getAvailability();
             JSObject result = new JSObject();
-            result.put("status", availability);
+            result.put("availability", availability.toString().toLowerCase());
             call.resolve(result);
         } catch (Exception e) {
             call.reject(e.toString(), e);
@@ -316,14 +318,14 @@ public class HyperTrackSdkPlugin extends Plugin implements TrackingStateObserver
     @Override
     public void onAvailable() {
         JSObject result = new JSObject();
-        result.put("availability",true);
+        result.put("availability","available");
         notifyListeners("availabilityStateChange", result);
     }
 
     @Override
     public void onUnavailable() {
         JSObject result = new JSObject();
-        result.put("availability",false);
+        result.put("availability","unavailable");
         notifyListeners("availabilityStateChange", result);
     }
 }
