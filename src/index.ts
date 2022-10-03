@@ -14,7 +14,7 @@ export class HyperTrack {
     HyperTrackSdk.enableDebugLogging();
   }
 
-  static ininitialize(publishableKey: string): Promise<{ hyperTrackInstance: HyperTrackSdkInstance }> {
+  static initialize(publishableKey: string): Promise<{ hyperTrackInstance: HyperTrackSdkInstance }> {
     return new Promise((resolve, reject) => {
       HyperTrackSdk.initialize({ publishableKey }).then(() => {
         resolve({ hyperTrackInstance: HyperTrackInstance });
