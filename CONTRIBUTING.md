@@ -32,7 +32,7 @@
 
 8. Create a Github repo release
    - Release title should be the current version tag
-   - 
+  
 9. Run `npm publish` to publish the package to npm
 
 ## Scripts
