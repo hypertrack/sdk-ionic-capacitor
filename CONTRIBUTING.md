@@ -14,17 +14,26 @@
        - `s.dependency 'HyperTrack'`
   
 2. Increment wrapper version
+   
    - `package.json`
      - `version`
+
 3. Update CHANGELOG.md
+
+   - Add the release link to the bottom
+
 4. Update badge in README.md
-5. Commit
-5. Create a version tag
-6. Push branch and tags
-7. Create a Github repo release
+
+5. Do the release dry run with `just release` and verify that the release is correct (checklist is in the command output)
+
+6. Commit and merge to master
+
+7. Create and push a new version tag
+
+8. Create a Github repo release
    - Release title should be the current version tag
-8. `npm release`
-9. `npm publish`
+   - 
+9. Run `npm publish` to publish the package to npm
 
 ## Scripts
 
