@@ -6,23 +6,23 @@
 
 1. Update SDK version constant
    - Android
-     - `android/build.gradle`
+     - [android/build.gradle](android/build.gradle)
        - `dependencies {}`
          - `com.hypertrack:hypertrack:<version>`
    - iOS
-     - `HypertrackSdkIonicCapacitor.podspec`
+     - [HypertrackSdkIonicCapacitor.podspec](HypertrackSdkIonicCapacitor.podspec)
        - `s.dependency 'HyperTrack'`
   
 2. Increment wrapper version
    
-   - `package.json`
+   - [package.json](package.json)
      - `version`
 
-3. Update CHANGELOG.md
+3. Update [CHANGELOG](CHANGELOG.md)
 
-   - Add the release link to the bottom
+   - **Add the release link to the bottom**
 
-4. Update badge in README.md
+4. Update badge in [README](README.md)
 
 5. Do the release dry run with `just release` and verify that the release is correct (checklist is in the command output)
 

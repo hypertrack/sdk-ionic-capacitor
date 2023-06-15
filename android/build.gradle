@@ -7,7 +7,7 @@ ext {
 
 buildscript {
     ext.kotlin_version = "1.7.21"
-    ext.hypertrack_sdk_version = "6.4.0"
+    ext.hypertrack_sdk_version = "6.4.2"
     ext.firebase_messaging_version = "23.1.1"
 
     repositories {
