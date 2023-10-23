@@ -1,7 +1,5 @@
 package com.hypertrack.sdk.capacitor
 
-import android.location.Location
-import android.location.LocationListener
 import android.util.Log
 import com.getcapacitor.JSObject
 import com.getcapacitor.Plugin
@@ -9,6 +7,9 @@ import com.getcapacitor.PluginCall
 import com.getcapacitor.PluginMethod
 import com.getcapacitor.annotation.CapacitorPlugin
 import com.hypertrack.sdk.*
+import com.hypertrack.sdk.android.HyperTrack
+import com.hypertrack.sdk.android.HyperTrack.location
+import com.hypertrack.sdk.android.Result
 import com.hypertrack.sdk.capacitor.common.*
 import com.hypertrack.sdk.capacitor.common.WrapperResult
 
@@ -81,74 +82,89 @@ class HyperTrackCapacitorPlugin : Plugin() {
 
     @PluginMethod
     fun onSubscribedToErrors(call: PluginCall) {
-        sendErrorsEvent(Serialization.serializeErrors(HyperTrack.errors))
+        sendErrorsEvent(HyperTrack.errors)
     }
 
     @PluginMethod
     fun onSubscribedToIsAvailable(call: PluginCall) {
-        sendAvailabilityEvent(
-            Serialization.serializeIsAvailable(
-                HyperTrackSdkWrapper.sdkInstance.availability == Availability.AVAILABLE
-            )
-        )
+        sendIsAvailableEvent(HyperTrack.isAvailable)
     }
 
     @PluginMethod
     fun onSubscribedToIsTracking(call: PluginCall) {
-        Log.v("ht_listener", "onSubscribedToTracking")
-        sendIsTrackingEvent(
-            Serialization.serializeIsTracking(HyperTrackSdkWrapper.sdkInstance.isTracking)
-        )
+        sendIsTrackingEvent(HyperTrack.isTracking)
     }
 
     @PluginMethod
     fun onSubscribeToLocation(call: PluginCall) {
-        Log.v("ht_listener", "onSubscribeToLocation")
-        HyperTrackSdkWrapper.sdkInstance.addLocationListener(object : LocationListener {
-            override fun onLocationUpdate(location: Location) {
-                notifyListeners(
-                    "onLocationUpdate",
-                    Serialization.serializeLocation(location).toJSObject()
-                )
-            }
-        })
+        sendLocationEvent(HyperTrack.location)
+    }
+
+    private fun sendErrorsEvent(errors: Set<HyperTrack.Error>) {
+        sendEvent(
+            EVENT_ERRORS,
+            mapOf(KEY_ERRORS to Serialization.serializeErrors(errors)).toJSObject()
+        )
+    }
+
+    private fun sendIsAvailableEvent(isAvailable: Boolean) {
+        sendEvent(
+            EVENT_IS_AVAILABLE,
+            Serialization.serializeIsAvailable(isAvailable).toJSObject()
+        )
+    }
+
+    private fun sendIsTrackingEvent(isTracking: Boolean) {
+        sendEvent(
+            EVENT_IS_TRACKING,
+            Serialization.serializeIsTracking(isTracking).toJSObject()
+        )
+    }
+
+    private fun sendLocationEvent(locationResult: Result<HyperTrack.Location, HyperTrack.LocationError>) {
+        sendEvent(
+            EVENT_LOCATION,
+            Serialization.serializeLocationResult(locationResult).toJSObject()
+        )
+    }
+
+    private fun sendLocateEvent(locateResult: Result<HyperTrack.Location, Set<HyperTrack.Error>>) {
+        sendEvent(
+            EVENT_LOCATE,
+            Serialization.serializeLocateResult(locateResult).toJSObject()
+        )
+    }
+
+    private fun initListeners() {
+        HyperTrack.subscribeToErrors {
+            sendErrorsEvent(it)
+        }
+
+        HyperTrack.subscribeToIsAvailable {
+            sendIsAvailableEvent(it)
+        }
+
+        HyperTrack.subscribeToIsTracking {
+            sendIsTrackingEvent(it)
+        }
+
+        HyperTrack.subscribeToLocation {
+            sendLocationEvent(it)
+        }
     }
 
     private fun invokeSdkMethod(
         method: SdkMethod,
         call: PluginCall
-    ): Result<*> {
+    ): WrapperResult<*> {
         val argsJson = call.data
         return when (method) {
-            SdkMethod.initialize -> {
-                withArgs<Map<String, Any?>, Unit>(argsJson) { args ->
-                    HyperTrackSdkWrapper.initializeSdk(args).mapSuccess {
-                        initListeners(it)
-                    }
-                }
-            }
             SdkMethod.getDeviceID -> {
                 HyperTrackSdkWrapper.getDeviceId()
             }
-            SdkMethod.isTracking -> {
-                HyperTrackSdkWrapper.isTracking()
-            }
-            SdkMethod.isAvailable -> {
-                HyperTrackSdkWrapper.isAvailable()
-            }
-            SdkMethod.setAvailability -> {
-                withArgs<Map<String, Boolean>, Unit>(argsJson) { args ->
-                    HyperTrackSdkWrapper.setAvailability(args)
-                }
-            }
+
             SdkMethod.getLocation -> {
                 HyperTrackSdkWrapper.getLocation()
-            }
-            SdkMethod.startTracking -> {
-                HyperTrackSdkWrapper.startTracking()
-            }
-            SdkMethod.stopTracking -> {
-                HyperTrackSdkWrapper.stopTracking()
             }
             SdkMethod.addGeotag -> {
                 withArgs<Map<String, Any?>, Map<String, Any?>>(argsJson) { args ->
@@ -165,67 +181,26 @@ class HyperTrackCapacitorPlugin : Plugin() {
                     HyperTrackSdkWrapper.setMetadata(args)
                 }
             }
-            SdkMethod.sync -> {
-                HyperTrackSdkWrapper.sync()
-            }
+
+            SdkMethod.getErrors -> TODO()
+            SdkMethod.getIsAvailable -> TODO()
+            SdkMethod.getIsTracking -> TODO()
+            SdkMethod.getMetadata -> TODO()
+            SdkMethod.getName -> TODO()
+            SdkMethod.locate -> TODO()
+            SdkMethod.setIsAvailable -> TODO()
+            SdkMethod.setIsTracking -> TODO()
         }
     }
 
-    private fun initListeners() {
-        sdk.addTrackingListener(object : TrackingStateObserver.OnTrackingStateChangeListener {
-            override fun onTrackingStart() {
-                Log.v("ht_listener", "onTrackingStart")
-                sendIsTrackingEvent(Serialization.serializeIsTracking(true))
-            }
-
-            override fun onTrackingStop() {
-                Log.v("ht_listener", "onTrackingStop")
-                sendIsTrackingEvent(Serialization.serializeIsTracking(false))
-            }
-
-            override fun onError(error: TrackingError) {
-                sendErrorsEvent(HyperTrackSdkWrapper.getErrors(error))
-            }
-        })
-
-        sdk.addAvailabilityListener(object :
-            AvailabilityStateObserver.OnAvailabilityStateChangeListener {
-            override fun onAvailable() {
-                sendAvailabilityEvent(Serialization.serializeIsAvailable(true))
-            }
-
-            override fun onUnavailable() {
-                sendAvailabilityEvent(Serialization.serializeIsAvailable(false))
-            }
-
-            override fun onError(error: AvailabilityError) {
-                // ignored, errors are handled by errorEventChannel
-            }
-        })
-    }
-
-    private fun sendIsTrackingEvent(data: Map<String, Any?>, retainUntilConsumed: Boolean = false) {
-        notifyListeners(EVENT_TRACKING, data.toJSObject(), retainUntilConsumed)
-    }
-
-    private fun sendAvailabilityEvent(
-        data: Map<String, Any?>,
-        retainUntilConsumed: Boolean = false
-    ) {
-        notifyListeners(EVENT_AVAILABILITY, data.toJSObject(), retainUntilConsumed)
-    }
-
-    private fun sendErrorsEvent(
-        data: List<Map<String, String>>,
-        retainUntilConsumed: Boolean = false
-    ) {
-        notifyListeners(EVENT_ERRORS, mapOf(KEY_ERRORS to data).toJSObject(), retainUntilConsumed)
+    private fun sendEvent(eventName: String, data: JSObject, retainUntilConsumed: Boolean = false) {
+        notifyListeners(eventName, data, retainUntilConsumed)
     }
 
     private inline fun <reified T, N> withArgs(
         args: JSObject,
-        crossinline sdkMethodCall: (T) -> Result<N>
-    ): Result<N> {
+        crossinline sdkMethodCall: (T) -> WrapperResult<N>
+    ): WrapperResult<N> {
         return when (T::class) {
             Map::class -> {
                 sdkMethodCall.invoke(args.toMap() as T)
@@ -237,9 +212,11 @@ class HyperTrackCapacitorPlugin : Plugin() {
     }
 
     companion object {
-        private const val EVENT_TRACKING = "onTrackingChanged"
-        private const val EVENT_AVAILABILITY = "onAvailabilityChanged"
-        private const val EVENT_ERRORS = "onError"
+        private const val EVENT_ERRORS = "errors"
+        private const val EVENT_IS_TRACKING = "isTracking"
+        private const val EVENT_IS_AVAILABLE = "isAvailable"
+        private const val EVENT_LOCATE = "locate"
+        private const val EVENT_LOCATION = "location"
         private const val KEY_ERRORS = "errors"
     }
 }

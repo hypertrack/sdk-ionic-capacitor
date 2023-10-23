@@ -7,7 +7,7 @@ ext {
 
 buildscript {
     ext.kotlin_version = "1.7.21"
-    ext.hypertrack_sdk_version = "6.4.2"
+    ext.hypertrack_sdk_version = "7.0.6"
     ext.firebase_messaging_version = "23.1.1"
 
     repositories {
@@ -64,6 +64,10 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':capacitor-android')
     implementation "androidx.appcompat:appcompat:$androidxAppCompatVersion"
-    implementation "com.hypertrack:hypertrack:$hypertrack_sdk_version"
+
+    implementation "com.hypertrack:sdk-android:$hypertrack_sdk_version"
+    implementation "com.hypertrack:location-services-google:$hypertrack_sdk_version"
+    implementation "com.hypertrack:push-service-firebase:$hypertrack_sdk_version"
+
     implementation "com.google.firebase:firebase-messaging:$firebase_messaging_version"
 }

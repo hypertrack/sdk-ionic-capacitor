@@ -1,7 +1,6 @@
 package com.hypertrack.sdk.capacitor.common
 
 import android.location.Location
-import com.hypertrack.sdk.HyperTrack
 import com.hypertrack.sdk.android.HyperTrack
 import com.hypertrack.sdk.android.Result
 
