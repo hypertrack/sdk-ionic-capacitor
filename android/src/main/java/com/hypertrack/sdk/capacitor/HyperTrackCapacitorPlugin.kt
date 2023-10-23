@@ -1,5 +1,7 @@
 package com.hypertrack.sdk.capacitor
 
+import android.location.Location
+import android.location.LocationListener
 import android.util.Log
 import com.getcapacitor.JSObject
 import com.getcapacitor.Plugin
@@ -8,81 +10,82 @@ import com.getcapacitor.PluginMethod
 import com.getcapacitor.annotation.CapacitorPlugin
 import com.hypertrack.sdk.*
 import com.hypertrack.sdk.capacitor.common.*
-import com.hypertrack.sdk.capacitor.common.Result
+import com.hypertrack.sdk.capacitor.common.WrapperResult
 
 @CapacitorPlugin(name = "HyperTrackCapacitorPlugin")
-public class HyperTrackCapacitorPlugin : Plugin() {
+class HyperTrackCapacitorPlugin : Plugin() {
 
-    @PluginMethod
-    public fun initialize(call: PluginCall) {
-        invokeSdkMethod(SdkMethod.initialize, call).toPluginCall(call)
+    init {
+        initListeners()
     }
 
     @PluginMethod
-    public fun getDeviceId(call: PluginCall) {
-        invokeSdkMethod(SdkMethod.getDeviceID, call).toPluginCall(call)
-    }
-
-    @PluginMethod
-    public fun getLocation(call: PluginCall) {
-        invokeSdkMethod(SdkMethod.getLocation, call).toPluginCall(call)
-    }
-
-    @PluginMethod
-    public fun startTracking(call: PluginCall) {
-        invokeSdkMethod(SdkMethod.startTracking, call).toPluginCall(call)
-    }
-
-    @PluginMethod
-    public fun stopTracking(call: PluginCall) {
-        invokeSdkMethod(SdkMethod.stopTracking, call).toPluginCall(call)
-    }
-
-    @PluginMethod
-    public fun setAvailability(call: PluginCall) {
-        invokeSdkMethod(SdkMethod.setAvailability, call).toPluginCall(call)
-    }
-
-    @PluginMethod
-    public fun setMetadata(call: PluginCall) {
-        invokeSdkMethod(SdkMethod.setMetadata, call).toPluginCall(call)
-    }
-
-    @PluginMethod
-    public fun setName(call: PluginCall) {
-        invokeSdkMethod(SdkMethod.setName, call).toPluginCall(call)
-    }
-
-    @PluginMethod
-    public fun isTracking(call: PluginCall) {
-        invokeSdkMethod(SdkMethod.isTracking, call).toPluginCall(call)
-    }
-
-    @PluginMethod
-    public fun isAvailable(call: PluginCall) {
-        invokeSdkMethod(SdkMethod.isAvailable, call).toPluginCall(call)
-    }
-
-    @PluginMethod
-    public fun addGeotag(call: PluginCall) {
+    fun addGeotag(call: PluginCall) {
         invokeSdkMethod(SdkMethod.addGeotag, call).toPluginCall(call)
     }
 
     @PluginMethod
-    public fun sync(call: PluginCall) {
-        invokeSdkMethod(SdkMethod.sync, call).toPluginCall(call)
+    fun getDeviceId(call: PluginCall) {
+        invokeSdkMethod(SdkMethod.getDeviceID, call).toPluginCall(call)
     }
 
     @PluginMethod
-    public fun onSubscribedToTracking(call: PluginCall) {
-        Log.v("ht_listener", "onSubscribedToTracking")
-        sendIsTrackingEvent(
-            Serialization.serializeIsTracking(HyperTrackSdkWrapper.sdkInstance.isTracking)
-        )
+    fun getErrors(call: PluginCall) {
+        invokeSdkMethod(SdkMethod.getErrors, call).toPluginCall(call)
     }
 
     @PluginMethod
-    public fun onSubscribedToAvailability(call: PluginCall) {
+    fun getIsAvailable(call: PluginCall) {
+        invokeSdkMethod(SdkMethod.getIsAvailable, call).toPluginCall(call)
+    }
+
+    @PluginMethod
+    fun getIsTracking(call: PluginCall) {
+        invokeSdkMethod(SdkMethod.getIsTracking, call).toPluginCall(call)
+    }
+
+    @PluginMethod
+    fun getLocation(call: PluginCall) {
+        invokeSdkMethod(SdkMethod.getLocation, call).toPluginCall(call)
+    }
+
+    @PluginMethod
+    fun getMetadata(call: PluginCall) {
+        invokeSdkMethod(SdkMethod.getMetadata, call).toPluginCall(call)
+    }
+
+    @PluginMethod
+    fun getName(call: PluginCall) {
+        invokeSdkMethod(SdkMethod.getName, call).toPluginCall(call)
+    }
+
+    @PluginMethod
+    fun setIsAvailable(call: PluginCall) {
+        invokeSdkMethod(SdkMethod.setIsAvailable, call).toPluginCall(call)
+    }
+
+    @PluginMethod
+    fun setIsTracking(call: PluginCall) {
+        invokeSdkMethod(SdkMethod.setIsTracking, call).toPluginCall(call)
+    }
+
+    @PluginMethod
+    fun setMetadata(call: PluginCall) {
+        invokeSdkMethod(SdkMethod.setMetadata, call).toPluginCall(call)
+    }
+
+    @PluginMethod
+    fun setName(call: PluginCall) {
+        invokeSdkMethod(SdkMethod.setName, call).toPluginCall(call)
+    }
+
+    @PluginMethod
+    fun onSubscribedToErrors(call: PluginCall) {
+        sendErrorsEvent(Serialization.serializeErrors(HyperTrack.errors))
+    }
+
+    @PluginMethod
+    fun onSubscribedToIsAvailable(call: PluginCall) {
         sendAvailabilityEvent(
             Serialization.serializeIsAvailable(
                 HyperTrackSdkWrapper.sdkInstance.availability == Availability.AVAILABLE
@@ -91,8 +94,24 @@ public class HyperTrackCapacitorPlugin : Plugin() {
     }
 
     @PluginMethod
-    public fun onSubscribedToErrors(call: PluginCall) {
-        sendErrorsEvent(HyperTrackSdkWrapper.getInitialErrors())
+    fun onSubscribedToIsTracking(call: PluginCall) {
+        Log.v("ht_listener", "onSubscribedToTracking")
+        sendIsTrackingEvent(
+            Serialization.serializeIsTracking(HyperTrackSdkWrapper.sdkInstance.isTracking)
+        )
+    }
+
+    @PluginMethod
+    fun onSubscribeToLocation(call: PluginCall) {
+        Log.v("ht_listener", "onSubscribeToLocation")
+        HyperTrackSdkWrapper.sdkInstance.addLocationListener(object : LocationListener {
+            override fun onLocationUpdate(location: Location) {
+                notifyListeners(
+                    "onLocationUpdate",
+                    Serialization.serializeLocation(location).toJSObject()
+                )
+            }
+        })
     }
 
     private fun invokeSdkMethod(
@@ -152,7 +171,7 @@ public class HyperTrackCapacitorPlugin : Plugin() {
         }
     }
 
-    private fun initListeners(sdk: HyperTrack) {
+    private fun initListeners() {
         sdk.addTrackingListener(object : TrackingStateObserver.OnTrackingStateChangeListener {
             override fun onTrackingStart() {
                 Log.v("ht_listener", "onTrackingStart")

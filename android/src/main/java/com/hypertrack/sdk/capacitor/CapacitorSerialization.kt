@@ -4,13 +4,13 @@ import com.getcapacitor.JSArray
 import com.getcapacitor.JSObject
 import com.getcapacitor.PluginCall
 import com.hypertrack.sdk.capacitor.common.Failure
-import com.hypertrack.sdk.capacitor.common.Result
+import com.hypertrack.sdk.capacitor.common.WrapperResult
 import com.hypertrack.sdk.capacitor.common.Success
 import org.json.JSONArray
 import org.json.JSONObject
 
 @Suppress("UNCHECKED_CAST")
-internal fun <T> Result<T>.toPluginCall(call: PluginCall) {
+internal fun <T> WrapperResult<T>.toPluginCall(call: PluginCall) {
     when (this) {
         is Success -> {
             when (this.success) {
