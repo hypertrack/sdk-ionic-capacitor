@@ -59,7 +59,7 @@ export interface HyperTrackCapacitorPlugin {
 
   addListener(
     eventName: typeof EVENT_IS_TRACKING,
-    listenerFunc: (isTracking: boolean) => void
+    listenerFunc: (isTracking: IsTracking) => void
   ): Subscription;
 
   addListener(
@@ -69,6 +69,6 @@ export interface HyperTrackCapacitorPlugin {
 
   addListener(
     eventName: typeof EVENT_LOCATION, 
-    listenerFunc: (location: any) => void
+    listenerFunc: (location: Result<LocationInternal, LocationErrorInternal>) => void
   ): Subscription;
 }

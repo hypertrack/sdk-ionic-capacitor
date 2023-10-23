@@ -1,13 +1,14 @@
-import HyperTrack from './HyperTrack/HyperTrack';
+import HyperTrack from './HyperTrack';
 export default HyperTrack;
 export { HyperTrack };
 
-export { HyperTrackError } from './HyperTrack/data_types/HyperTrackError';
+export { HyperTrackError } from './data_types/HyperTrackError';
 export {
   NotRunning,
   Starting,
-} from './HyperTrack/data_types/internal/LocationErrorInternal';
-export { LocationError, Errors } from './HyperTrack/data_types/LocationError';
-export { LocationWithDeviation } from './HyperTrack/data_types/LocationWithDeviation';
-export { Location } from './HyperTrack/data_types/Location';
-export { Result, Success, Failure } from './HyperTrack/data_types/Result';
+} from './data_types/internal/LocationErrorInternal';
+export { LocationError, Errors } from './data_types/LocationError';
+export { LocationWithDeviation } from './data_types/LocationWithDeviation';
+export { Location } from './data_types/Location';
+export { Result, Success, Failure } from './data_types/Result';
+export { Subscription } from './Subscription';

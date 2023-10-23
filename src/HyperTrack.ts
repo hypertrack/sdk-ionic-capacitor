@@ -14,8 +14,8 @@ import type { LocationInternal } from './data_types/internal/LocationInternal';
 import type { LocationWithDeviationInternal } from './data_types/internal/LocationWithDeviationInternal';
 import type { Metadata } from './data_types/internal/Metadata';
 import { registerPlugin } from '@capacitor/core';
-import { Subscription } from "./Subscription";
-import { Errors, HyperTrackCapacitorPlugin } from "./HyperTrackCapacitorPlugin";
+import { Subscription } from './Subscription';
+import { Errors, HyperTrackCapacitorPlugin } from './HyperTrackCapacitorPlugin';
 
 export const EVENT_ERRORS = 'errors';
 export const EVENT_IS_AVAILABLE = 'isAvailable';
@@ -36,9 +36,7 @@ export default class HyperTrack {
    * @param {Object} data - Geotad data JSON
    * @returns current location if success or LocationError if failure
    */
-  static async addGeotag(
-    data: Object
-  ): Promise<Result<Location, LocationError>>;
+  static async addGeotag(data: Object): Promise<Result<Location, LocationError>>;
 
   /**
    * Adds a new geotag with expected location
@@ -52,45 +50,32 @@ export default class HyperTrack {
     expectedLocation: Location
   ): Promise<Result<LocationWithDeviation, LocationError>>;
 
-  static async addGeotag(
-    ...args: any[]
-  ): Promise<Result<Location | LocationWithDeviation, LocationError>> {
+  static async addGeotag(...args: any[]): Promise<Result<Location | LocationWithDeviation, LocationError>> {
     if (args.length === 1 && typeof args[0] === 'object') {
-      return hyperTrackPlugin.addGeotag({
-        data: args[0],
-        expectedLocation: undefined,
-      } as GeotagData).then(
-        (locationResponse: Result<LocationInternal, LocationErrorInternal>) => {
+      return hyperTrackPlugin
+        .addGeotag({
+          data: args[0],
+          expectedLocation: undefined,
+        } as GeotagData)
+        .then((locationResponse: Result<LocationInternal, LocationErrorInternal>) => {
           return this.deserializeLocationResponse(locationResponse);
-        }
-      );
-    } else if (
-      args.length === 2 &&
-      typeof args[0] === 'object' &&
-      HyperTrack.isLocation(args[1])
-    ) {
+        });
+    } else if (args.length === 2 && typeof args[0] === 'object' && HyperTrack.isLocation(args[1])) {
       let expectedLocation = args[1] as Location;
-      return hyperTrackPlugin.addGeotag({
-        data: args[0],
-        expectedLocation: {
-          type: 'location',
-          value: {
-            latitude: expectedLocation.latitude,
-            longitude: expectedLocation.longitude,
-          },
-        } as LocationInternal,
-      } as GeotagData).then(
-        (
-          locationResponse: Result<
-            LocationWithDeviationInternal,
-            LocationErrorInternal
-          >
-        ) => {
-          return this.deserializeLocationWithDeviationResponse(
-            locationResponse
-          );
-        }
-      );
+      return hyperTrackPlugin
+        .addGeotag({
+          data: args[0],
+          expectedLocation: {
+            type: 'location',
+            value: {
+              latitude: expectedLocation.latitude,
+              longitude: expectedLocation.longitude,
+            },
+          } as LocationInternal,
+        } as GeotagData)
+        .then((locationResponse: Result<LocationWithDeviationInternal, LocationErrorInternal>) => {
+          return this.deserializeLocationWithDeviationResponse(locationResponse);
+        });
     } else {
       throw new Error('Invalid arguments');
     }
@@ -102,9 +87,7 @@ export default class HyperTrack {
    * @returns {string} Device ID
    */
   static async getDeviceId(): Promise<string> {
-    return hyperTrackPlugin.getDeviceId().then(
-      (deviceId: DeviceId) => deviceId.value
-    );
+    return hyperTrackPlugin.getDeviceId().then((deviceId: DeviceId) => deviceId.value);
   }
 
   /**
@@ -113,11 +96,9 @@ export default class HyperTrack {
    * @returns {HyperTrackError[]} List of errors
    */
   static async getErrors(): Promise<HyperTrackError[]> {
-    return hyperTrackPlugin.getErrors().then(
-      (errors: Errors) => {
-        return this.deserializeHyperTrackErrors(errors.errors);
-      }
-    );
+    return hyperTrackPlugin.getErrors().then((errors: Errors) => {
+      return this.deserializeHyperTrackErrors(errors.errors);
+    });
   }
 
   /**
@@ -126,9 +107,7 @@ export default class HyperTrack {
    * @returns true when is available or false when unavailable
    */
   static async getIsAvailable(): Promise<boolean> {
-    return hyperTrackPlugin.getIsAvailable().then(
-      (isAvailable: IsAvailable) => isAvailable.value
-    );
+    return hyperTrackPlugin.getIsAvailable().then((isAvailable: IsAvailable) => isAvailable.value);
   }
 
   /**
@@ -137,20 +116,16 @@ export default class HyperTrack {
    * @returns {boolean} Whether the user's movement data is getting tracked or not.
    */
   static async getIsTracking(): Promise<boolean> {
-    return hyperTrackPlugin.getIsTracking().then(
-      (isTracking: IsTracking) => isTracking.value
-    );
+    return hyperTrackPlugin.getIsTracking().then((isTracking: IsTracking) => isTracking.value);
   }
 
   /**
    * Reflects the current location of the user or an outage reason
    */
   static async getLocation(): Promise<Result<Location, LocationError>> {
-    return hyperTrackPlugin.getLocation().then(
-      (locationResponse: Result<LocationInternal, LocationErrorInternal>) => {
-        return this.deserializeLocationResponse(locationResponse);
-      }
-    );
+    return hyperTrackPlugin.getLocation().then((locationResponse: Result<LocationInternal, LocationErrorInternal>) => {
+      return this.deserializeLocationResponse(locationResponse);
+    });
   }
 
   /**
@@ -196,9 +171,7 @@ export default class HyperTrack {
    * subscription.remove()
    * ```
    */
-  static locate(
-    callback: (location: Result<Location, HyperTrackError[]>) => void
-  ) {
+  static locate(callback: (locateResult: Result<Location, HyperTrackError[]>) => void) {
     this.locateSubscription?.remove();
     this.locateSubscription = hyperTrackPlugin.addListener(
       EVENT_LOCATE,
@@ -275,17 +248,12 @@ export default class HyperTrack {
    * subscription.remove()
    * ```
    */
-  static subscribeToErrors(
-    listener: (errors: HyperTrackError[]) => void
-  ): Subscription {
-    const result =  hyperTrackPlugin.addListener(
-      EVENT_ERRORS,
-      (info: Errors) => {
-        listener(this.deserializeHyperTrackErrors(info.errors));
-      }
-    )
+  static subscribeToErrors(listener: (errors: HyperTrackError[]) => void): Subscription {
+    const result = hyperTrackPlugin.addListener(EVENT_ERRORS, (info: Errors) => {
+      listener(this.deserializeHyperTrackErrors(info.errors));
+    });
     hyperTrackPlugin.onSubscribedToErrors();
-    return result
+    return result;
   }
 
   /**
@@ -305,15 +273,10 @@ export default class HyperTrack {
    * subscription.remove()
    * ```
    */
-  static subscribeToIsAvailable(
-    listener: (isAvailable: boolean) => void
-  ): Subscription {
-    return hyperTrackPlugin.addListener(
-      EVENT_IS_AVAILABLE,
-      (isAvailable: IsAvailable) => {
-        listener(isAvailable.value);
-      }
-    );
+  static subscribeToIsAvailable(listener: (isAvailable: boolean) => void): Subscription {
+    return hyperTrackPlugin.addListener(EVENT_IS_AVAILABLE, (isAvailable: IsAvailable) => {
+      listener(isAvailable.value);
+    });
   }
 
   /**
@@ -333,15 +296,10 @@ export default class HyperTrack {
    * subscription.remove()
    * ```
    */
-  static subscribeToIsTracking(
-    listener: (isTracking: boolean) => void
-  ): Subscription {
-    return hyperTrackPlugin.addListener(
-      EVENT_IS_TRACKING,
-      (isTracking: IsTracking) => {
-        listener(isTracking.value);
-      }
-    );
+  static subscribeToIsTracking(listener: (isTracking: boolean) => void): Subscription {
+    return hyperTrackPlugin.addListener(EVENT_IS_TRACKING, (isTracking: IsTracking) => {
+      listener(isTracking.value);
+    });
   }
 
   /**
@@ -359,28 +317,20 @@ export default class HyperTrack {
    * subscription.remove()
    * ```
    */
-  static subscribeToLocation(
-    listener: (location: Result<Location, LocationError>) => void
-  ) {
-    return hyperTrackPlugin.addListener(
-      EVENT_LOCATION,
-      (location: Result<LocationInternal, LocationErrorInternal>) => {
-        listener(this.deserializeLocationResponse(location));
-      }
-    );
+  static subscribeToLocation(listener: (location: Result<Location, LocationError>) => void) {
+    return hyperTrackPlugin.addListener(EVENT_LOCATION, (location: Result<LocationInternal, LocationErrorInternal>) => {
+      listener(this.deserializeLocationResponse(location));
+    });
   }
 
   /** @ignore */
-  private static deserializeHyperTrackErrors(
-    errors: HyperTrackErrorInternal[]
-  ): HyperTrackError[] {
+  private static deserializeHyperTrackErrors(errors: HyperTrackErrorInternal[]): HyperTrackError[] {
     let res = errors.map((error: HyperTrackErrorInternal) => {
       if (error.type != 'error') {
         throw new Error('Invalid error type');
       }
       return Object.keys(HyperTrackError).find(
-        (key) =>
-          HyperTrackError[key as keyof typeof HyperTrackError] === error.value
+        (key) => HyperTrackError[key as keyof typeof HyperTrackError] === error.value
       ) as HyperTrackError;
     });
     return res;
@@ -405,9 +355,7 @@ export default class HyperTrack {
   }
 
   /** @ignore */
-  private static deserializeLocationError(
-    locationError: LocationErrorInternal
-  ): LocationError {
+  private static deserializeLocationError(locationError: LocationErrorInternal): LocationError {
     switch (locationError.type) {
       case 'notRunning':
       case 'starting':
@@ -444,10 +392,8 @@ export default class HyperTrack {
   ): Result<LocationWithDeviation, LocationError> {
     switch (response.type) {
       case 'success':
-        const locationWithDeviationInternal: LocationWithDeviationInternal =
-          response.value;
-        const locationInternal: LocationInternal =
-          locationWithDeviationInternal.value.location;
+        const locationWithDeviationInternal: LocationWithDeviationInternal = response.value;
+        const locationInternal: LocationInternal = locationWithDeviationInternal.value.location;
 
         return {
           type: 'success',
@@ -483,10 +429,7 @@ export default class HyperTrack {
   /** @ignore */
   private static isLocation(obj: Location): obj is Location {
     return (
-      'latitude' in obj &&
-      typeof obj.latitude == 'number' &&
-      'longitude' in obj &&
-      typeof obj.longitude == 'number'
+      'latitude' in obj && typeof obj.latitude == 'number' && 'longitude' in obj && typeof obj.longitude == 'number'
     );
   }
 }
