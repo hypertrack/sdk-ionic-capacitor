@@ -274,9 +274,11 @@ export default class HyperTrack {
    * ```
    */
   static subscribeToIsAvailable(listener: (isAvailable: boolean) => void): Subscription {
-    return hyperTrackPlugin.addListener(EVENT_IS_AVAILABLE, (isAvailable: IsAvailable) => {
+    const result = hyperTrackPlugin.addListener(EVENT_IS_AVAILABLE, (isAvailable: IsAvailable) => {
       listener(isAvailable.value);
     });
+    hyperTrackPlugin.onSubscribedToIsAvailable();
+    return result;
   }
 
   /**
@@ -297,9 +299,11 @@ export default class HyperTrack {
    * ```
    */
   static subscribeToIsTracking(listener: (isTracking: boolean) => void): Subscription {
-    return hyperTrackPlugin.addListener(EVENT_IS_TRACKING, (isTracking: IsTracking) => {
+    const result = hyperTrackPlugin.addListener(EVENT_IS_TRACKING, (isTracking: IsTracking) => {
       listener(isTracking.value);
     });
+    hyperTrackPlugin.onSubscribedToIsTracking();
+    return result;
   }
 
   /**
@@ -318,9 +322,14 @@ export default class HyperTrack {
    * ```
    */
   static subscribeToLocation(listener: (location: Result<Location, LocationError>) => void) {
-    return hyperTrackPlugin.addListener(EVENT_LOCATION, (location: Result<LocationInternal, LocationErrorInternal>) => {
-      listener(this.deserializeLocationResponse(location));
-    });
+    const result = hyperTrackPlugin.addListener(
+      EVENT_LOCATION,
+      (location: Result<LocationInternal, LocationErrorInternal>) => {
+        listener(this.deserializeLocationResponse(location));
+      }
+    );
+    hyperTrackPlugin.onSubscribedToLocation();
+    return result;
   }
 
   /** @ignore */
