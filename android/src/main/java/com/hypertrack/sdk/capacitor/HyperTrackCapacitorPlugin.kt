@@ -159,21 +159,50 @@ class HyperTrackCapacitorPlugin : Plugin() {
     ): WrapperResult<*> {
         val argsJson = call.data
         return when (method) {
-            SdkMethod.getDeviceID -> {
-                HyperTrackSdkWrapper.getDeviceId()
-            }
-
-            SdkMethod.getLocation -> {
-                HyperTrackSdkWrapper.getLocation()
-            }
             SdkMethod.addGeotag -> {
                 withArgs<Map<String, Any?>, Map<String, Any?>>(argsJson) { args ->
                     HyperTrackSdkWrapper.addGeotag(args)
                 }
             }
-            SdkMethod.setName -> {
+
+            SdkMethod.getDeviceID -> {
+                HyperTrackSdkWrapper.getDeviceId()
+            }
+
+            SdkMethod.getErrors -> {
+                HyperTrackSdkWrapper.getErrors()
+            }
+
+            SdkMethod.getIsAvailable -> {
+                HyperTrackSdkWrapper.getIsAvailable()
+            }
+
+            SdkMethod.getIsTracking -> {
+                HyperTrackSdkWrapper.getIsTracking()
+            }
+
+            SdkMethod.getLocation -> {
+                HyperTrackSdkWrapper.getLocation()
+            }
+
+            SdkMethod.getMetadata -> {
+                HyperTrackSdkWrapper.getMetadata()
+            }
+
+            SdkMethod.getName -> {
+                HyperTrackSdkWrapper.getName()
+            }
+            SdkMethod.locate -> {
+                throw NotImplementedError("Locate is implemented in different way")
+            }
+            SdkMethod.setIsAvailable -> {
                 withArgs<Map<String, Any?>, Unit>(argsJson) { args ->
-                    HyperTrackSdkWrapper.setName(args)
+                    HyperTrackSdkWrapper.setIsAvailable(args)
+                }
+            }
+            SdkMethod.setIsTracking -> {
+                withArgs<Map<String, Any?>, Unit>(argsJson) { args ->
+                    HyperTrackSdkWrapper.setIsTracking(args)
                 }
             }
             SdkMethod.setMetadata -> {
@@ -182,14 +211,11 @@ class HyperTrackCapacitorPlugin : Plugin() {
                 }
             }
 
-            SdkMethod.getErrors -> TODO()
-            SdkMethod.getIsAvailable -> TODO()
-            SdkMethod.getIsTracking -> TODO()
-            SdkMethod.getMetadata -> TODO()
-            SdkMethod.getName -> TODO()
-            SdkMethod.locate -> TODO()
-            SdkMethod.setIsAvailable -> TODO()
-            SdkMethod.setIsTracking -> TODO()
+            SdkMethod.setName -> {
+                withArgs<Map<String, Any?>, Unit>(argsJson) { args ->
+                    HyperTrackSdkWrapper.setName(args)
+                }
+            }
         }
     }
 
@@ -205,6 +231,7 @@ class HyperTrackCapacitorPlugin : Plugin() {
             Map::class -> {
                 sdkMethodCall.invoke(args.toMap() as T)
             }
+
             else -> {
                 Failure(IllegalArgumentException(args.toString()))
             }
