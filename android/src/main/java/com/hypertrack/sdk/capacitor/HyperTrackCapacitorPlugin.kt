@@ -96,7 +96,7 @@ class HyperTrackCapacitorPlugin : Plugin() {
     }
 
     @PluginMethod
-    fun onSubscribeToLocation(call: PluginCall) {
+    fun onSubscribedToLocation(call: PluginCall) {
         sendLocationEvent(HyperTrack.location)
     }
 
