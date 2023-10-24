@@ -8,13 +8,14 @@ import com.getcapacitor.PluginMethod
 import com.getcapacitor.annotation.CapacitorPlugin
 import com.hypertrack.sdk.*
 import com.hypertrack.sdk.android.HyperTrack
-import com.hypertrack.sdk.android.HyperTrack.location
 import com.hypertrack.sdk.android.Result
 import com.hypertrack.sdk.capacitor.common.*
 import com.hypertrack.sdk.capacitor.common.WrapperResult
 
 @CapacitorPlugin(name = "HyperTrackCapacitorPlugin")
 class HyperTrackCapacitorPlugin : Plugin() {
+
+    private var locateSubscription: HyperTrack.Cancellable? = null
 
     init {
         initListeners()
@@ -93,6 +94,14 @@ class HyperTrackCapacitorPlugin : Plugin() {
     @PluginMethod
     fun onSubscribedToIsTracking(call: PluginCall) {
         sendIsTrackingEvent(HyperTrack.isTracking)
+    }
+
+    @PluginMethod
+    fun onSubscribedToLocate(call: PluginCall) {
+        locateSubscription?.cancel()
+        HyperTrack.locate { result ->
+            sendLocateEvent(result)
+        }
     }
 
     @PluginMethod
