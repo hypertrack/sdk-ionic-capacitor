@@ -4,10 +4,19 @@ import com.getcapacitor.JSArray
 import com.getcapacitor.JSObject
 import com.getcapacitor.PluginCall
 import com.hypertrack.sdk.capacitor.common.Failure
+import com.hypertrack.sdk.capacitor.common.Serialized
 import com.hypertrack.sdk.capacitor.common.WrapperResult
 import com.hypertrack.sdk.capacitor.common.Success
 import org.json.JSONArray
 import org.json.JSONObject
+
+private const val KEY_ERRORS = "errors"
+
+fun serializeErrorsForCapacitor(errors: List<Serialized>): Serialized {
+    return mapOf(
+        KEY_ERRORS to errors
+    )
+}
 
 @Suppress("UNCHECKED_CAST")
 internal fun <T> WrapperResult<T>.toPluginCall(call: PluginCall) {
@@ -65,7 +74,7 @@ internal fun Map<String, Any?>.toJSObject(): JSObject {
                 is Boolean -> {
                     put(key, value)
                 }
-                is Double -> {
+                is Double, is Float -> {
                     put(key, value)
                 }
                 is Int -> {

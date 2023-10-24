@@ -10,6 +10,7 @@ import com.hypertrack.sdk.*
 import com.hypertrack.sdk.android.HyperTrack
 import com.hypertrack.sdk.android.Result
 import com.hypertrack.sdk.capacitor.common.*
+import com.hypertrack.sdk.capacitor.common.Serialization.serializeErrors
 import com.hypertrack.sdk.capacitor.common.WrapperResult
 
 @CapacitorPlugin(name = "HyperTrackCapacitorPlugin")
@@ -112,7 +113,7 @@ class HyperTrackCapacitorPlugin : Plugin() {
     private fun sendErrorsEvent(errors: Set<HyperTrack.Error>) {
         sendEvent(
             EVENT_ERRORS,
-            mapOf(KEY_ERRORS to Serialization.serializeErrors(errors)).toJSObject()
+            serializeErrorsForCapacitor(serializeErrors(errors)).toJSObject()
         )
     }
 
@@ -179,7 +180,11 @@ class HyperTrackCapacitorPlugin : Plugin() {
             }
 
             SdkMethod.getErrors -> {
-                HyperTrackSdkWrapper.getErrors()
+                HyperTrackSdkWrapper
+                    .getErrors()
+                    .mapSuccess {
+                        serializeErrorsForCapacitor(it)
+                    }
             }
 
             SdkMethod.getIsAvailable -> {
@@ -253,6 +258,5 @@ class HyperTrackCapacitorPlugin : Plugin() {
         private const val EVENT_IS_AVAILABLE = "isAvailable"
         private const val EVENT_LOCATE = "locate"
         private const val EVENT_LOCATION = "location"
-        private const val KEY_ERRORS = "errors"
     }
 }
