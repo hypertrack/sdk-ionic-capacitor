@@ -4,19 +4,21 @@
 // Define the plugin using the CAP_PLUGIN Macro, and
 // each method the plugin supports using the CAP_PLUGIN_METHOD macro.
 CAP_PLUGIN(HyperTrackCapacitorPlugin, "HyperTrackCapacitorPlugin",
-           CAP_PLUGIN_METHOD(initialize, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(addGeotag, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(getDeviceId, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(getErrors, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(getIsAvailable, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(getIsTracking, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(getLocation, CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(startTracking, CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(stopTracking, CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(setAvailability, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(getMetadata, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(getName, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(setIsAvailable, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(setIsTracking, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(setMetadata, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(setName, CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(isTracking, CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(isAvailable, CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(addGeotag, CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(sync, CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(onSubscribedToTracking, CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(onSubscribedToAvailability, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(onSubscribedToErrors, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(onSubscribedToIsAvailable, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(onSubscribedToIsTracking, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(onSubscribedToLocate, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(onSubscribedToLocation, CAPPluginReturnPromise);
 )
