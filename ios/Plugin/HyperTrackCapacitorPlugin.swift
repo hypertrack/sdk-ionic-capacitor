@@ -20,8 +20,8 @@ public class HyperTrackCapacitorPlugin: CAPPlugin {
     private var locationSubscription: HyperTrack.Cancellable!
 
     private var locateSubscription: HyperTrack.Cancellable? = nil
-    
-    required override init(bridge: CAPBridgeProtocol, pluginId: String, pluginName: String) {
+
+    override required init(bridge: CAPBridgeProtocol, pluginId: String, pluginName: String) {
         super.init(bridge: bridge, pluginId: pluginId, pluginName: pluginName)
         initListeners()
     }
@@ -44,6 +44,30 @@ public class HyperTrackCapacitorPlugin: CAPPlugin {
         )
     }
 
+    @objc func getErrors(_ call: CAPPluginCall) {
+        sendAsPromise(
+            HypertrackSdkIonicCapacitor.getErrors(),
+            method: .getErrors,
+            call
+        )
+    }
+
+    @objc func getIsAvailable(_ call: CAPPluginCall) {
+        sendAsPromise(
+            HypertrackSdkIonicCapacitor.getIsAvailable(),
+            method: .getIsAvailable,
+            call
+        )
+    }
+
+    @objc func getIsTracking(_ call: CAPPluginCall) {
+        sendAsPromise(
+            HypertrackSdkIonicCapacitor.getIsTracking(),
+            method: .getIsTracking,
+            call
+        )
+    }
+
     @objc func getLocation(_ call: CAPPluginCall) {
         sendAsPromise(
             HypertrackSdkIonicCapacitor.getLocation(),
@@ -52,38 +76,38 @@ public class HyperTrackCapacitorPlugin: CAPPlugin {
         )
     }
 
-    @objc func startTracking(_ call: CAPPluginCall) {
+    @objc func getMetadata(_ call: CAPPluginCall) {
         sendAsPromise(
-            HypertrackSdkIonicCapacitor.startTracking(),
-            method: .startTracking,
+            HypertrackSdkIonicCapacitor.getMetadata(),
+            method: .getMetadata,
             call
         )
     }
 
-    @objc func stopTracking(_ call: CAPPluginCall) {
+    @objc func getName(_ call: CAPPluginCall) {
         sendAsPromise(
-            HypertrackSdkIonicCapacitor.stopTracking(),
-            method: .stopTracking,
+            HypertrackSdkIonicCapacitor.getName(),
+            method: .getName,
             call
         )
     }
 
-    @objc func setAvailability(_ call: CAPPluginCall) {
+    @objc func setIsAvailable(_ call: CAPPluginCall) {
         sendAsPromise(
-            HypertrackSdkIonicCapacitor.setAvailability(
+            HypertrackSdkIonicCapacitor.setIsAvailable(
                 call.options as! [String: Any]
             ),
-            method: .setAvailability,
+            method: .setIsAvailable,
             call
         )
     }
 
-    @objc func setName(_ call: CAPPluginCall) {
+    @objc func setIsTracking(_ call: CAPPluginCall) {
         sendAsPromise(
-            HypertrackSdkIonicCapacitor.setName(
+            HypertrackSdkIonicCapacitor.setIsTracking(
                 call.options as! [String: Any]
             ),
-            method: .setName,
+            method: .setIsTracking,
             call
         )
     }
@@ -98,18 +122,12 @@ public class HyperTrackCapacitorPlugin: CAPPlugin {
         )
     }
 
-    @objc func isTracking(_ call: CAPPluginCall) {
+    @objc func setName(_ call: CAPPluginCall) {
         sendAsPromise(
-            HypertrackSdkIonicCapacitor.isTracking(),
-            method: .isTracking,
-            call
-        )
-    }
-
-    @objc func isAvailable(_ call: CAPPluginCall) {
-        sendAsPromise(
-            HypertrackSdkIonicCapacitor.isAvailable(),
-            method: .isAvailable,
+            HypertrackSdkIonicCapacitor.setName(
+                call.options as! [String: Any]
+            ),
+            method: .setName,
             call
         )
     }
@@ -123,13 +141,13 @@ public class HyperTrackCapacitorPlugin: CAPPlugin {
     }
 
     @objc func onSubscribedToIsAvailable(_: CAPPluginCall) {
-        sendIsAvailableEvent(availability: HyperTrack.isAvailable)
+        sendIsAvailableEvent(isAvailable: HyperTrack.isAvailable)
     }
 
     @objc func onSubscribedToLocate(_: CAPPluginCall) {
         locateSubscription?.cancel()
-        locateSubscription = HyperTrack.subscribeToLocate { locateResult in
-            sendLocateEvent(locateResult)
+        locateSubscription = HyperTrack.locate { locateResult in
+            self.sendLocateEvent(locateResult)
         }
     }
 
@@ -141,27 +159,35 @@ public class HyperTrackCapacitorPlugin: CAPPlugin {
         errorsSubscription = HyperTrack.subscribeToErrors { errors in
             self.sendErrorsEvent(errors)
         }
-        isTrackingSubscription = HyperTrack.subscribeToIsTracking(callback: { isTracking in
+        isAvailableSubscription = HyperTrack.subscribeToIsAvailable { isAvailable in
+            self.sendIsAvailableEvent(isAvailable: isAvailable)
+        }
+        isTrackingSubscription = HyperTrack.subscribeToIsTracking { isTracking in
             self.sendIsTrackingEvent(isTracking: isTracking)
-        })
-        isAvailableSubscription = HyperTrack.subscribeToAvailability(callback: { availability in
-            self.sendIsAvailableEvent(availability: availability)
-        })
+        }
         locationSubscription = HyperTrack.subscribeToLocation { location in
             self.sendLocationEvent(location)
         }
     }
 
-    private func sendIsTrackingEvent(isTracking: Bool) {
-        notifyListeners(eventTracking, data: serializeIsTracking(isTracking))
-    }
-
-    private func sendIsAvailableEvent(availability: HyperTrack.Availability) {
-        notifyListeners(eventAvailability, data: serializeIsAvailable(availability))
-    }
-
-    private func sendErrorsEvent(_ errors: Set<HyperTrack.HyperTrackError>) {
+    private func sendErrorsEvent(_ errors: Set<HyperTrack.Error>) {
         notifyListeners(eventErrors, data: serializeErrorsForPlugin(serializeErrors(errors)))
+    }
+
+    private func sendIsAvailableEvent(isAvailable: Bool) {
+        notifyListeners(eventIsAvailable, data: serializeIsAvailable(isAvailable))
+    }
+
+    private func sendIsTrackingEvent(isTracking: Bool) {
+        notifyListeners(eventIsTracking, data: serializeIsTracking(isTracking))
+    }
+
+    private func sendLocateEvent(_ locateResult: Result<HyperTrack.Location, Set<HyperTrack.Error>>) {
+        notifyListeners(eventLocate, data: serializeLocateResult(locateResult))
+    }
+
+    private func sendLocationEvent(_ locationResult: Result<HyperTrack.Location, HyperTrack.Location.Error>) {
+        notifyListeners(eventLocation, data: serializeLocationResult(locationResult))
     }
 
     private func serializeErrorsForPlugin(_ errors: [[String: Any]]) -> [String: Any] {
@@ -181,6 +207,8 @@ private func sendAsPromise(
             call.resolve([:])
         case let .dict(value):
             call.resolve(value)
+        case .array:
+            preconditionFailure("Arrays params are not supported in Capacitor")
         }
     case let .failure(failure):
         switch failure {
