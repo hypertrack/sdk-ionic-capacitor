@@ -4,8 +4,8 @@ import HyperTrack
 
 /// HyperTrack Capacitor Plugin
 ///
-/// The HypertrackSdkIonicCapacitor object name is generated from the JS package name
-/// of the plugin.
+/// The HypertrackSdkIonicCapacitor is a Swift module name to access HyperTrackSDKWrapper
+/// methods.
 @objc(HyperTrackCapacitorPlugin)
 public class HyperTrackCapacitorPlugin: CAPPlugin {
     private let eventErrors = "errors"
