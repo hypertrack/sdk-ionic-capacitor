@@ -2,8 +2,8 @@
 
 [![GitHub](https://img.shields.io/github/license/hypertrack/sdk-ionic-capacitor.svg?color=orange)](./LICENSE)
 [![npm](https://img.shields.io/npm/v/hypertrack-sdk-ionic-capacitor.svg)](https://www.npmjs.com/package/hypertrack-sdk-ionic-capacitor)
-[![iOS SDK](https://img.shields.io/badge/iOS%20SDK-4.16.1-brightgreen.svg)](https://github.com/hypertrack/sdk-ios)
-[![Android SDK](https://img.shields.io/badge/Android%20SDK-6.4.2-brightgreen.svg)](https://github.com/hypertrack/sdk-android)
+[![iOS SDK](https://img.shields.io/badge/iOS%20SDK-5.0.4-brightgreen.svg)](https://github.com/hypertrack/sdk-ios)
+[![Android SDK](https://img.shields.io/badge/Android%20SDK-7.0.6-brightgreen.svg)](https://github.com/hypertrack/sdk-android)
 
 [HyperTrack](https://www.hypertrack.com) lets you add live location tracking to your mobile app. Live location is made available along with ongoing activity, tracking controls and tracking outage with reasons.
 
@@ -16,6 +16,7 @@ For information about how to get started with Ionic Capacitor HyperTrack SDK, pl
 `npm install hypertrack-sdk-ionic-capacitor`
 
 ### Android
+
 In order to use this plugin, please add HyperTrack repository in `android/build.gradle`:
 
 ```
