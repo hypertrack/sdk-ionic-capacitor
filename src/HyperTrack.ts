@@ -172,11 +172,14 @@ export default class HyperTrack {
    * ```
    */
   static locate(callback: (locateResult: Result<Location, HyperTrackError[]>) => void) {
+    // this call doesn't work on iOS for some reason
     this.locateSubscription?.remove();
     this.locateSubscription = hyperTrackPlugin.addListener(
       EVENT_LOCATE,
       (location: Result<LocationInternal, HyperTrackErrorInternal[]>) => {
         callback(this.deserializeLocateResponse(location));
+        // so we remove the subscription here (locate should return only one event)
+        this.locateSubscription?.remove();
       }
     );
     hyperTrackPlugin.onSubscribedToLocate();
