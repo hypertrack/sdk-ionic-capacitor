@@ -46,7 +46,16 @@ public class HyperTrackCapacitorPlugin: CAPPlugin {
 
     @objc func getErrors(_ call: CAPPluginCall) {
         sendAsPromise(
-            HypertrackSdkIonicCapacitor.getErrors(),
+            HypertrackSdkIonicCapacitor.getErrors().map { errors in
+                switch errors {
+                case .void:
+                    preconditionFailure("Unexpected void result")
+                case let .dict(value):
+                    preconditionFailure("Unexpected dict result: \(value)")
+                case let .array(errors):
+                    return .dict(serializeErrorsForPlugin(errors as! [[String: Any]]))
+                }
+            },
             method: .getErrors,
             call
         )
