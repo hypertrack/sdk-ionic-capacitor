@@ -100,7 +100,7 @@ class HyperTrackCapacitorPlugin : Plugin() {
     @PluginMethod
     fun onSubscribedToLocate(call: PluginCall) {
         locateSubscription?.cancel()
-        HyperTrack.locate { result ->
+        locateSubscription = HyperTrack.locate { result ->
             sendLocateEvent(result)
         }
     }
