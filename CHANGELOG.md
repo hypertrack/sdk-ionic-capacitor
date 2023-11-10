@@ -85,6 +85,7 @@ We are excited to announce the release of HyperTrack Ionic Capacitor SDK 2.0.0, 
 
 - Initial release
 
+[2.0.1] https://github.com/hypertrack/sdk-ionic-capacitor/releases/tag/2.0.1
 [2.0.0] https://github.com/hypertrack/sdk-ionic-capacitor/releases/tag/2.0.0
 [1.0.3] https://github.com/hypertrack/sdk-ionic-capacitor/releases/tag/1.0.3
 [1.0.2] https://github.com/hypertrack/sdk-ionic-capacitor/releases/tag/1.0.2
