@@ -5,16 +5,17 @@
 ### How to update HyperTrack SDK version and make a release?
 
 1. Update SDK version constant
+
    - Android
      - [android/build.gradle](android/build.gradle)
-       - `dependencies {}`
-         - `com.hypertrack:hypertrack:<version>`
+       - `buildscript`
+         - `ext.hypertrack_sdk_version = <version>`
    - iOS
      - [HypertrackSdkIonicCapacitor.podspec](HypertrackSdkIonicCapacitor.podspec)
        - `s.dependency 'HyperTrack'`
-  
+
 2. Increment wrapper version
-   
+
    - [package.json](package.json)
      - `version`
 
@@ -31,8 +32,9 @@
 7. Create and push a new version tag
 
 8. Create a Github repo release
+
    - Release title should be the current version tag
-  
+
 9. Run `npm publish` to publish the package to npm
 
 ## Scripts
