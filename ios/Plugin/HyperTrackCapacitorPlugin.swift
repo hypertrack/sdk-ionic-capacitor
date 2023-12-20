@@ -20,9 +20,8 @@ public class HyperTrackCapacitorPlugin: CAPPlugin {
     private var locationSubscription: HyperTrack.Cancellable!
 
     private var locateSubscription: HyperTrack.Cancellable? = nil
-
-    override required init(bridge: CAPBridgeProtocol, pluginId: String, pluginName: String) {
-        super.init(bridge: bridge, pluginId: pluginId, pluginName: pluginName)
+    
+    override public func load() {
         initListeners()
     }
 
