@@ -52,12 +52,12 @@ open-docs: docs
 push-tag:
     #!/usr/bin/env sh
     set -euo pipefail
-    if [ $(git symbolic-ref --short HEAD) = "master" ] ; then
+    if [ $(git symbolic-ref --short HEAD) = "main" ] ; then
         VERSION=$(just version)
         git tag $VERSION
         git push origin $VERSION
     else
-        echo "You are not on master branch"
+        echo "You are not on main branch"
     fi
 
 release publish="dry-run": build
@@ -66,7 +66,7 @@ release publish="dry-run": build
     VERSION=$(just version)
     if [ {{publish}} = "publish" ]; then
         BRANCH=$(git branch --show-current)
-        if [ $BRANCH != "master" ]; then
+        if [ $BRANCH != "main" ]; then
             echo "You must be on main branch to publish a new version (current branch: $BRANCH))"
             exit 1
         fi
