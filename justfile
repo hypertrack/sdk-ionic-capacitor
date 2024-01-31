@@ -74,6 +74,7 @@ release publish="dry-run": build
         just _ask-confirm
         npm publish
         open "https://www.npmjs.com/package/hypertrack-sdk-ionic-capacitor/v/$VERSION"
+        open "https://github.com/hypertrack/sdk-ionic-capacitor/releases/tag/$VERSION"
     else
         npm publish --dry-run
     fi
