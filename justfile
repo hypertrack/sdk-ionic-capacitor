@@ -29,6 +29,7 @@ build: get-dependencies
     npm run build
 
 clean: _clear-node-modules
+    rm package-lock.json
 
 _clear-node-modules:
     rm -rf node_modules
