@@ -168,7 +168,7 @@ _update-sdk-android-version-file android_version:
     ./scripts/update_file.sh android/build.gradle 'ext.hypertrack_sdk_version = ".*"' 'ext.hypertrack_sdk_version = "{{android_version}}"'
 
 _update-sdk-ios-version-file ios_version:
-    ./scripts/update_file.sh HypertrackSdkIonicCapacitor.podspec "'HyperTrack', '.*'" "'HyperTrack', '{{ios_version}}'"
+    ./scripts/update_file.sh HypertrackSdkIonicCapacitor.podspec "'HyperTrack','.*'" "'HyperTrack','{{ios_version}}'"
 
 _update-wrapper-version-file wrapper_version:
     ./scripts/update_file.sh package.json '"version": ".*"' '"version": "{{wrapper_version}}"'
