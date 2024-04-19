@@ -12,3 +12,4 @@ export { LocationWithDeviation } from './data_types/LocationWithDeviation';
 export { Location } from './data_types/Location';
 export { Result, Success, Failure } from './data_types/Result';
 export { Subscription } from './Subscription';
+export { OrderStatus } from './data_types/OrderStatus';
