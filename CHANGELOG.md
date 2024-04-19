@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [3.2.0] - 2024-04-19
 
+### Fixed
+
+- Added `kotlinOptions.jvmTarget` to fix the build error when updating to Gradle 8 and setting `compileOptions.targetCompatibility` to `17`
+
 ### Changed
 
 - Updated HyperTrack SDK iOS to [5.5.1](https://github.com/hypertrack/sdk-ios/releases/tag/5.5.1)
