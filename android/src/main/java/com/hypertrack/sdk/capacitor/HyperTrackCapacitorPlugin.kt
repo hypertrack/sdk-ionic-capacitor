@@ -179,6 +179,10 @@ class HyperTrackCapacitorPlugin : Plugin() {
                 HyperTrackSdkWrapper.getDeviceId()
             }
 
+            SdkMethod.getDynamicPublishableKey -> {
+                throw Error("Not implemented")
+            }
+
             SdkMethod.getErrors -> {
                 HyperTrackSdkWrapper
                     .getErrors()
@@ -206,19 +210,27 @@ class HyperTrackCapacitorPlugin : Plugin() {
             SdkMethod.getName -> {
                 HyperTrackSdkWrapper.getName()
             }
+
             SdkMethod.locate -> {
                 throw NotImplementedError("Locate is implemented in different way")
             }
+
+            SdkMethod.setDynamicPublishableKey -> {
+                throw Error("Not implemented")
+            }
+
             SdkMethod.setIsAvailable -> {
                 withArgs<Map<String, Any?>, Unit>(argsJson) { args ->
                     HyperTrackSdkWrapper.setIsAvailable(args)
                 }
             }
+
             SdkMethod.setIsTracking -> {
                 withArgs<Map<String, Any?>, Unit>(argsJson) { args ->
                     HyperTrackSdkWrapper.setIsTracking(args)
                 }
             }
+            
             SdkMethod.setMetadata -> {
                 withArgs<Map<String, Any?>, Unit>(argsJson) { args ->
                     HyperTrackSdkWrapper.setMetadata(args)
