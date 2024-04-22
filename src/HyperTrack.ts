@@ -93,7 +93,10 @@ export default class HyperTrack {
       // addGeotag(orderHandle: string, orderStatus: OrderStatus, data: Object)
       return hyperTrackPlugin
         .addGeotag({
-          orderHandle: args[0],
+          orderHandle: {
+            type: 'orderHandle',
+            value: args[0],
+          } as OrderHandle,
           orderStatus: args[1],
           data: args[2],
           expectedLocation: undefined,
@@ -112,7 +115,10 @@ export default class HyperTrack {
       // addGeotag(orderHandle: string, orderStatus: OrderStatus, data: Object, expectedLocation: Location)
       return hyperTrackPlugin
         .addGeotag({
-          orderHandle: args[0],
+          orderHandle: {
+            type: 'orderHandle',
+            value: args[0],
+          } as OrderHandle,
           orderStatus: args[1],
           data: args[2],
           expectedLocation: {

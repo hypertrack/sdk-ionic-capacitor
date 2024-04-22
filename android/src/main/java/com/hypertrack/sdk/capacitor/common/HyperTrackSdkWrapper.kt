@@ -3,23 +3,23 @@ package com.hypertrack.sdk.capacitor.common
 import com.hypertrack.sdk.android.HyperTrack
 import com.hypertrack.sdk.android.Json
 import com.hypertrack.sdk.android.Result
-import com.hypertrack.sdk.capacitor.common.Serialization.deserializeDynamicPublishableKey
-import com.hypertrack.sdk.capacitor.common.Serialization.deserializeGeotagData
-import com.hypertrack.sdk.capacitor.common.Serialization.deserializeIsAvailable
-import com.hypertrack.sdk.capacitor.common.Serialization.deserializeIsTracking
-import com.hypertrack.sdk.capacitor.common.Serialization.deserializeMetadata
-import com.hypertrack.sdk.capacitor.common.Serialization.deserializeName
-import com.hypertrack.sdk.capacitor.common.Serialization.serializeDeviceId
-import com.hypertrack.sdk.capacitor.common.Serialization.serializeDynamicPublishableKey
-import com.hypertrack.sdk.capacitor.common.Serialization.serializeErrors
-import com.hypertrack.sdk.capacitor.common.Serialization.serializeIsAvailable
-import com.hypertrack.sdk.capacitor.common.Serialization.serializeIsTracking
-import com.hypertrack.sdk.capacitor.common.Serialization.serializeLocationErrorFailure
-import com.hypertrack.sdk.capacitor.common.Serialization.serializeLocationResult
-import com.hypertrack.sdk.capacitor.common.Serialization.serializeLocationSuccess
-import com.hypertrack.sdk.capacitor.common.Serialization.serializeLocationWithDeviationSuccess
-import com.hypertrack.sdk.capacitor.common.Serialization.serializeMetadata
-import com.hypertrack.sdk.capacitor.common.Serialization.serializeName
+import com.hypertrack.sdk.flutter.common.Serialization.deserializeDynamicPublishableKey
+import com.hypertrack.sdk.flutter.common.Serialization.deserializeGeotagData
+import com.hypertrack.sdk.flutter.common.Serialization.deserializeIsAvailable
+import com.hypertrack.sdk.flutter.common.Serialization.deserializeIsTracking
+import com.hypertrack.sdk.flutter.common.Serialization.deserializeMetadata
+import com.hypertrack.sdk.flutter.common.Serialization.deserializeName
+import com.hypertrack.sdk.flutter.common.Serialization.serializeDeviceId
+import com.hypertrack.sdk.flutter.common.Serialization.serializeDynamicPublishableKey
+import com.hypertrack.sdk.flutter.common.Serialization.serializeErrors
+import com.hypertrack.sdk.flutter.common.Serialization.serializeIsAvailable
+import com.hypertrack.sdk.flutter.common.Serialization.serializeIsTracking
+import com.hypertrack.sdk.flutter.common.Serialization.serializeLocationErrorFailure
+import com.hypertrack.sdk.flutter.common.Serialization.serializeLocationResult
+import com.hypertrack.sdk.flutter.common.Serialization.serializeLocationSuccess
+import com.hypertrack.sdk.flutter.common.Serialization.serializeLocationWithDeviationSuccess
+import com.hypertrack.sdk.flutter.common.Serialization.serializeMetadata
+import com.hypertrack.sdk.flutter.common.Serialization.serializeName
 
 typealias Serialized = Map<String, Any?>
 
@@ -28,20 +28,20 @@ typealias Serialized = Map<String, Any?>
  * It receives serialized params.
  */
 internal object HyperTrackSdkWrapper {
-
     fun addGeotag(args: Serialized): WrapperResult<Serialized> {
         return deserializeGeotagData(args)
             .flatMapSuccess { geotag ->
                 // TODO: return proper error if JSON is wrong
                 val geotagMetadata = Json.fromMap(geotag.data)!!
-                val expectedLocation = geotag
-                    .expectedLocation
-                    ?.let {
-                        HyperTrack.Location(
-                            latitude = it.latitude,
-                            longitude = it.longitude
-                        )
-                    }
+                val expectedLocation =
+                    geotag
+                        .expectedLocation
+                        ?.let {
+                            HyperTrack.Location(
+                                latitude = it.latitude,
+                                longitude = it.longitude,
+                            )
+                        }
                 val orderHandle = geotag.orderHandle
                 val orderStatus = geotag.orderStatus
                 if (expectedLocation != null) {
@@ -53,7 +53,7 @@ internal object HyperTrackSdkWrapper {
                             orderHandle = orderHandle,
                             orderStatus = orderStatus,
                             expectedLocation = expectedLocation,
-                            metadata = geotagMetadata
+                            metadata = geotagMetadata,
                         )
                     } else {
                         HyperTrack.addGeotag(geotagMetadata, expectedLocation)
@@ -77,7 +77,7 @@ internal object HyperTrackSdkWrapper {
                         HyperTrack.addGeotag(
                             orderHandle = orderHandle,
                             orderStatus = orderStatus,
-                            metadata = geotagMetadata
+                            metadata = geotagMetadata,
                         )
                     } else {
                         HyperTrack.addGeotag(geotagMetadata)
@@ -103,13 +103,13 @@ internal object HyperTrackSdkWrapper {
 
     fun getIsAvailable(): WrapperResult<Serialized> {
         return Success(
-            serializeIsAvailable(HyperTrack.isAvailable)
+            serializeIsAvailable(HyperTrack.isAvailable),
         )
     }
 
     fun getIsTracking(): WrapperResult<Serialized> {
         return Success(
-            serializeIsTracking(HyperTrack.isTracking)
+            serializeIsTracking(HyperTrack.isTracking),
         )
     }
 
@@ -127,13 +127,13 @@ internal object HyperTrackSdkWrapper {
 
     fun getMetadata(): WrapperResult<Serialized> {
         return Success(
-            serializeMetadata(HyperTrack.metadata.toMap())
+            serializeMetadata(HyperTrack.metadata.toMap()),
         )
     }
 
     fun getName(): WrapperResult<Serialized> {
         return Success(
-            serializeName(HyperTrack.name)
+            serializeName(HyperTrack.name),
         )
     }
 
@@ -174,5 +174,4 @@ internal object HyperTrackSdkWrapper {
                 HyperTrack.name = name
             }
     }
-
 }
