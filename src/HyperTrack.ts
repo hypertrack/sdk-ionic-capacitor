@@ -13,6 +13,7 @@ import type { Result } from './data_types/Result';
 import type { LocationInternal } from './data_types/internal/LocationInternal';
 import type { LocationWithDeviationInternal } from './data_types/internal/LocationWithDeviationInternal';
 import type { Metadata } from './data_types/internal/Metadata';
+import type { OrderHandle } from './data_types/internal/OrderHandle';
 import { registerPlugin } from '@capacitor/core';
 import { Subscription } from './Subscription';
 import { Errors, HyperTrackCapacitorPlugin } from './HyperTrackCapacitorPlugin';
