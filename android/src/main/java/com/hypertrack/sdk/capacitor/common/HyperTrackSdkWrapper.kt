@@ -3,23 +3,23 @@ package com.hypertrack.sdk.capacitor.common
 import com.hypertrack.sdk.android.HyperTrack
 import com.hypertrack.sdk.android.Json
 import com.hypertrack.sdk.android.Result
-import com.hypertrack.sdk.flutter.common.Serialization.deserializeDynamicPublishableKey
-import com.hypertrack.sdk.flutter.common.Serialization.deserializeGeotagData
-import com.hypertrack.sdk.flutter.common.Serialization.deserializeIsAvailable
-import com.hypertrack.sdk.flutter.common.Serialization.deserializeIsTracking
-import com.hypertrack.sdk.flutter.common.Serialization.deserializeMetadata
-import com.hypertrack.sdk.flutter.common.Serialization.deserializeName
-import com.hypertrack.sdk.flutter.common.Serialization.serializeDeviceId
-import com.hypertrack.sdk.flutter.common.Serialization.serializeDynamicPublishableKey
-import com.hypertrack.sdk.flutter.common.Serialization.serializeErrors
-import com.hypertrack.sdk.flutter.common.Serialization.serializeIsAvailable
-import com.hypertrack.sdk.flutter.common.Serialization.serializeIsTracking
-import com.hypertrack.sdk.flutter.common.Serialization.serializeLocationErrorFailure
-import com.hypertrack.sdk.flutter.common.Serialization.serializeLocationResult
-import com.hypertrack.sdk.flutter.common.Serialization.serializeLocationSuccess
-import com.hypertrack.sdk.flutter.common.Serialization.serializeLocationWithDeviationSuccess
-import com.hypertrack.sdk.flutter.common.Serialization.serializeMetadata
-import com.hypertrack.sdk.flutter.common.Serialization.serializeName
+import com.hypertrack.sdk.capacitor.common.Serialization.deserializeDynamicPublishableKey
+import com.hypertrack.sdk.capacitor.common.Serialization.deserializeGeotagData
+import com.hypertrack.sdk.capacitor.common.Serialization.deserializeIsAvailable
+import com.hypertrack.sdk.capacitor.common.Serialization.deserializeIsTracking
+import com.hypertrack.sdk.capacitor.common.Serialization.deserializeMetadata
+import com.hypertrack.sdk.capacitor.common.Serialization.deserializeName
+import com.hypertrack.sdk.capacitor.common.Serialization.serializeDeviceId
+import com.hypertrack.sdk.capacitor.common.Serialization.serializeDynamicPublishableKey
+import com.hypertrack.sdk.capacitor.common.Serialization.serializeErrors
+import com.hypertrack.sdk.capacitor.common.Serialization.serializeIsAvailable
+import com.hypertrack.sdk.capacitor.common.Serialization.serializeIsTracking
+import com.hypertrack.sdk.capacitor.common.Serialization.serializeLocationErrorFailure
+import com.hypertrack.sdk.capacitor.common.Serialization.serializeLocationResult
+import com.hypertrack.sdk.capacitor.common.Serialization.serializeLocationSuccess
+import com.hypertrack.sdk.capacitor.common.Serialization.serializeLocationWithDeviationSuccess
+import com.hypertrack.sdk.capacitor.common.Serialization.serializeMetadata
+import com.hypertrack.sdk.capacitor.common.Serialization.serializeName
 
 typealias Serialized = Map<String, Any?>
 
