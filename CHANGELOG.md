@@ -14,6 +14,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [3.2.0] - 2024-04-19
 
+### Added
+
+- New `addGeotag` method that have `orderHandle` and `orderStatus` parameters. You can use this API when users need to clock in/out of work in your app to honor their work time (see [Clock in/out Tagging](https://hypertrack.com/docs/clock-inout-tracking#add-clock-inout-events-to-a-shift-timeline) guide for more info)
+
 ### Fixed
 
 - Added `kotlinOptions.jvmTarget` to fix the build error when updating to Gradle 8 and setting `compileOptions.targetCompatibility` to `17`
