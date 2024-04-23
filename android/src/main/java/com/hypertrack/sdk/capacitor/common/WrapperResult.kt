@@ -1,4 +1,4 @@
-package com.hypertrack.sdk.flutter.common
+package com.hypertrack.sdk.capacitor.common
 
 internal sealed class WrapperResult<SuccessType> {
     fun <MappedSuccess> flatMapSuccess(onSuccess: (SuccessType) -> WrapperResult<MappedSuccess>): WrapperResult<MappedSuccess> {
