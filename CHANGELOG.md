@@ -7,10 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [3.3.0] - 2024-05-13
 
+### Added
+
+- Now the plugin takes into account project's `kotlin_version` to align Kotlin versions.
+
 ### Changed
 
+- Default Kotlin version is updated to `1.9.10`
 - Updated HyperTrack SDK iOS to [5.5.4](https://github.com/hypertrack/sdk-ios/releases/tag/5.5.4)
 - Updated HyperTrack SDK Android to [7.5.4](https://github.com/hypertrack/sdk-android/releases/tag/7.5.4)
+
+### Removed
+
+- `@capacitor/core` item in `peerDependencies`
 
 ## [3.2.2] - 2024-05-03
 
