@@ -140,6 +140,9 @@ update-sdk wrapper_version ios_version android_version commit="true" branch="tru
         git add .
         git commit -m "Update HyperTrack SDK iOS to {{ios_version}} and Android to {{android_version}}"
     fi
+    if [ "{{branch}}" = "true" ] && [ "{{commit}}" = "true" ] ; then
+        just open-github-prs
+    fi
 
 update-sdk-android wrapper_version android_version commit="true" branch="true": build
     #!/usr/bin/env sh
@@ -158,6 +161,9 @@ update-sdk-android wrapper_version android_version commit="true" branch="true": 
         git add .
         git commit -m "Update HyperTrack SDK Android to {{android_version}}"
     fi
+    if [ "{{branch}}" = "true" ] && [ "{{commit}}" = "true" ] ; then
+        just open-github-prs
+    fi
 
 update-sdk-ios wrapper_version ios_version commit="true" branch="true": build
     #!/usr/bin/env sh
@@ -175,6 +181,9 @@ update-sdk-ios wrapper_version ios_version commit="true" branch="true": build
     if [ "{{commit}}" = "true" ] ; then
         git add .
         git commit -m "Update HyperTrack SDK iOS to {{ios_version}}"
+    fi
+    if [ "{{branch}}" = "true" ] && [ "{{commit}}" = "true" ] ; then
+        just open-github-prs
     fi
 
 _update-sdk-android-version-file android_version:
