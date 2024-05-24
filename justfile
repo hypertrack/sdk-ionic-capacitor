@@ -36,7 +36,7 @@ clean: _clear-node-modules
 _clear-node-modules:
     rm -rf node_modules
 
-docs:
+docs: build
     npm run docgen
 
 get-dependencies:
