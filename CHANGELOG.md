@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [3.4.0] - 2024-06-13
 
+### Added
+
+- New `setWorkerHandle` and `getWorkerHandle` can be used to identify workers
+  - We observed our customers identify worker devices via `HyperTrack.metadata`, so we decided to make it a first class citizen in our API.
+  - If you previously used `metadata` to identify workers, we suggest using `workerHandle` for this purpose instead.
+
 ### Changed
 
 - Updated HyperTrack SDK iOS to [5.6.0](https://github.com/hypertrack/sdk-ios/releases/tag/5.6.0)
