@@ -211,6 +211,10 @@ class HyperTrackCapacitorPlugin : Plugin() {
                 HyperTrackSdkWrapper.getName()
             }
 
+            SdkMethod.getWorkerHandle -> {
+                HyperTrackSdkWrapper.getWorkerHandle()
+            }
+
             SdkMethod.locate -> {
                 throw NotImplementedError("Locate is implemented in different way")
             }
@@ -240,6 +244,12 @@ class HyperTrackCapacitorPlugin : Plugin() {
             SdkMethod.setName -> {
                 withArgs<Map<String, Any?>, Unit>(argsJson) { args ->
                     HyperTrackSdkWrapper.setName(args)
+                }
+            }
+
+            SdkMethod.setWorkerHandle -> {
+                withArgs<Map<String, Any?>, Unit>(argsJson) { args ->
+                    HyperTrackSdkWrapper.setWorkerHandle(args)
                 }
             }
         }
