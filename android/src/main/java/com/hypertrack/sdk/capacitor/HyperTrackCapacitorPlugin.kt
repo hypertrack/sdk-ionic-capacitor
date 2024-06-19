@@ -63,6 +63,11 @@ class HyperTrackCapacitorPlugin : Plugin() {
     }
 
     @PluginMethod
+    fun getWorkerHandle(call: PluginCall) {
+        invokeSdkMethod(SdkMethod.getWorkerHandle, call).toPluginCall(call)
+    }
+
+    @PluginMethod
     fun setIsAvailable(call: PluginCall) {
         invokeSdkMethod(SdkMethod.setIsAvailable, call).toPluginCall(call)
     }
@@ -80,6 +85,11 @@ class HyperTrackCapacitorPlugin : Plugin() {
     @PluginMethod
     fun setName(call: PluginCall) {
         invokeSdkMethod(SdkMethod.setName, call).toPluginCall(call)
+    }
+
+    @PluginMethod
+    fun setWorkerHandle(call: PluginCall) {
+        invokeSdkMethod(SdkMethod.setWorkerHandle, call).toPluginCall(call)
     }
 
     @PluginMethod
