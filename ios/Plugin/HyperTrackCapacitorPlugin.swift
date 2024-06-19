@@ -20,7 +20,7 @@ public class HyperTrackCapacitorPlugin: CAPPlugin {
     private var locationSubscription: HyperTrack.Cancellable!
 
     private var locateSubscription: HyperTrack.Cancellable? = nil
-    
+
     override public func load() {
         initListeners()
     }
@@ -100,6 +100,14 @@ public class HyperTrackCapacitorPlugin: CAPPlugin {
         )
     }
 
+    @objc func getWorkerHandle(_ call: CAPPluginCall) {
+        sendAsPromise(
+            HypertrackSdkIonicCapacitor.getWorkerHandle(),
+            method: .getWorkerHandle,
+            call
+        )
+    }
+
     @objc func setIsAvailable(_ call: CAPPluginCall) {
         sendAsPromise(
             HypertrackSdkIonicCapacitor.setIsAvailable(
@@ -136,6 +144,16 @@ public class HyperTrackCapacitorPlugin: CAPPlugin {
                 call.options as! [String: Any]
             ),
             method: .setName,
+            call
+        )
+    }
+
+    @objc func setWorkerHandle(_ call: CAPPluginCall) {
+        sendAsPromise(
+            HypertrackSdkIonicCapacitor.setWorkerHandle(
+                call.options as! [String: Any]
+            ),
+            method: .setWorkerHandle,
             call
         )
     }
