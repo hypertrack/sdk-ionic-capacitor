@@ -1,6 +1,5 @@
 package com.hypertrack.sdk.capacitor
 
-import android.util.Log
 import com.getcapacitor.JSObject
 import com.getcapacitor.Plugin
 import com.getcapacitor.PluginCall
@@ -11,7 +10,7 @@ import com.hypertrack.sdk.android.HyperTrack
 import com.hypertrack.sdk.android.Result
 import com.hypertrack.sdk.capacitor.common.*
 import com.hypertrack.sdk.capacitor.common.Serialization.serializeErrors
-import com.hypertrack.sdk.capacitor.common.WrapperResult
+import com.hypertrack.sdk.capacitor.common.Serialization.serializeOrders
 
 @CapacitorPlugin(name = "HyperTrackCapacitorPlugin")
 class HyperTrackCapacitorPlugin : Plugin() {
@@ -60,6 +59,11 @@ class HyperTrackCapacitorPlugin : Plugin() {
     @PluginMethod
     fun getName(call: PluginCall) {
         invokeSdkMethod(SdkMethod.getName, call).toPluginCall(call)
+    }
+
+    @PluginMethod
+    fun getOrders(call: PluginCall) {
+        invokeSdkMethod(SdkMethod.getOrders, call).toPluginCall(call)
     }
 
     @PluginMethod
@@ -120,6 +124,11 @@ class HyperTrackCapacitorPlugin : Plugin() {
         sendLocationEvent(HyperTrack.location)
     }
 
+    @PluginMethod
+    fun onSubscribedToOrders(call: PluginCall) {
+        sendOrdersEvent(HyperTrack.orders.values)
+    }
+
     private fun sendErrorsEvent(errors: Set<HyperTrack.Error>) {
         sendEvent(
             EVENT_ERRORS,
@@ -155,6 +164,13 @@ class HyperTrackCapacitorPlugin : Plugin() {
         )
     }
 
+    private fun sendOrdersEvent(orders: Collection<HyperTrack.Order>) {
+        sendEvent(
+            EVENT_ORDERS,
+            serializeOrders(orders).toJSObject()
+        )
+    }
+
     private fun initListeners() {
         HyperTrack.subscribeToErrors {
             sendErrorsEvent(it)
@@ -170,6 +186,10 @@ class HyperTrackCapacitorPlugin : Plugin() {
 
         HyperTrack.subscribeToLocation {
             sendLocationEvent(it)
+        }
+
+        HyperTrack.subscribeToOrders {
+            sendOrdersEvent(it.values)
         }
     }
 
@@ -221,6 +241,11 @@ class HyperTrackCapacitorPlugin : Plugin() {
                 HyperTrackSdkWrapper.getName()
             }
 
+            SdkMethod.getOrders -> {
+                HyperTrackSdkWrapper
+                    .getOrders()
+            }
+
             SdkMethod.getWorkerHandle -> {
                 HyperTrackSdkWrapper.getWorkerHandle()
             }
@@ -244,7 +269,7 @@ class HyperTrackCapacitorPlugin : Plugin() {
                     HyperTrackSdkWrapper.setIsTracking(args)
                 }
             }
-            
+
             SdkMethod.setMetadata -> {
                 withArgs<Map<String, Any?>, Unit>(argsJson) { args ->
                     HyperTrackSdkWrapper.setMetadata(args)
@@ -290,5 +315,6 @@ class HyperTrackCapacitorPlugin : Plugin() {
         private const val EVENT_IS_AVAILABLE = "isAvailable"
         private const val EVENT_LOCATE = "locate"
         private const val EVENT_LOCATION = "location"
+        private const val EVENT_ORDERS = "orders"
     }
 }
