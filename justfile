@@ -1,6 +1,7 @@
 # do not create a shorcut for `publish` command to avoid accidental publishing
 alias b := build
 alias c := clean
+alias cjcfrn := copy-js-code-from-react-native
 alias cncfrn := copy-native-code-from-react-native
 alias d := docs
 alias gd := get-dependencies
@@ -37,6 +38,11 @@ clean: _clear-node-modules
 copy-native-code-from-react-native:
     cp -rf ../sdk-react-native/sdk/android/src/main/java/com/reactnativehypertracksdk/common android/src/main/java/com/hypertrack/sdk/capacitor/
     cp -rf ../sdk-react-native/sdk/ios/common ios/Plugin/
+
+copy-js-code-from-react-native:
+    cp -rf ../sdk-react-native/sdk/src/HyperTrack/data_types src
+    cp -f ../sdk-react-native/sdk/src/HyperTrack/HyperTrack.ts src/HyperTrack.ts
+    cp -f ../sdk-react-native/sdk/src/index.tsx src/index.ts
 
 _clear-node-modules:
     rm -rf node_modules
