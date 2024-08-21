@@ -13,11 +13,13 @@ public class HyperTrackCapacitorPlugin: CAPPlugin {
     private let eventIsAvailable = "isAvailable"
     private let eventLocate = "locate"
     private let eventLocation = "location"
+    private let eventOrders = "orders"
 
     private var errorsSubscription: HyperTrack.Cancellable!
     private var isTrackingSubscription: HyperTrack.Cancellable!
     private var isAvailableSubscription: HyperTrack.Cancellable!
     private var locationSubscription: HyperTrack.Cancellable!
+    private var ordersSubscription: HyperTrack.Cancellable!
 
     private var locateSubscription: HyperTrack.Cancellable? = nil
 
@@ -96,6 +98,14 @@ public class HyperTrackCapacitorPlugin: CAPPlugin {
         sendAsPromise(
             HypertrackSdkIonicCapacitor.getName(),
             method: .getName,
+            call
+        )
+    }
+
+    @objc func getOrders(_ call: CAPPluginCall) {
+        sendAsPromise(
+            HypertrackSdkIonicCapacitor.getOrders(),
+            method: .getOrders,
             call
         )
     }
@@ -181,6 +191,10 @@ public class HyperTrackCapacitorPlugin: CAPPlugin {
         sendLocationEvent(HyperTrack.location)
     }
 
+    @objc func onSubscribedToOrders(_: CAPPluginCall) {
+        sendOrdersEvent(Array(HyperTrack.orders))
+    }
+
     private func initListeners() {
         errorsSubscription = HyperTrack.subscribeToErrors { errors in
             self.sendErrorsEvent(errors)
@@ -193,6 +207,9 @@ public class HyperTrackCapacitorPlugin: CAPPlugin {
         }
         locationSubscription = HyperTrack.subscribeToLocation { location in
             self.sendLocationEvent(location)
+        }
+        ordersSubscription = HyperTrack.subscribeToOrders { orders in
+            self.sendOrdersEvent(Array(orders))
         }
     }
 
@@ -214,6 +231,10 @@ public class HyperTrackCapacitorPlugin: CAPPlugin {
 
     private func sendLocationEvent(_ locationResult: Result<HyperTrack.Location, HyperTrack.Location.Error>) {
         notifyListeners(eventLocation, data: serializeLocationResult(locationResult))
+    }
+
+    private func sendOrdersEvent(_ orders: [HyperTrack.Order]) {
+        notifyListeners(eventOrders, data: serializeOrders(orders))
     }
 
     private func serializeErrorsForPlugin(_ errors: [[String: Any]]) -> [String: Any] {
