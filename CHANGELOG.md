@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [3.5.0] - 2024-08-22
 
+### Added
+
+- Support for on-device geofencing via new `HyperTrack.orders["my_order"].isInsideGeofence` property
+  - To learn more about how to best use this new feature see our guide here: https://developer.hypertrack.com/docs/clock-in-out-tagging#verify-shift-presence-before-starting-work
+
 ### Changed
 
 - Updated HyperTrack SDK iOS to [5.7.0](https://github.com/hypertrack/sdk-ios/releases/tag/5.7.0)
