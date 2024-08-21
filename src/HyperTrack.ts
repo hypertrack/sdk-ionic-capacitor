@@ -13,7 +13,6 @@ import type { Result } from './data_types/Result';
 import type { LocationInternal } from './data_types/internal/LocationInternal';
 import type { LocationWithDeviationInternal } from './data_types/internal/LocationWithDeviationInternal';
 import type { Metadata } from './data_types/internal/Metadata';
-import type { OrderStatus } from './data_types/OrderStatus';
 import type { OrderHandle } from './data_types/internal/OrderHandle';
 import type { WorkerHandle } from './data_types/internal/WorkerHandle';
 import { registerPlugin } from '@capacitor/core';
@@ -49,7 +48,7 @@ export default class HyperTrack {
   static async addGeotag(
     orderHandle: string,
     orderStatus: OrderStatus,
-    data: Object
+    data: Object,
   ): Promise<Result<Location, LocationError>>;
 
   /**
@@ -65,7 +64,7 @@ export default class HyperTrack {
     orderHandle: string,
     orderStatus: OrderStatus,
     data: Object,
-    expectedLocation: Location
+    expectedLocation: Location,
   ): Promise<Result<LocationWithDeviation, LocationError>>;
 
   /**
@@ -75,9 +74,7 @@ export default class HyperTrack {
    * @param {Object} data - Geotag data JSON
    * @returns current location if success or LocationError if failure
    */
-  static async addGeotag(
-    data: Object
-  ): Promise<Result<Location, LocationError>>;
+  static async addGeotag(data: Object): Promise<Result<Location, LocationError>>;
 
   /**
    * @deprecated
@@ -89,12 +86,10 @@ export default class HyperTrack {
    */
   static async addGeotag(
     data: Object,
-    expectedLocation: Location
+    expectedLocation: Location,
   ): Promise<Result<LocationWithDeviation, LocationError>>;
 
-  static async addGeotag(
-    ...args: any[]
-  ): Promise<Result<Location | LocationWithDeviation, LocationError>> {
+  static async addGeotag(...args: any[]): Promise<Result<Location | LocationWithDeviation, LocationError>> {
     if (
       args.length === 3 &&
       typeof args[0] === 'string' &&
@@ -467,32 +462,27 @@ export default class HyperTrack {
   }
 
   /**
-     * Subscribe to changes in the orders assigned to the worker
-     *
-     * @param listener
-     * @returns Subscription
-     * @example
-     * ```js
-     * const subscription = HyperTrack.subscribeToOrders(orders => {
-     *   ...
-     * })
-     *
-     * // later, to stop listening
-     * subscription.remove()
-     * ```
-     */
-    static subscribeToOrders(
-      listener: (orders: Map<string, Order>) => void
-    ): EmitterSubscription {
-        const result = hyperTrackPlugin.addListener(
-            EVENT_ORDERS,
-            (orders: OrdersInternal) => {
-            listener(this.deserializeOrders(orders));
-            }
-        );
-        hyperTrackPlugin.onSubscribedToOrders();
-        return result;
-    }
+   * Subscribe to changes in the orders assigned to the worker
+   *
+   * @param listener
+   * @returns Subscription
+   * @example
+   * ```js
+   * const subscription = HyperTrack.subscribeToOrders(orders => {
+   *   ...
+   * })
+   *
+   * // later, to stop listening
+   * subscription.remove()
+   * ```
+   */
+  static subscribeToOrders(listener: (orders: Map<string, Order>) => void): Subscription {
+    const result = hyperTrackPlugin.addListener(EVENT_ORDERS, (orders: OrdersInternal) => {
+      listener(this.deserializeOrders(orders));
+    });
+    hyperTrackPlugin.onSubscribedToOrders();
+    return result;
+  }
 
   /** @ignore */
   private static deserializeHyperTrackErrors(errors: HyperTrackErrorInternal[]): HyperTrackError[] {
@@ -509,7 +499,7 @@ export default class HyperTrack {
 
   /** @ignore */
   private static deserializeIsInsideGeofence(
-    isInsideGeofence: Result<boolean, LocationErrorInternal>
+    isInsideGeofence: Result<boolean, LocationErrorInternal>,
   ): Result<boolean, LocationError> {
     switch (isInsideGeofence.type) {
       case 'success':
@@ -527,7 +517,7 @@ export default class HyperTrack {
 
   /** @ignore */
   private static deserializeLocateResponse(
-    response: Result<LocationInternal, HyperTrackErrorInternal[]>
+    response: Result<LocationInternal, HyperTrackErrorInternal[]>,
   ): Result<Location, HyperTrackError[]> {
     switch (response.type) {
       case 'success':
@@ -544,9 +534,7 @@ export default class HyperTrack {
   }
 
   /** @ignore */
-  private static deserializeLocationError(
-    locationError: LocationErrorInternal
-  ): LocationError {
+  private static deserializeLocationError(locationError: LocationErrorInternal): LocationError {
     switch (locationError.type) {
       case 'notRunning':
       case 'starting':
@@ -561,7 +549,7 @@ export default class HyperTrack {
 
   /** @ignore */
   private static deserializeLocationResponse(
-    response: Result<LocationInternal, LocationErrorInternal>
+    response: Result<LocationInternal, LocationErrorInternal>,
   ): Result<Location, LocationError> {
     switch (response.type) {
       case 'success':
@@ -579,14 +567,12 @@ export default class HyperTrack {
 
   /** @ignore */
   private static deserializeLocationWithDeviationResponse(
-    response: Result<LocationWithDeviationInternal, LocationErrorInternal>
+    response: Result<LocationWithDeviationInternal, LocationErrorInternal>,
   ): Result<LocationWithDeviation, LocationError> {
     switch (response.type) {
       case 'success':
-        const locationWithDeviationInternal: LocationWithDeviationInternal =
-          response.value;
-        const locationInternal: LocationInternal =
-          locationWithDeviationInternal.value.location;
+        const locationWithDeviationInternal: LocationWithDeviationInternal = response.value;
+        const locationInternal: LocationInternal = locationWithDeviationInternal.value.location;
 
         return {
           type: 'success',
@@ -629,16 +615,11 @@ export default class HyperTrack {
       .map(([_, value]: [string, OrderInternal]) => {
         return value;
       })
-      .sort(
-        (first: OrderInternal, second: OrderInternal) =>
-          first.index - second.index
-      )
+      .sort((first: OrderInternal, second: OrderInternal) => first.index - second.index)
       .forEach((orderInternal: OrderInternal) => {
         result.set(orderInternal.orderHandle, {
           orderHandle: orderInternal.orderHandle,
-          isInsideGeofence: this.deserializeIsInsideGeofence(
-            orderInternal.isInsideGeofence
-          ),
+          isInsideGeofence: this.deserializeIsInsideGeofence(orderInternal.isInsideGeofence),
         } as Order);
       });
     return result;
@@ -647,10 +628,7 @@ export default class HyperTrack {
   /** @ignore */
   private static isLocation(obj: Location): obj is Location {
     return (
-      'latitude' in obj &&
-      typeof obj.latitude === 'number' &&
-      'longitude' in obj &&
-      typeof obj.longitude === 'number'
+      'latitude' in obj && typeof obj.latitude === 'number' && 'longitude' in obj && typeof obj.longitude === 'number'
     );
   }
 

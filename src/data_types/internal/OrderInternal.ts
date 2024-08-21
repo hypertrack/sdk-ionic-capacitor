@@ -1,5 +1,4 @@
-import type { Result } from 'lib/typescript';
-import type { LocationError } from '../LocationError';
+import { Result } from '../Result';
 import type { LocationErrorInternal } from './LocationErrorInternal';
 
 export type OrderInternal = {

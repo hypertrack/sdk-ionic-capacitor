@@ -1,4 +1,11 @@
-import { EVENT_ERRORS, EVENT_IS_AVAILABLE, EVENT_IS_TRACKING, EVENT_LOCATE, EVENT_LOCATION } from './HyperTrack';
+import {
+  EVENT_ERRORS,
+  EVENT_IS_AVAILABLE,
+  EVENT_IS_TRACKING,
+  EVENT_LOCATE,
+  EVENT_LOCATION,
+  EVENT_ORDERS,
+} from './HyperTrack';
 import { Subscription } from './Subscription';
 import { Result } from './data_types/Result';
 import { DeviceId } from './data_types/internal/DeviceId';
@@ -9,6 +16,7 @@ import { LocationErrorInternal } from './data_types/internal/LocationErrorIntern
 import { LocationInternal } from './data_types/internal/LocationInternal';
 import { Metadata } from './data_types/internal/Metadata';
 import { Name } from './data_types/internal/Name';
+import { OrdersInternal } from './data_types/internal/OrdersInternal';
 import { WorkerHandle } from './data_types/internal/WorkerHandle';
 
 export type Errors = {
@@ -32,6 +40,8 @@ export interface HyperTrackCapacitorPlugin {
 
   getName(): Promise<Name>;
 
+  getOrders(): Promise<OrdersInternal>;
+
   getWorkerHandle(): Promise<WorkerHandle>;
 
   setIsAvailable(isAvailable: IsAvailable): Promise<void>;
@@ -49,6 +59,7 @@ export interface HyperTrackCapacitorPlugin {
   onSubscribedToIsTracking(): Promise<void>;
   onSubscribedToLocate(): Promise<void>;
   onSubscribedToLocation(): Promise<void>;
+  onSubscribedToOrders(): Promise<void>;
 
   addListener(eventName: typeof EVENT_ERRORS, listenerFunc: (error: any) => void): Subscription;
 
@@ -65,4 +76,6 @@ export interface HyperTrackCapacitorPlugin {
     eventName: typeof EVENT_LOCATION,
     listenerFunc: (location: Result<LocationInternal, LocationErrorInternal>) => void,
   ): Subscription;
+
+  addListener(eventName: typeof EVENT_ORDERS, listenerFunc: (orders: OrdersInternal) => void): Subscription;
 }
