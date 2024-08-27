@@ -10,40 +10,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Support for on-device geofencing via new `HyperTrack.orders["my_order"].isInsideGeofence` property
-  - To learn more about how to best use this new feature see our guide here: https://developer.hypertrack.com/docs/clock-in-out-tagging#verify-shift-presence-before-starting-work
+  - To learn more about how to best use this new feature see our guide here: [Verify shift presence before starting work](https://developer.hypertrack.com/docs/clock-in-out-tagging#verify-shift-presence-before-starting-work)
 
 Example use for worker clock in:
 
 ```typescript
-function handlePresence(
-  isInsideResult: Result<boolean, LocationError>
-) {
+function handlePresence(isInsideResult: Result<boolean, LocationError>) {
   switch (isInsideResult.type) {
-    case "success":
+    case 'success':
       if (isInsideResult.value) {
         // allow worker to clock in for the shift
       } else {
         // "to clock in you must be at order destination"
       }
       break;
-    case "failure":
-      // resolve any tracking errors to obtain geofence presence
+    case 'failure':
+    // resolve any tracking errors to obtain geofence presence
   }
 }
 
 // check if a worker is inside an order's geofence
-handlePresence(HyperTrack.orders.get("my_order").isInsideGeofence)
+handlePresence(HyperTrack.orders.get('my_order').isInsideGeofence);
 
 // or, listen to order.isInsideGeofence changes
-HyperTrack.subscribeToOrders((orders) => { 
-  handlePresence(orders.get("my_order").isInsideGeofence)
-})
+HyperTrack.subscribeToOrders((orders) => {
+  handlePresence(orders.get('my_order').isInsideGeofence);
+});
 ```
-
-### Added
-
-- Support for on-device geofencing via new `HyperTrack.orders["my_order"].isInsideGeofence` property
-  - To learn more about how to best use this new feature see our guide here: https://developer.hypertrack.com/docs/clock-in-out-tagging#verify-shift-presence-before-starting-work
 
 ### Changed
 
