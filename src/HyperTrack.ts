@@ -22,6 +22,7 @@ import type { OrderStatus } from './data_types/OrderStatus';
 import type { Order } from './data_types/Order';
 import type { OrdersInternal } from './data_types/internal/OrdersInternal';
 import type { OrderInternal } from './data_types/internal/OrderInternal';
+import { IsInsideGeofence } from './data_types/internal/IsInsideGeofence';
 
 export const EVENT_ERRORS = 'errors';
 export const EVENT_IS_AVAILABLE = 'isAvailable';
@@ -499,13 +500,17 @@ export default class HyperTrack {
 
   /** @ignore */
   private static deserializeIsInsideGeofence(
-    isInsideGeofence: Result<boolean, LocationErrorInternal>,
+    isInsideGeofence: Result<IsInsideGeofence, LocationErrorInternal>,
   ): Result<boolean, LocationError> {
     switch (isInsideGeofence.type) {
       case 'success':
+        let successValue = isInsideGeofence.value;
+        if (successValue.type !== 'isInsideGeofence') {
+          throw new Error(`Invalid isInsideGeofence: ${JSON.stringify(successValue)}`);
+        }
         return {
           type: 'success',
-          value: isInsideGeofence.value,
+          value: successValue.value,
         };
       case 'failure':
         return {
