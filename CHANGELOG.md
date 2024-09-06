@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [3.6.0] - 2024-09-04
 
+### Added
+
+- Support for Motion & Activity detection
+  - If your app asks for the Motion & Activity permission (for iOS) or the Activity Recognition permission (for Android) and the user grants it, you will have better activity detection in polylines
+
 ### Changed
 
 - Updated HyperTrack SDK iOS to [5.8.0](https://github.com/hypertrack/sdk-ios/releases/tag/5.8.0)
