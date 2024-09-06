@@ -70,6 +70,7 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$androidxAppCompatVersion"
 
     implementation "com.hypertrack:sdk-android:$hypertrack_sdk_version"
+    implementation "com.hypertrack:activity-service-google:$hypertrack_sdk_version"
     implementation "com.hypertrack:location-services-google:$hypertrack_sdk_version"
     implementation "com.hypertrack:push-service-firebase:$hypertrack_sdk_version"
 
