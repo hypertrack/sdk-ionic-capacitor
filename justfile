@@ -47,8 +47,12 @@ copy-js-code-from-react-native:
 _clear-node-modules:
     rm -rf node_modules
 
-docs: build
+docs: build format
     npm run docgen
+
+format: 
+    brew upgrade ktlint
+    ktlint --format android/src/main/
 
 get-dependencies:
     npm i
