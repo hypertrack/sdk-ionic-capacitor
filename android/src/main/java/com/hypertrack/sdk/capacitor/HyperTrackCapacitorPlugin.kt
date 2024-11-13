@@ -14,7 +14,6 @@ import com.hypertrack.sdk.capacitor.common.Serialization.serializeOrders
 
 @CapacitorPlugin(name = "HyperTrackCapacitorPlugin")
 class HyperTrackCapacitorPlugin : Plugin() {
-
     private var locateSubscription: HyperTrack.Cancellable? = null
 
     init {
@@ -114,9 +113,10 @@ class HyperTrackCapacitorPlugin : Plugin() {
     @PluginMethod
     fun onSubscribedToLocate(call: PluginCall) {
         locateSubscription?.cancel()
-        locateSubscription = HyperTrack.locate { result ->
-            sendLocateEvent(result)
-        }
+        locateSubscription =
+            HyperTrack.locate { result ->
+                sendLocateEvent(result)
+            }
     }
 
     @PluginMethod
@@ -132,42 +132,42 @@ class HyperTrackCapacitorPlugin : Plugin() {
     private fun sendErrorsEvent(errors: Set<HyperTrack.Error>) {
         sendEvent(
             EVENT_ERRORS,
-            serializeErrorsForCapacitor(serializeErrors(errors)).toJSObject()
+            serializeErrorsForCapacitor(serializeErrors(errors)).toJSObject(),
         )
     }
 
     private fun sendIsAvailableEvent(isAvailable: Boolean) {
         sendEvent(
             EVENT_IS_AVAILABLE,
-            Serialization.serializeIsAvailable(isAvailable).toJSObject()
+            Serialization.serializeIsAvailable(isAvailable).toJSObject(),
         )
     }
 
     private fun sendIsTrackingEvent(isTracking: Boolean) {
         sendEvent(
             EVENT_IS_TRACKING,
-            Serialization.serializeIsTracking(isTracking).toJSObject()
+            Serialization.serializeIsTracking(isTracking).toJSObject(),
         )
     }
 
     private fun sendLocationEvent(locationResult: Result<HyperTrack.Location, HyperTrack.LocationError>) {
         sendEvent(
             EVENT_LOCATION,
-            Serialization.serializeLocationResult(locationResult).toJSObject()
+            Serialization.serializeLocationResult(locationResult).toJSObject(),
         )
     }
 
     private fun sendLocateEvent(locateResult: Result<HyperTrack.Location, Set<HyperTrack.Error>>) {
         sendEvent(
             EVENT_LOCATE,
-            Serialization.serializeLocateResult(locateResult).toJSObject()
+            Serialization.serializeLocateResult(locateResult).toJSObject(),
         )
     }
 
     private fun sendOrdersEvent(orders: Collection<HyperTrack.Order>) {
         sendEvent(
             EVENT_ORDERS,
-            serializeOrders(orders).toJSObject()
+            serializeOrders(orders).toJSObject(),
         )
     }
 
@@ -195,7 +195,7 @@ class HyperTrackCapacitorPlugin : Plugin() {
 
     private fun invokeSdkMethod(
         method: SdkMethod,
-        call: PluginCall
+        call: PluginCall,
     ): WrapperResult<*> {
         val argsJson = call.data
         return when (method) {
@@ -290,15 +290,19 @@ class HyperTrackCapacitorPlugin : Plugin() {
         }
     }
 
-    private fun sendEvent(eventName: String, data: JSObject, retainUntilConsumed: Boolean = false) {
+    private fun sendEvent(
+        eventName: String,
+        data: JSObject,
+        retainUntilConsumed: Boolean = false,
+    ) {
         notifyListeners(eventName, data, retainUntilConsumed)
     }
 
     private inline fun <reified T, N> withArgs(
         args: JSObject,
-        crossinline sdkMethodCall: (T) -> WrapperResult<N>
-    ): WrapperResult<N> {
-        return when (T::class) {
+        crossinline sdkMethodCall: (T) -> WrapperResult<N>,
+    ): WrapperResult<N> =
+        when (T::class) {
             Map::class -> {
                 sdkMethodCall.invoke(args.toMap() as T)
             }
@@ -307,7 +311,6 @@ class HyperTrackCapacitorPlugin : Plugin() {
                 Failure(IllegalArgumentException(args.toString()))
             }
         }
-    }
 
     companion object {
         private const val EVENT_ERRORS = "errors"

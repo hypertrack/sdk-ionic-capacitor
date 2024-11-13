@@ -5,18 +5,17 @@ import com.getcapacitor.JSObject
 import com.getcapacitor.PluginCall
 import com.hypertrack.sdk.capacitor.common.Failure
 import com.hypertrack.sdk.capacitor.common.Serialized
-import com.hypertrack.sdk.capacitor.common.WrapperResult
 import com.hypertrack.sdk.capacitor.common.Success
+import com.hypertrack.sdk.capacitor.common.WrapperResult
 import org.json.JSONArray
 import org.json.JSONObject
 
 private const val KEY_ERRORS = "errors"
 
-fun serializeErrorsForCapacitor(errors: List<Serialized>): Serialized {
-    return mapOf(
-        KEY_ERRORS to errors
+fun serializeErrorsForCapacitor(errors: List<Serialized>): Serialized =
+    mapOf(
+        KEY_ERRORS to errors,
     )
-}
 
 @Suppress("UNCHECKED_CAST")
 internal fun <T> WrapperResult<T>.toPluginCall(call: PluginCall) {
@@ -47,8 +46,8 @@ internal fun <T> WrapperResult<T>.toPluginCall(call: PluginCall) {
 }
 
 @Suppress("UNCHECKED_CAST")
-internal fun List<Any>.toJSArray(): JSArray {
-    return JSArray().also { writableArray ->
+internal fun List<Any>.toJSArray(): JSArray =
+    JSArray().also { writableArray ->
         forEach {
             when (it) {
                 is Map<*, *> -> {
@@ -63,7 +62,6 @@ internal fun List<Any>.toJSArray(): JSArray {
             }
         }
     }
-}
 
 @Suppress("UNCHECKED_CAST")
 internal fun Map<String, Any?>.toJSObject(): JSObject {
@@ -91,7 +89,7 @@ internal fun Map<String, Any?>.toJSObject(): JSObject {
                 }
                 null -> {
                     throw IllegalArgumentException(
-                        "Invalid JSON: $this \n Null JSON values are not supported"
+                        "Invalid JSON: $this \n Null JSON values are not supported",
                     )
                 }
                 else -> {
@@ -102,13 +100,14 @@ internal fun Map<String, Any?>.toJSObject(): JSObject {
     }
 }
 
-fun JSONObject.toMap(): Map<String, Any?> {
-    return keys().asSequence().associateWith { key ->
+fun JSONObject.toMap(): Map<String, Any?> =
+    keys().asSequence().associateWith { key ->
         when (val value = this.get(key)) {
             is Boolean,
             is Double,
             is Int,
-            is String -> {
+            is String,
+            -> {
                 value
             }
             is JSONArray -> {
@@ -122,15 +121,15 @@ fun JSONObject.toMap(): Map<String, Any?> {
             }
         }
     }
-}
 
-private fun JSONArray.toList(): List<Any> {
-    return (0..length()).mapNotNull { index ->
+private fun JSONArray.toList(): List<Any> =
+    (0..length()).mapNotNull { index ->
         when (val value = this.get(index)) {
             is Boolean,
             is Double,
             is Int,
-            is String -> {
+            is String,
+            -> {
                 value
             }
             is JSONArray -> {
@@ -144,4 +143,3 @@ private fun JSONArray.toList(): List<Any> {
             }
         }
     }
-}
