@@ -37,6 +37,14 @@ public class HyperTrackCapacitorPlugin: CAPPlugin {
         )
     }
 
+    @objc func getAllowMockLocation(_ call: CAPPluginCall) {
+        sendAsPromise(
+            HypertrackSdkIonicCapacitor.getAllowMockLocation(),
+            method: .getAllowMockLocation,
+            call
+        )
+    }
+
     @objc func getDeviceId(_ call: CAPPluginCall) {
         sendAsPromise(
             HypertrackSdkIonicCapacitor.getDeviceID(),
@@ -114,6 +122,16 @@ public class HyperTrackCapacitorPlugin: CAPPlugin {
         sendAsPromise(
             HypertrackSdkIonicCapacitor.getWorkerHandle(),
             method: .getWorkerHandle,
+            call
+        )
+    }
+
+    @objc func setAllowMockLocation(_ call: CAPPluginCall) {
+        sendAsPromise(
+            HypertrackSdkIonicCapacitor.setAllowMockLocation(
+                call.options as! [String: Any]
+            ),
+            method: .setAllowMockLocation,
             call
         )
     }

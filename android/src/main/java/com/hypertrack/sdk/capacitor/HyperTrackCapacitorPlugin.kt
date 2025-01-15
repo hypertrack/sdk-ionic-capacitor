@@ -26,6 +26,11 @@ class HyperTrackCapacitorPlugin : Plugin() {
     }
 
     @PluginMethod
+    fun getAllowMockLocation(call: PluginCall) {
+        invokeSdkMethod(SdkMethod.getAllowMockLocation, call).toPluginCall(call)
+    }
+
+    @PluginMethod
     fun getDeviceId(call: PluginCall) {
         invokeSdkMethod(SdkMethod.getDeviceID, call).toPluginCall(call)
     }
@@ -68,6 +73,11 @@ class HyperTrackCapacitorPlugin : Plugin() {
     @PluginMethod
     fun getWorkerHandle(call: PluginCall) {
         invokeSdkMethod(SdkMethod.getWorkerHandle, call).toPluginCall(call)
+    }
+
+    @PluginMethod
+    fun setAllowMockLocation(call: PluginCall) {
+        invokeSdkMethod(SdkMethod.setAllowMockLocation, call).toPluginCall(call)
     }
 
     @PluginMethod
@@ -205,6 +215,10 @@ class HyperTrackCapacitorPlugin : Plugin() {
                 }
             }
 
+            SdkMethod.getAllowMockLocation -> {
+                HyperTrackSdkWrapper.getAllowMockLocation()
+            }
+
             SdkMethod.getDeviceID -> {
                 HyperTrackSdkWrapper.getDeviceId()
             }
@@ -252,6 +266,12 @@ class HyperTrackCapacitorPlugin : Plugin() {
 
             SdkMethod.locate -> {
                 throw NotImplementedError("Locate is implemented in different way")
+            }
+
+            SdkMethod.setAllowMockLocation -> {
+                withArgs<Map<String, Any?>, Unit>(argsJson) { args ->
+                    HyperTrackSdkWrapper.setAllowMockLocation(args)
+                }
             }
 
             SdkMethod.setDynamicPublishableKey -> {

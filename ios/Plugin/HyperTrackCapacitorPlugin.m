@@ -5,6 +5,7 @@
 // each method the plugin supports using the CAP_PLUGIN_METHOD macro.
 CAP_PLUGIN(HyperTrackCapacitorPlugin, "HyperTrackCapacitorPlugin",
            CAP_PLUGIN_METHOD(addGeotag, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(getAllowMockLocation, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(getDeviceId, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(getErrors, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(getIsAvailable, CAPPluginReturnPromise);
@@ -20,6 +21,7 @@ CAP_PLUGIN(HyperTrackCapacitorPlugin, "HyperTrackCapacitorPlugin",
            CAP_PLUGIN_METHOD(onSubscribedToLocate, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(onSubscribedToLocation, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(onSubscribedToOrders, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(setAllowMockLocation, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(setIsAvailable, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(setIsTracking, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(setMetadata, CAPPluginReturnPromise);

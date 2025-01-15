@@ -1,4 +1,5 @@
 import { HyperTrackError } from './data_types/HyperTrackError';
+import type { AllowMockLocation } from './data_types/internal/AllowMockLocation';
 import type { IsAvailable } from './data_types/internal/IsAvailable';
 import type { IsTracking } from './data_types/internal/IsTracking';
 import type { Location } from './data_types/Location';
@@ -172,6 +173,15 @@ export default class HyperTrack {
   }
 
   /**
+   * If disallowed, the HyperTrack platform will display and outage if mocked location is detected.
+   *
+   * @param {boolean} allow
+   */
+  static async getAllowMockLocation(): Promise<void> {
+    hyperTrackPlugin.getAllowMockLocation();
+  }
+
+  /**
    * Returns a string that is used to uniquely identify the device
    *
    * @returns {string} Device ID
@@ -296,6 +306,18 @@ export default class HyperTrack {
     hyperTrackPlugin.onSubscribedToLocate();
     return this.locateSubscription;
   }
+  
+  /**
+   * Allows mocking location data. If disallowed, the HyperTrack platform will display and outage if mocked location is detected.
+   * 
+   * @param allow
+   */
+  static async setAllowMockLocation(allow: boolean): Promise<void> {
+    hyperTrackPlugin.setAllowMockLocation({
+      type: 'allowMockLocation',
+      value: allow,
+    } as AllowMockLocation);
+  } 
 
   /**
    * Sets the availability of the device for the Nearby search

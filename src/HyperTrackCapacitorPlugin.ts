@@ -8,6 +8,7 @@ import {
 } from './HyperTrack';
 import { Subscription } from './Subscription';
 import { Result } from './data_types/Result';
+import { AllowMockLocation } from './data_types/internal/AllowMockLocation';
 import { DeviceId } from './data_types/internal/DeviceId';
 import { HyperTrackErrorInternal } from './data_types/internal/HyperTrackErrorInternal';
 import { IsAvailable } from './data_types/internal/IsAvailable';
@@ -26,6 +27,8 @@ export type Errors = {
 export interface HyperTrackCapacitorPlugin {
   addGeotag(...args: any[]): Promise<any>;
 
+  getAllowMockLocation(): Promise<AllowMockLocation>;
+
   getDeviceId(): Promise<DeviceId>;
 
   getErrors(): Promise<Errors>;
@@ -43,6 +46,8 @@ export interface HyperTrackCapacitorPlugin {
   getOrders(): Promise<OrdersInternal>;
 
   getWorkerHandle(): Promise<WorkerHandle>;
+
+  setAllowMockLocation(allowMockLocation: AllowMockLocation): Promise<void>;
 
   setIsAvailable(isAvailable: IsAvailable): Promise<void>;
 
