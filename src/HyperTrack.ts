@@ -177,8 +177,10 @@ export default class HyperTrack {
    *
    * @param {boolean} true if mock location is allowed
    */
-  static async getAllowMockLocation(): Promise<void> {
-    hyperTrackPlugin.getAllowMockLocation();
+  static async getAllowMockLocation(): Promise<boolean> {
+    return hyperTrackPlugin.getAllowMockLocation().then((allowMockLocation: AllowMockLocation) => {
+      return this.deserializeAllowMockLocation(allowMockLocation);
+    });
   }
 
   /**
@@ -510,6 +512,14 @@ export default class HyperTrack {
     });
     hyperTrackPlugin.onSubscribedToOrders();
     return result;
+  }
+
+  /** @ignore */
+  private static deserializeAllowMockLocation(allowMockLocation: AllowMockLocation): boolean {
+    if (allowMockLocation.type !== 'allowMockLocation') {
+      throw new Error(`Invalid allowMockLocation: ${JSON.stringify(allowMockLocation)}`);
+    }
+    return allowMockLocation.value;
   }
 
   /** @ignore */
