@@ -175,7 +175,7 @@ export default class HyperTrack {
   /**
    * If disallowed, the HyperTrack platform will display and outage if mocked location is detected.
    *
-   * @param {boolean} allow
+   * @param {boolean} true if mock location is allowed
    */
   static async getAllowMockLocation(): Promise<void> {
     hyperTrackPlugin.getAllowMockLocation();
@@ -308,9 +308,14 @@ export default class HyperTrack {
   }
   
   /**
-   * Allows mocking location data. If disallowed, the HyperTrack platform will display and outage if mocked location is detected.
+   * Allows mocking location data. 
    * 
-   * @param allow
+   * Check the [Test with mock locations](https://hypertrack.com/docs/mock-location) guide for more information.
+   * 
+   * To avoid issues related to race conditions in your code use this API **only if** modifying the compiled `HyperTrackAllowMockLocation` AndroidManifest.xml/Info.plist value is insufficient for your needs.
+   * Example: if for some reason you aren't able to recompile with `HyperTrackAllowMockLocation` set to `YES`/`true` for your prod app QA mock location tests and need to set up the value in runtime.
+   * 
+   * @param true if mock location is allowed
    */
   static async setAllowMockLocation(allow: boolean): Promise<void> {
     hyperTrackPlugin.setAllowMockLocation({
