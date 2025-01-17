@@ -91,8 +91,7 @@ internal object HyperTrackSdkWrapper {
                 }
             }
 
-    // fun getAllowMockLocation(): WrapperResult<Serialized> = Success(serializeAllowMockLocation(HyperTrack.allowMockLocation))
-    fun getAllowMockLocation(): WrapperResult<Serialized> = Success(serializeAllowMockLocation(true))
+    fun getAllowMockLocation(): WrapperResult<Serialized> = Success(serializeAllowMockLocation(HyperTrack.allowMockLocation))
 
     fun getDeviceId(): WrapperResult<Serialized> = Success(serializeDeviceId(HyperTrack.deviceID))
 
@@ -143,7 +142,7 @@ internal object HyperTrackSdkWrapper {
     fun setAllowMockLocation(args: Serialized): WrapperResult<Unit> =
         deserializeAllowMockLocation(args)
             .mapSuccess { allowMockLocation ->
-                // HyperTrack.allowMockLocation = allowMockLocation
+                HyperTrack.allowMockLocation = allowMockLocation
             }
 
     fun setDynamicPublishableKey(args: Serialized): WrapperResult<Unit> =
