@@ -58,10 +58,16 @@ get-dependencies:
     npm i
 
 _latest-android:
-    @curl -s https://s3-us-west-2.amazonaws.com/m2.hypertrack.com/com/hypertrack/sdk-android/maven-metadata-sdk-android.xml | grep latest | grep -o -E '{{SEMVER_REGEX}}' | head -n 1
+    #!/usr/bin/env sh
+    set -euo pipefail
+
+    curl -s https://s3-us-west-2.amazonaws.com/m2.hypertrack.com/com/hypertrack/sdk-android/maven-metadata-sdk-android.xml | grep latest | grep -o -E '{{SEMVER_REGEX}}' | head -n 1
 
 _latest-ios:
-    @curl -s https://cocoapods.org/pods/HyperTrack | grep -m 1 -o -E "HyperTrack <span>{{SEMVER_REGEX}}" | grep -o -E '{{SEMVER_REGEX}}' | head -n 1
+    #!/usr/bin/env sh
+    set -euo pipefail
+
+    curl -s https://cocoapods.org/pods/HyperTrack | grep -m 1 -o -E "HyperTrack <span>{{SEMVER_REGEX}}" | grep -o -E '{{SEMVER_REGEX}}' | head -n 1
 
 open-docs: docs
     open docs/index.html
@@ -137,6 +143,7 @@ update-sdk-ios-latest wrapper_version commit="true" branch="true":
 update-sdk wrapper_version ios_version android_version commit="true" branch="true": build
     #!/usr/bin/env sh
     set -euo pipefail
+
     if [ "{{branch}}" = "true" ] ; then
         git checkout -b update-sdk-ios-{{ios_version}}-android-{{android_version}}
     fi
