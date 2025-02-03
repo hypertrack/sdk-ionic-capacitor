@@ -137,19 +137,18 @@ internal object HyperTrackSdkWrapper {
         )
 
     fun getOrderIsInsideGeofence(args: Serialized): WrapperResult<Serialized> =
-            deserializeOrderHandle(args)
-                .mapSuccess { orderHandle ->
-                    HyperTrack
-                        .orders
-                        .values
-                        .firstOrNull { it.orderHandle == orderHandle }
-                        .let { order ->
-                            order?.isInsideGeofence ?: Result.Success(false)
-                        }
-                        .let { 
-                            serializeIsInsideGeofence(it)
-                        }
-                }
+        deserializeOrderHandle(args)
+            .mapSuccess { orderHandle ->
+                HyperTrack
+                    .orders
+                    .values
+                    .firstOrNull { it.orderHandle == orderHandle }
+                    .let { order ->
+                        order?.isInsideGeofence ?: Result.Success(false)
+                    }.let {
+                        serializeIsInsideGeofence(it)
+                    }
+            }
 
     fun getWorkerHandle(): WrapperResult<Serialized> =
         Success(
