@@ -13,6 +13,7 @@ CAP_PLUGIN(HyperTrackCapacitorPlugin, "HyperTrackCapacitorPlugin",
            CAP_PLUGIN_METHOD(getLocation, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(getMetadata, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(getName, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(getOrderIsInsideGeofence, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(getOrders, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(getWorkerHandle, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(onSubscribedToErrors, CAPPluginReturnPromise);

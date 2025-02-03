@@ -308,15 +308,15 @@ export default class HyperTrack {
     hyperTrackPlugin.onSubscribedToLocate();
     return this.locateSubscription;
   }
-
+  
   /**
-   * Allows mocking location data.
-   *
+   * Allows mocking location data. 
+   * 
    * Check the [Test with mock locations](https://hypertrack.com/docs/mock-location) guide for more information.
-   *
+   * 
    * To avoid issues related to race conditions in your code use this API **only if** modifying the compiled `HyperTrackAllowMockLocation` AndroidManifest.xml/Info.plist value is insufficient for your needs.
    * Example: if for some reason you aren't able to recompile with `HyperTrackAllowMockLocation` set to `YES`/`true` for your prod app QA mock location tests and need to set up the value in runtime.
-   *
+   * 
    * @param true if mock location is allowed
    */
   static async setAllowMockLocation(allow: boolean): Promise<void> {
@@ -324,7 +324,7 @@ export default class HyperTrack {
       type: 'allowMockLocation',
       value: allow,
     } as AllowMockLocation);
-  }
+  } 
 
   /**
    * Sets the availability of the device for the Nearby search
@@ -657,11 +657,11 @@ export default class HyperTrack {
       .map(([_, value]: [string, OrderInternal]) => {
         return value;
       })
-      .sort((first: OrderInternal, second: OrderInternal) => {
-        if (first.index === undefined || second.index === undefined) {
+      .sort((first: OrderInternal, second: OrderInternal) => { 
+        if(first.index === undefined || second.index === undefined) {
           throw new Error(`Invalid order index: ${JSON.stringify(first)} ${JSON.stringify(second)}`);
         }
-        return first.index - second.index;
+        return first.index - second.index
       })
       .forEach((orderInternal: OrderInternal) => {
         result.set(orderInternal.orderHandle, {
