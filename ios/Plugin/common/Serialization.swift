@@ -402,7 +402,7 @@ func serializeOrders(_ orders: [HyperTrack.Order]) -> [String: Any] {
         keyValue: orders.map { order in
             [
                 "orderHandle": order.orderHandle,
-                "isInsideGeofence": serializeIsInsideGeofence(order.isInsideGeofence),
+                // beware not to call order.isInsideGeofence here, it is a computed property
             ]
         },
     ]

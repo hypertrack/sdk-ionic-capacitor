@@ -1,8 +1,8 @@
 # do not create a shorcut for `publish` command to avoid accidental publishing
 alias b := build
 alias c := clean
-alias cjcfrn := copy-js-code-from-react-native
-alias cncfrn := copy-native-code-from-react-native
+alias cjrn := copy-js-code-from-react-native
+alias cnrn := copy-native-code-from-react-native
 alias d := docs
 alias gd := get-dependencies
 alias od := open-docs

@@ -12,11 +12,13 @@ import { AllowMockLocation } from './data_types/internal/AllowMockLocation';
 import { DeviceId } from './data_types/internal/DeviceId';
 import { HyperTrackErrorInternal } from './data_types/internal/HyperTrackErrorInternal';
 import { IsAvailable } from './data_types/internal/IsAvailable';
+import { IsInsideGeofence } from './data_types/internal/IsInsideGeofence';
 import { IsTracking } from './data_types/internal/IsTracking';
 import { LocationErrorInternal } from './data_types/internal/LocationErrorInternal';
 import { LocationInternal } from './data_types/internal/LocationInternal';
 import { Metadata } from './data_types/internal/Metadata';
 import { Name } from './data_types/internal/Name';
+import { OrderHandle } from './data_types/internal/OrderHandle';
 import { OrdersInternal } from './data_types/internal/OrdersInternal';
 import { WorkerHandle } from './data_types/internal/WorkerHandle';
 
@@ -42,6 +44,8 @@ export interface HyperTrackCapacitorPlugin {
   getMetadata(): Promise<Metadata>;
 
   getName(): Promise<Name>;
+
+  getOrderIsInsideGeofence(orderHandle: OrderHandle): Promise<Result<IsInsideGeofence, LocationErrorInternal>>;
 
   getOrders(): Promise<OrdersInternal>;
 

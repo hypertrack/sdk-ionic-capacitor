@@ -17,6 +17,7 @@ import com.hypertrack.sdk.capacitor.common.Serialization.serializeDynamicPublish
 import com.hypertrack.sdk.capacitor.common.Serialization.serializeErrors
 import com.hypertrack.sdk.capacitor.common.Serialization.serializeIsAvailable
 import com.hypertrack.sdk.capacitor.common.Serialization.serializeIsTracking
+import com.hypertrack.sdk.capacitor.common.Serialization.serializeLocationError
 import com.hypertrack.sdk.capacitor.common.Serialization.serializeLocationErrorFailure
 import com.hypertrack.sdk.capacitor.common.Serialization.serializeLocationResult
 import com.hypertrack.sdk.capacitor.common.Serialization.serializeLocationSuccess
@@ -133,6 +134,20 @@ internal object HyperTrackSdkWrapper {
         Success(
             serializeOrders(HyperTrack.orders.values),
         )
+
+    fun getOrderIsInsideGeofence(args: Serialized): WrapperResult<Serialized> =
+            deserializeOrderHandle(args)
+                .flatMapSuccess { orderHandle ->
+                    HyperTrack
+                        .orders
+                        .firstOrNull { it.orderHandle == orderHandle }
+                        .let { order ->
+                            order?.isInsideGeofence ?: Success(false)
+                        }
+                        .let { 
+                            serializeIsInsideGeofence(it)
+                        }
+                }
 
     fun getWorkerHandle(): WrapperResult<Serialized> =
         Success(
