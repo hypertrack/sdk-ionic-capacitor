@@ -89,6 +89,14 @@ internal object Serialization {
                 .getOrThrow()
         }
 
+    fun deserializeOrderHandle(map: Serialized): WrapperResult<String> =
+        parse(map) {
+            it.assertValue<String>(key = KEY_TYPE, value = TYPE_ORDER_HANDLE)
+            it
+                .get<String>(KEY_VALUE)
+                .getOrThrow()
+        }
+
     fun deserializeWorkerHandle(map: Serialized): WrapperResult<String> =
         parse(map) {
             it.assertValue<String>(key = KEY_TYPE, value = TYPE_WORKER_HANDLE)
@@ -271,14 +279,6 @@ internal object Serialization {
                     it.longitude = longitude
                 }
             }.getOrThrow()
-        }
-
-    private fun deserializeOrderHandle(map: Serialized): WrapperResult<String> =
-        parse(map) {
-            it.assertValue<String>(key = KEY_TYPE, value = TYPE_ORDER_HANDLE)
-            it
-                .get<String>(KEY_VALUE)
-                .getOrThrow()
         }
 
     private fun deserializeOrderStatus(map: Serialized): WrapperResult<HyperTrack.OrderStatus> =

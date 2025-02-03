@@ -66,6 +66,11 @@ class HyperTrackCapacitorPlugin : Plugin() {
     }
 
     @PluginMethod
+    fun getOrderIsInsideGeofence(call: PluginCall) {
+        invokeSdkMethod(SdkMethod.getOrderIsInsideGeofence, call).toPluginCall(call)
+    }
+
+    @PluginMethod
     fun getOrders(call: PluginCall) {
         invokeSdkMethod(SdkMethod.getOrders, call).toPluginCall(call)
     }
@@ -253,6 +258,12 @@ class HyperTrackCapacitorPlugin : Plugin() {
 
             SdkMethod.getName -> {
                 HyperTrackSdkWrapper.getName()
+            }
+
+            SdkMethod.getOrderIsInsideGeofence -> {
+                withArgs<Map<String, Any?>, Map<String, Any?>>(argsJson) { args ->
+                    HyperTrackSdkWrapper.getOrderIsInsideGeofence(args)
+                }
             }
 
             SdkMethod.getOrders -> {

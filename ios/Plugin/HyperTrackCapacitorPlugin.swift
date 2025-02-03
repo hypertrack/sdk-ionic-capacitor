@@ -110,6 +110,16 @@ public class HyperTrackCapacitorPlugin: CAPPlugin {
         )
     }
 
+    @objc func getOrderIsInsideGeofence(_ call: CAPPluginCall) {
+        sendAsPromise(
+            HypertrackSdkIonicCapacitor.getOrderIsInsideGeofence(
+                call.options as! [String: Any]
+            ),
+            method: .getOrderIsInsideGeofence,
+            call
+        )
+    }
+
     @objc func getOrders(_ call: CAPPluginCall) {
         sendAsPromise(
             HypertrackSdkIonicCapacitor.getOrders(),
