@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated HyperTrack SDK iOS to [5.11.0](https://github.com/hypertrack/sdk-ios/releases/tag/5.11.0)
 - Updated HyperTrack SDK Android to [7.11.0](https://github.com/hypertrack/sdk-android/releases/tag/7.11.0)
 
+### Fixed
+
+- Wrong order of Orders in `HyperTrack.getOrders()` on iOS
+
 ## [3.8.0] - 2025-01-17
 
 ### Added
