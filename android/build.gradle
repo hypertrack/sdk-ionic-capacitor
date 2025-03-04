@@ -7,7 +7,7 @@ ext {
 
 buildscript {
     ext.kotlin_version = project.hasProperty('kotlin_version') ? rootProject.ext.kotlin_version : '1.9.10'
-    ext.hypertrack_sdk_version = "7.11.0"
+    ext.hypertrack_sdk_version = "7.11.2"
     ext.firebase_messaging_version = "23.1.1"
 
     repositories {
