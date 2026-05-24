@@ -5,6 +5,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.1.0] - 2026-05-24
+
+### Changed
+
+- Updated HyperTrack SDK iOS to [5.13.0](https://github.com/hypertrack/sdk-ios/releases/tag/5.13.0)
+- Updated HyperTrack SDK Android to [7.13.0](https://github.com/hypertrack/sdk-android/releases/tag/7.13.0)
+
 ## [4.0.6] - 2026-05-21
 
 ### Changed
@@ -408,3 +415,4 @@ We are excited to announce the release of HyperTrack Ionic Capacitor SDK 2.0.0, 
 [4.0.4]: https://github.com/hypertrack/sdk-ionic-capacitor/releases/tag/4.0.4
 [4.0.5]: https://github.com/hypertrack/sdk-ionic-capacitor/releases/tag/4.0.5
 [4.0.6]: https://github.com/hypertrack/sdk-ionic-capacitor/releases/tag/4.0.6
+[4.1.0]: https://github.com/hypertrack/sdk-ionic-capacitor/releases/tag/4.1.0
