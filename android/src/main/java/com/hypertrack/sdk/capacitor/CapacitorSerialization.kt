@@ -25,15 +25,18 @@ internal fun <T> WrapperResult<T>.toPluginCall(call: PluginCall) {
                 is Map<*, *> -> {
                     call.resolve((this.success as Map<String, Any>).toJSObject())
                 }
+
                 is Unit -> {
                     call.resolve()
                 }
+
                 else -> {
                     val exception = IllegalArgumentException(this.success.toString())
                     call.reject(exception.message, exception)
                 }
             }
         }
+
         is Failure -> {
             val exception = this.failure
             if (exception is Exception) {
@@ -53,9 +56,11 @@ internal fun List<Any>.toJSArray(): JSArray =
                 is Map<*, *> -> {
                     writableArray.put((it as Map<String, Any>).toJSObject())
                 }
+
                 is String -> {
                     writableArray.put(it)
                 }
+
                 else -> {
                     throw Exception(IllegalArgumentException(it.javaClass.toString()))
                 }
@@ -72,26 +77,33 @@ internal fun Map<String, Any?>.toJSObject(): JSObject {
                 is Boolean -> {
                     put(key, value)
                 }
+
                 is Double, is Float -> {
                     put(key, value)
                 }
+
                 is Int -> {
                     put(key, value)
                 }
+
                 is List<*> -> {
                     put(key, (value as List<String>).toJSArray())
                 }
+
                 is Map<*, *> -> {
                     put(key, (value as Map<String, Any>).toJSObject())
                 }
+
                 is String -> {
                     put(key, value)
                 }
+
                 null -> {
                     throw IllegalArgumentException(
                         "Invalid JSON: $this \n Null JSON values are not supported",
                     )
                 }
+
                 else -> {
                     throw Exception(IllegalArgumentException(value.javaClass.toString()))
                 }
@@ -110,12 +122,15 @@ fun JSONObject.toMap(): Map<String, Any?> =
             -> {
                 value
             }
+
             is JSONArray -> {
                 value.toList()
             }
+
             is JSONObject -> {
                 value.toMap()
             }
+
             else -> {
                 null
             }
@@ -132,12 +147,15 @@ private fun JSONArray.toList(): List<Any> =
             -> {
                 value
             }
+
             is JSONArray -> {
                 value.toList()
             }
+
             is JSONObject -> {
                 value.toMap()
             }
+
             else -> {
                 null
             }
