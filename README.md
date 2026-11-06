@@ -11,3 +11,7 @@ npm install hypertrack-sdk-ionic-capacitor
 Follow the [Ionic Capacitor integration guide](https://hypertrack.com/docs/install-sdk-ionic-capacitor) to configure both platforms, or see the [Ionic Capacitor quickstart](https://github.com/hypertrack/quickstart-ionic-capacitor) for a working app.
 
 For changes by version, see the [changelog](CHANGELOG.md) and [GitHub Releases](https://github.com/hypertrack/sdk-ionic-capacitor/releases).
+
+## API reference
+
+[API reference](https://hypertrack.github.io/mobile/sdk-ionic-capacitor/latest/)
