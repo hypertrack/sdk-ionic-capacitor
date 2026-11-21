@@ -5,6 +5,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.3.0] - 2026-11-21
+
+### Added
+
+- On iOS, workers who allow notifications can receive a reminder to reopen your app if they swipe it away while tracking.
+
+  Set `HyperTrackAppTerminationNotification` to `YES` in `ios/App/App/Info.plist` to enable it. To customize the reminder, set `HyperTrackAppTerminationNotificationTitle` and `HyperTrackAppTerminationNotificationBody`.
+
+### Fixed
+
+- On Android, fixed crashes when passing arrays to `HyperTrack.setMetadata()` or `HyperTrack.addGeotag()`.
+- On Android, `HyperTrack.getMetadata()` now returns arrays containing numbers, booleans, or other arrays without crashing.
+- Fixed an out-of-memory crash that could occur when a device had a large amount of saved tracking data.
+- Fixed two issues after upgrading the SDK. Tracking could stay on after your app stopped it, and a worker’s availability could be incorrect.
+- Fixed events appearing out of order in a worker’s tracking history.
+- On Android, fixed a case where location updates stopped after Location Services were turned back on, including after toggling airplane mode.
+- On iOS, fixed a false report of missing background location permission when a worker opened the app with “While Using the App” permission.
+- On iOS, fixed a case where the SDK reported reduced accuracy as the reason tracking stopped when Location Services were turned off.
+
+### Security
+
+- The SDK now rejects compromised eMudhra certificates when connecting to HyperTrack. [Security advisory](https://rustsec.org/advisories/RUSTSEC-2026-0381.html)
+
 ## [4.2.0] - 2026-09-05
 
 ### Changed
@@ -416,3 +439,4 @@ We are excited to announce the release of HyperTrack Ionic Capacitor SDK 2.0.0, 
 [4.0.5]: https://github.com/hypertrack/sdk-ionic-capacitor/releases/tag/4.0.5
 [4.1.0]: https://github.com/hypertrack/sdk-ionic-capacitor/releases/tag/4.1.0
 [4.2.0]: https://github.com/hypertrack/sdk-ionic-capacitor/releases/tag/4.2.0
+[4.3.0]: https://github.com/hypertrack/sdk-ionic-capacitor/releases/tag/4.3.0
